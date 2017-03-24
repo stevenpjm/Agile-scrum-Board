@@ -1,0 +1,306 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Sep 14, 2016, 11:55:10 AM
+    Author     : steven.masters
+*/
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+.steps-container {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  white-space: nowrap;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  width: 40%;
+  counter-reset: steps;
+}
+.steps {
+  position: relative;
+  display: inline-block;
+  left: -28px; /* -2px default + 26px offset to hide skewed area on the left side of first element*/
+  height: 50px;
+  line-height: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
+  counter-increment: steps;
+  cursor: pointer;
+  transition: background 1s;
+  min-height: 30px;
+   color: black;
+}
+
+.steps:after,
+.steps:before {
+  position: absolute;
+  content: '';
+  left: 0px;
+  height: 50%;
+  width: 100%;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-left: 3px solid; /* thicker border as skew makes them look thin */
+  border-right: 3px solid;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.steps:before {
+  transform: skew(45deg);
+  top: 0px;
+  border-bottom: none;
+  transform-origin: top left;
+}
+
+.steps:after {
+  transform: skew(-45deg);
+  bottom: 0px;
+  border-top: none;
+  transform-origin: bottom left;
+}
+
+.steps span{
+  display: block;
+  padding-left: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  height: 75%;
+  vertical-align: middle;
+}
+
+.steps span:before{
+  content: counter(steps) ". ";
+}
+.steps.active span{
+  font-weight: bold;
+
+}
+.steps.active:before,
+.steps.active:after {
+  background: rgba(0, 0, 0, 0.5);
+
+   
+}
+
+/* Just for demo */
+html,body {
+    font-family: Calibri, Tahoma;
+    height: 400px;
+    }
+input[type="range"]{
+    vertical-align: middle;
+    
+}
+
+
+div[id^="name"].bug{
+    width: 100%;
+    background-color:#F8E0E0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin:.5% 2% 3% 1%;
+    padding: 12px 10px 12px 40px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+div[id^="name"].nobug{
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin:.5% 2% 3% 1%;
+    padding: 12px 10px 12px 40px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+div[id^="name"].selected1{
+    width: 100%;
+    background-color:#f2f2f2;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin:.5% 2% 3% 1%;
+    padding: 12px 10px 12px 40px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+td[id="storyTD0"]{
+width: 40em;
+background-color:grey;
+}
+
+td[id="storyTD1"]{
+	width: 60em;
+	background-color:#F5CBA7;
+}
+
+div[id^="name"] {
+     width: 100%;
+    background-color:white;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin:.5% 2% 3% 1%;
+    padding: 12px 10px 12px 40px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  	border-radius: 5px;
+  	-webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+ 	transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+div[id^="name"]::after {
+  content: "";
+  border-radius: 5px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+div[id^="name"]:hover {
+  -webkit-transform: scale(1.02, 1.02);
+  transform: scale(1.02, 1.02);
+}
+
+div[id^="name"]:hover::after {
+    opacity: 1;
+}
+
+
+
+
+
+
+input[type=text]{
+    width: 100%;
+    padding: 2px 2px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 2px 2px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+    <!-- Progress with steps -->
+
+    ol.progtrckr {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ol.progtrckr li {
+        display: inline-block;
+        text-align: center;
+        line-height: 3em;
+    }
+
+    ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+    ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+    ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+    ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+    ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+    ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+    ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+    ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+    ol.progtrckr li.progtrckr-done {
+        color: black;
+        border-bottom: 4px solid yellowgreen;
+    }
+    ol.progtrckr li.progtrckr-todo {
+        color: silver; 
+        border-bottom: 4px solid silver;
+    }
+
+    ol.progtrckr li:after {
+        content: "\00a0\00a0";
+    }
+    ol.progtrckr li:before {
+        position: relative;
+        bottom: -2.5em;
+        float: left;
+        left: 50%;
+        line-height: 1em;
+    }
+    ol.progtrckr li.progtrckr-done:before {
+        content: "\2713";
+        color: white;
+        background-color: yellowgreen;
+        height: 1.2em;
+        width: 1.2em;
+        line-height: 1.2em;
+        border: none;
+        border-radius: 1.2em;
+    }
+    ol.progtrckr li.progtrckr-todo:before {
+        content: "\039F";
+        color: silver;
+        background-color: white;
+        font-size: 1.5em;
+        bottom: -1.6em;
+    }
+
+ .img
+{
+  color: white;
+  background-color: black;
+  position: absolute;
+  top:10%;
+  border: 2px solid black;
+  width: 100px;
+  height: 100px;
+  cursor: move;
+}
+
+/* if the cell is greater then todays date hilight red */
+.old {
+   -moz-box-shadow: inset 0 0 2px 2px red;
+-webkit-box-shadow: inset 0 0 2px 2px red;
+box-shadow: inset 0 0 2px 2px red;
+}

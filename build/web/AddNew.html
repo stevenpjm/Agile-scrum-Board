@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Add New</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+<a href="http://localhost:8080/SCRUM_V2/">Home Page - </a>
+<a href="http://localhost:8080/SCRUM_V2/AddNew.html"> - add New - </a>
+<a href="http://localhost:8080/SCRUM_V2/AllPost">All records</a>
+<a href="http://localhost:8080/sbSCRUM_V2v2/scrumboard.jsp">Scrum_Board</a>
+        
+        <h1> Add New </h1>
+        
+        <form action="/CRUD_TEMP2/JSP/ManagerAddNew.jsp" method="post">
+           
+            <input type="text" name="storyname" style="width:200px"><br>
+            Story notes: <br>
+            <input type="text" name="storynotes" style="width:300px"><br>
+            Story bug: <br>
+            <input type="boolean" name="storybug" style="width:200px"><br>
+            create date :<br>
+            <input type="date" name="createdate" style="width:200px"><br>
+            <input type="submit" value="submit">
+        </form>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 10, 2017, 6:42:45 PM
+    Author     : steven.masters
+*/
+
+#toolbar {
+    background:CEE3F6; 
+    float: left;
+    width: 32%;
+    min-height: 60em;
+    margin: 1px;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+}
+
+#backlog {
+     background:#CEE3F6; 
+    float: left;
+    width: 32%;
+    min-height: 60em;
+    margin: 2px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+
+#active {
+     background:#CEE3F6; 
+    float: left;
+    width: 32%;
+    min-height: 60em;
+    margin: 2px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+
+#complete {
+    float: left;
+    width: 32%;
+    min-height: 60em;
+    margin: 2px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+
+/* the follow are for the team holding area*/
+
+#user1profile, #user2profile, #user3profile, #user4profile, #user5profile, #user6profile {
+    float: left;
+    width: 100px;
+    height: 35px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
