@@ -1,43 +1,24 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Mar 21, 2017, 4:17:48 PM
-    Author     : steven.masters
-*/
-
-
 
 /* this is the hoover over actiosn below*/ 
-
-
 .storycard:hover {
-  -webkit-transform: scale(1.02, 1.02);
-  transform: scale(1.02, 1.02);
+    -webkit-transform: scale(1.02, 1.02);
+    transform: scale(1.02, 1.02);
 }
 
 .storycard:hover::after {
     opacity: 1;
 }
 
-
 .storycard:hover{
     background-color:#F2F2F2;    
-    
     cursor:pointer;  /* you may delete this if you want */
 }
-
-
-
-
 
 
 /*this is main layout of the story card - when not selected*/
 .storycard{
     width: 100%;
-    height: 12em;
+    height: 40%;
     background-color:white;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -47,82 +28,88 @@ and open the template in the editor.
     padding: 2px 2px 2px 2px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    position:relative;
 }
-
 
 
 /* This is the layout of each element inside the story card */
-#dates{
-    margin: 1px 1px 2px 1px;
+
+.datecreated{
+    margin: 1% 1% 2% 1%;
     font-size: 11px;
     top: 0%;
     width: 90%;
-     
+    background: palevioletred;
 }
 
 
-#storyname{
+.storyname{
+
     margin: 1px 1px 2px 1px;
-    font-size: 16px;
+  
     top: 20%;
     width: 80%;
-    height:15%;
-    
+    height:10%;
+    display:block;
 }
 
-#storynotes{
-    font-size: 16px;
-    margin: 1px 1px 2px 1px;
-    top:40px;
+.storynotes{
+    position: relative;
+    margin: 1% 1% 2% 1%;
+    
+    top: 15%;
     width: 80%;
-    height:15%
+    height:15%;
+    display:block;
 }
 
 .user1Task{
-    position:relative;
-    top: 0px;
-    left: 0px;
- }
+    float:left;
+
+}
 
 .user2Task{
-        position:relative;
-        top: -85px;
-        left: 100px;      
+
+    float:left;
+    top: -28px;
+    left: 92px;
+    width: 65px;
 }
 
 .user3Task{
-        position:relative;
-        top: -170px;
-        left: 210px;
+    float:left;
+    top: -28px;
+    left: 100px;
+    width: 65px;
 }
 
 
 #user1pic{
-   
-    background: lightblue;
-       position: relative;
-        top: 1px;
-        left: 0px;
-    width:95px;
-    height: 35%; 
+
+    background: orange;
+    position: absolute;
+    top: 65%;
+    left: 34%;
+    width: 30%;
+    height: 30%;
 }
 #user2pic{
     background: lightblue;
-    position: relative;
-    top: -83px;
-    left: 100px;
-    width:95px;
-    height: 35%;
+    position: absolute;
+    top: 80%;
+    left: 34%;
+    width: 30%;
+    height: 30%;
 }
 
 #user3pic{
+
     background: lightblue;
-      position: relative;
-    top: -168px;
-    left: 200px;
-    width:95px;
-    height: 35%;
+    position: relative;
+    position: absolute;
+    top: 80%;
+    left: 34%;
+    width: 30%;
+    height: 30%;
 }
 
 
@@ -131,13 +118,9 @@ and open the template in the editor.
 /*   Bug      */
 /* Hilights the div in red if bug is select on story card*/
 
-.bug1{
-      position: relative;
-      
-      bottom: -80px;
-}
+
 .storycard.bug{
-  
+
     background-color:#F8E0E0;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -149,7 +132,7 @@ and open the template in the editor.
 }
 /* Hilights the div in red if bug is select on story card*/
 .storycard.bug:hover{
-    
+
     background-color:#F5A9A9;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -162,6 +145,7 @@ and open the template in the editor.
 /* Hilights the div in red if bug is select on story card*/
 .storycard.nobug{
     width: 100%;
+    height: 30%;
     background-color: #fff;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -177,7 +161,7 @@ and open the template in the editor.
 .storyneedupdate{
 
     width: 100%;
-    height: 12em;
+    height: 30%;
     background-color:white;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -188,10 +172,16 @@ and open the template in the editor.
     box-shadow: 2px 4px 2px 2px #F8A409;
     border-radius: 5px;
     -webkit-transform: scale(1.02, 1.02);
-  transform: scale(1.02, 1.02);
- 
+    transform: scale(1.02, 1.02);
+
 }
 /* Hilights the div outshadown in orange if greater then two days*/
 div[id^="storye1"]:hover{
     background-color:#F2F2F2; 
+}
+
+.storycard.savebtn {
+    width:100px;
+    height: 20px;
+
 }

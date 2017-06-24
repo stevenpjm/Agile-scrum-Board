@@ -11,15 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <script src="JS/login.js"></script>
-       
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
-    <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
-
-
- <script src="JS/existingStories.js"/></script>
-    <title>SCRUM BOARD</title>
-</head>
+        <script src="JS/signup.js"></script>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/menubanner.css" rel="stylesheet" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <title>SCRUM BOARD</title>
+      </head>
 
             
 <body>
@@ -27,85 +25,71 @@
 
     <div id="left">
 
-
-
-
     </div>
 
 
     <div id="main">
-              
-               
+        <br>
+        <img src="pic/office.jpg" alt="Office" style="width:100%;height:228px;">
+        <p>
+        Agile Scrumboard is a web application designed to help scrum teams<br>
+        track sprints and stories. The tool is based around the life cycle of<br>
         
-    <button onclick="oldstory()">Create Story</button>      
-    
-    <p id="demo"></p>
-
-
-<% 
-                
-                StringBuilder sb = new StringBuilder();
-                sb.append("'{\"employees\":['+"); 
-                DataAccess da = new DataAccess();
-                ResultSet ls = da.getAll();
-
-                ResultSetMetaData rsmd = ls.getMetaData();
-                int columnCount = rsmd.getColumnCount();
-                boolean lastRow;
-
-                while (ls.next()) {
-                    for (int i = 1; i <= columnCount; i++) {
-                        if (i == 1) sb.append("'{");
-                        if (i > 1) sb.append(",");
-                        
-                        String columnValue = ls.getString(i);
-                        sb.append("\"" + rsmd.getColumnName(i) + "\":\"" + columnValue + "\"");
-                    }
-                    lastRow = ls.isLast();
-                    if (lastRow == false) sb.append("},' + ");
-                }
-                sb.append("}]}';");
-       
-                String test1 = sb.toString();
-                
-                String myVar=test1;
-         
-%>
-
-
-
-    </div>
+        track help scrum  
+        
+        Sprint
+        Sprint Planning
+        Daily Scrum
+        Sprint Review
+        Sprint Retrospective
+        
+     </div>
 
     <div id="bottom">
-
+        
     </div>
 
     <div id="right">
-        test right 
+      
     </div>
 
     <div id="top">
-
-        <div id="links"> 
+        
+        <div id="Logo">
+            AGILE SCRUMBOARD
+        </div>
+        
+        <div id="linkhome"> 
             <a href="http://localhost:8080/SCRUM_V2/">Home Page</a>
-            <a href="http://localhost:8080/SCRUM_V2/AddNew.html">add New</a>
-            <a href="http://localhost:8080/SCRUM_V2/AllPost.jsp">All records</a>
-            <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp">Scrum_Board</a>
-            <a href="http://localhost:8080/SCRUM_V2/">Scrum_Board</a>
-            <p>
-                <b><a href="http://localhost:8080/SCRUM_V2/test.jsp">Scrum_Board</a></b>
-            </p>
+
+            
+            <a href="http://localhost:8080/SCRUM_V2/ContactUs.jsp">Contact Us</a>
+            
+            
+            
+            <% 
+                  String userName = (String) session.getAttribute("userid");
+               
+                if (userName != null ){%>
+                <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp">Scrum_Board</a> 
+                <a href='/SCRUM_V2/JSP/logout.jsp'>Log out</a>
+                <a href='/SCRUM_V2/admin.jsp''>Profile</a>
+            <% } else { %>
+                  <button onclick="document.getElementById('signup').style.display='block'" style="width:auto;" class="linkbutton">Sign Up</button>
+                   <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="linkbutton">login</button>
+            
+                <%};%>
+             
         </div>
 
         <div id="login">
-            <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Login</button>
-
+            
             <div id="id01" class="modal">
 
-                <form class="modal-content animate" action="/SCRUM_V2/JSP/login.jsp">
+                <form class="modal-content animate" action="/SCRUM_V2/JSP/login.jsp" method="post">
 
 
-                    <div class="container">
+                     <div class="container">
                         <label><b>Username</b></label>
                         <input type="text" placeholder="Enter Username" name="uname" required>
 
@@ -114,11 +98,40 @@
 
                         <button type="submit">Login</button>
                         <input type="checkbox" checked="checked"> Remember me
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
                     </div>
 
 
                 </form>
             </div>
+     
+        
+
+        <div id="signup" class="modal">
+          <span onclick="document.getElementById('signup').style.display='none'" class="close" title="Close Modal">×</span>
+          <form class="modal-content animate" action="/action_page.php">
+            <div class="container">
+              <label><b>Email</b></label>
+              <input type="text" placeholder="Enter Email" name="email" required>
+
+              <label><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+
+              <label><b>Repeat Password</b></label>
+              <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+              <input type="checkbox" checked="checked"> Remember me
+              <br>&nbsp;</br>
+              
+              By creating an account you agree to our
+                  <br>&nbsp;</br>
+                  <a href="terms.jsp">Terms & Privacy</a> <br>
+                  <br>&nbsp;</br>
+              <div class="clearfix">
+                <button type="button" onclick="document.getElementById('signup').style.display='none'" class="linkbutton">Cancel</button>
+                <button type="submit" class="linkbutton">Sign Up</button>
+              </div>
+            </div>
+          </form>
         </div>
         
         

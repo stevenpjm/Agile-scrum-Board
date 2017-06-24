@@ -26,7 +26,7 @@
             
             DataAccess da = new DataAccess();
             
-            da.edit(ID, storyname,);
+            da.edit(ID, storyname);
             
             response.sendRedirect("/CRUD_TEMP2/AllPost");
         %>

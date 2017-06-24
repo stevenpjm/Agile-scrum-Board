@@ -26,17 +26,16 @@
         <link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-        <link href="CSS/storycard.css" rel="stylesheet" type="text/css">
+        <link href="CSS/old_not in use_storycard.css" rel="stylesheet" type="text/css">
 
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <title>All post</title>
-      <!-- <script src="JS/storyCard.js"></script> -->
-        <script src="JS/existingStories.js"></script>
+        <script src="JS/storyCard.js"></script>
         <script src="JS/scrumboard.js"></script>
         <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
-        <link href="CSS/storycardnew.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/old_not in use_storycard.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/scrumboard.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/toolbar.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -54,33 +53,52 @@
             <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp">Scrum_Board</a>    
 
 
-TEST TEST TEST
+
 
             <!-- grabs the scrumID-->
 
+   
+
+            <%
+                Integer id = 0;
+                
+                String scrumName = "";
+      
+                String userName = (String) session.getAttribute("userid");
+                DataAccess da = new DataAccess();
+
+                ResultSet rs = da.getscrumid(userName);
+
+                while (rs.next()){
+                    scrumName = rs.getString(rs.getMetaData().getColumnName(3));
+                }
+
+                out.println(scrumName);
+           %>
             <p>
 
         </div>
     </div>
 
+
+
+    <% if (scrumName != "")
+        
+    {
+        
+   %>
     <div id="toolbar"> 
         <b><u>Tool Bar</u></b><br>
-        <button onclick="existingstory()">Create Story</button>
+        
         <output id="result"></output>
         <input type='file' onchange="readURL(this);" />
         <div class="div1">
             <ul><li><img id="blah" src="#" alt="your image" /></li></ul>
         </div>
-        
-        
-        <script>
-            $(".userprofilepic").draggable({ helper: 'clone'});
-        </script>
-        
-          <div id="#user3profile" >
-          <img src="pic/user3.png" class="userprofilepic" id="userprofile3" width="88" height="70">
-            </div>
-          
+
+        <div id="team">
+
+        </div>
 
     </div>
 
@@ -93,46 +111,16 @@ TEST TEST TEST
         <b><u>Active Stories </u></b><br>
     </div>
 
-    
-    
-    <% 
-                
-                StringBuilder sb = new StringBuilder();
-                sb.append("'{\"employees\":['+"); 
-                DataAccess da = new DataAccess();
-                ResultSet ls = da.getAll();
+    <%} else {%>
+    Please sign in
 
-                ResultSetMetaData rsmd = ls.getMetaData();
-                int columnCount = rsmd.getColumnCount();
-                boolean lastRow;
 
-                while (ls.next()) {
-                    for (int i = 1; i <= columnCount; i++) {
-                        if (i == 1) sb.append("'{");
-                        if (i > 1) sb.append(",");
-                        
-                        String columnValue = ls.getString(i);
-                        sb.append("\"" + rsmd.getColumnName(i) + "\":\"" + columnValue + "\"");
-                    }
-                    lastRow = ls.isLast();
-                    if (lastRow == false) sb.append("},' + ");
-                }
-                sb.append("}]}';");
-       
-                String test1 = sb.toString();
-                
-                String myVar=test1;
-         
-%>
-    
-    
+
+    <%}%>
+
+
+
     <script>
-        
-       var txt3 = <%=myVar%>;
-       var existingstories = $.parseJSON(txt3).employees;      
-       existingstory(existingstories);
-       newlayout(existingstories);
-        
         $('#sprint tr #date').each(function () {
             var rowDate = $(this).html();
             console.log(rowDate);
@@ -160,9 +148,10 @@ TEST TEST TEST
                 }
             }
         });
-      
     </script>
-
+    <%
+        }
+    %>
 </body>
 </html>
 

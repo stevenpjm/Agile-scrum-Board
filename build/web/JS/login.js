@@ -8,9 +8,6 @@
 // Get the modal
 //var modal = document.getElementById('id01');
 
-    function testing() {
-            document.getElementById("demo").innerHTML = "Paragraph changed.";
-        };
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {

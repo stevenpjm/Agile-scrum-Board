@@ -22,15 +22,12 @@
                // DataAccess st = new DataAccess();
                 
                 ResultSet rs;
-                rs = DBUtils.getPreparedStatment("select * from user where username='" + userid + "' and password='" + pwd + "'").executeQuery();
+                rs = DBUtils.getPreparedStatment("select * from users where username='" + userid + "' and password='" + pwd + "'").executeQuery();
                 if (rs.next()) {
                     session.setAttribute("userid", userid);
+
+                    response.sendRedirect("/SCRUM_V2/Scrumboard.jsp");
                     
-                    
-                    
-                    response.sendRedirect("/SCRUM_V2/AllPost.jsp");
-                    out.println("welcome " + userid);
-                    out.println("<a href='logout.jsp'>Log out</a>");
                 } else {
                     %>
                 

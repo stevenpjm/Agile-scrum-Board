@@ -8,42 +8,102 @@ and open the template in the editor.
     Author     : steven.masters
 */
 
+
+div#userFrame{
+    float:left;
+    padding: 2px 2px 2px 2px;
+    margin: 1px 1px 1px 1px;
+    align-content:center;
+    max-width: 120px;
+}
+
+
+
+h2#teamHeader{
+    position:fixed;
+    background: graytext;
+     max-width: 90%;
+}
+
+.profileUsername{
+   
+
+    max-width: 100px;
+}
+
+
+
+div#scrumboardContainer{
+    position: absolute;
+    top: 12.5%;
+    height: 110%;
+    min-width: 100%;
+    
+}
+
+
 #toolbar {
-    background:CEE3F6; 
-    float: left;
-    width: 32%;
-    min-height: 60em;
+    overflow: auto;
+    position: fixed; 
+    min-width:24%;
+    background: #E6E6E6;
+    max-width:25%;
+    height: 80%;
+    margin: 1px;
+    padding: 2px;
+    border: 2px solid #aaaaaa;
+}
+
+
+/********************/
+ /*      SUB DIVS IN TOOLBAR    */
+/********************/        
+    
+div#createStoryCard{
+    height: 270px;
+    
+}
+
+
+
+.teamProfilePics{
+   margin: 10%;
+   min-width: 100px;
+   }
+
+
+
+
+#active {
+     
+    float: right;
+    min-width:24%;
+    max-width:25%;
+    min-height: 100%;
+    margin: 1px;
+    padding: 2px;
+    border: 1px solid #aaaaaa;
+}
+
+#complete {
+      
+    float: right;
+    min-width:24%;
+    max-width:25%;
+    min-height: 100%;
     margin: 1px;
     padding: 2px;
     border: 1px solid #aaaaaa;
 }
 
 #backlog {
-     background:#CEE3F6; 
-    float: left;
-    width: 32%;
-    min-height: 60em;
-    margin: 2px;
-    padding: 10px;
-    border: 1px solid #aaaaaa;
-}
-
-#active {
-     background:#CEE3F6; 
-    float: left;
-    width: 32%;
-    min-height: 60em;
-    margin: 2px;
-    padding: 10px;
-    border: 1px solid #aaaaaa;
-}
-
-#complete {
-    float: left;
-    width: 32%;
-    min-height: 60em;
-    margin: 2px;
-    padding: 10px;
+       
+    float: right;
+    min-width:24%;
+    max-width:25%;
+    min-height: 100%;
+    margin: 1px;
+    padding: 2px;
     border: 1px solid #aaaaaa;
 }
 
@@ -57,3 +117,111 @@ and open the template in the editor.
     padding: 10px;
     border: 1px solid black;
 }
+
+
+
+
+.body{
+    min-height: 1800px;
+    min-width: 1800px;
+}
+
+
+h3{font-family: Arial;}
+
+/*******************************/
+       /* Headers */
+/*******************************/
+
+div#teamNotesheader{
+    font-family: Arial;
+    font-size:18px;
+    background: lightblue;
+    min-height: 5px;
+    min-width: 90%;
+     margin: 2px;
+}
+
+.teamnotesinput{
+   
+    min-width: 80%;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+
+div#teamNotes{
+    min-height: 100px;
+    min-width: 10%;
+}
+
+div#teamStatsHeader {
+    font-family: Arial;
+    font-size:18px;
+    background: lightblue;
+    min-height: 5px;
+    min-width: 90%;
+     margin: 2px;
+}
+
+div#storyCardHeader {
+    font-family: Arial;
+    font-size:18px;
+    background: lightblue;
+    min-height: 5px;
+    min-width: 90%;
+     margin: 2px;
+}
+
+
+div#team{
+       min-height: 100px;
+    min-width: 10%;
+}
+
+div#teamHeader {
+    font-family: Arial;
+    font-size:18px;
+    background: lightblue;
+    min-height: 5px;
+    min-width: 90%;
+     margin: 2px;
+}
+
+h3#backlogheader{
+    background: lightsalmon;
+    color:#000;
+    min-height: 15px;
+    min-width: 10%; 
+}
+
+
+h3#activeheader{
+    background: lightsteelblue;
+    color: #000;
+    min-height: 15px;
+    min-width: 10%;
+}
+
+h3#completeHeader {
+    background: lightsteelblue;
+    color: #000;
+    min-height: 15px;
+    min-width: 10%;
+}
+
+body{
+    min-width:1000px; /* suppose you want minimun width of 1000px */
+   width: auto !important;  /* Firefox will set width as auto */
+   width:1000px;         
+}
+
+
+/** Team input notes **/
+
+
+
