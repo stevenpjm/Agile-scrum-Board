@@ -1,5 +1,3 @@
-
-
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
@@ -23,29 +21,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <%--  CSS  --%>
         <link href="CSS/storycard.css" rel="stylesheet" type="text/css"/> 
         <link href="CSS/scrumboard.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         
-
         <%--  Javscripts files  --%>
         <script src="JS/storyCard.js"></script>
-        <script src="JS/scrumboard.js"></script>
+        <%--<script src="JS/scrumboard.js"></script> --%>
         <script src="JS/existingStories.js"></script>
         <script src="JS/dragDropEvent.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-        <link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+         <%--<link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">--%>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
         <title>All post</title>
-
-
-
-    </head>
+     </head>
 
 
     <body>
@@ -54,9 +46,7 @@
 
         <div id="banner">
             
-       
-            
-             <div id="Logo">
+            <div id="Logo">
                 AGILE SCRUMBOARD
             </div>
             
@@ -74,8 +64,6 @@
            
             
             <div id="profile">
-                
-                
                 <img src="https://www.gravatar.com/avatar/<% MD5Util md5u = new MD5Util(); out.println(md5u.md5Hex("test23@email.com")); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="60px" height="60px">
                 <br>
                 <% out.println(session.getAttribute("userid"));%>
@@ -234,7 +222,7 @@
 
 
     <script>
-
+        
 
 
    
@@ -275,53 +263,12 @@
             }
         });
 
-        <%--   //This creates the new story card, the last story ID and adds one for the new created
-        function newStory() {
-        <% int ID = LastStoryID.LastStoryID();%>
-            var ID = <%=ID%>;
-            this.newlayout(ID);
-        }--%>
 
 
-
-
-
-     //****************************************************
-     //        TEAM stats
-     // ****************************************************
-    //This gives the team stats for backlog           
-    var numBacklog = $('div#backlog').children().length;
-     numBacklog = numBacklog - 1;
-    if(numBacklog !== 0) {
-        document.getElementById('backlogtotal').innerHTML = numBacklog;
-    }else { 
-        document.getElementById('backlogtotal').innerHTML ="0";
-    }
-    
-     //This gives the team stats for active 
-    var numactivelog = $('div#active').children().length; 
-    numactivelog = numactivelog - 1;
-    if(numactivelog !== 0) {
-        document.getElementById('progresstotal').innerHTML = numactivelog;
-    } else { 
-        document.getElementById('progresstotal').innerHTML ="0";
-    }
-    
-    //This gives the team stats for complete 
-    var numcompletelog = $('div#completed').children().length;
-    
-    if(numcompletelog !== 0) {
-        document.getElementById('completedtotal').innerHTML = numcompletelog;
-    } else { 
-        document.getElementById('completedtotal').innerHTML ="0";
-    }
-    
-     //This gives the team stats for complete 
-   
-    var total = numcompletelog + numBacklog + numactivelog ;
-    document.getElementById('storyTotal').innerHTML = total;
-    
-    
+        // loads up the teamstats
+        teamsats();
+        
+  
     
     
 

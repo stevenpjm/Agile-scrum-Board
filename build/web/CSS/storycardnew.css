@@ -55,7 +55,6 @@
 .storynotes{
     position: relative;
     margin: 1% 1% 2% 1%;
-    
     top: 15%;
     width: 80%;
     height:15%;
@@ -185,3 +184,6 @@ div[id^="storye1"]:hover{
     height: 20px;
 
 }
+
+
+

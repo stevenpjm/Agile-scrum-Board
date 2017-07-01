@@ -177,22 +177,18 @@ function storyCard(existingstories) {
         bugimg2.setAttribute("class", "bug2");
         
         //hidden 
-        var bugInput = document.createElement("input");
+        var bugInput = document.createElement("div");
         bugInput.setAttribute("id", emp.storyid+"bugInput");
-        var inputBugVal = "0";
+        var inputBugVal = document.createTextNode(emp.bug);
         bugInput.style.display = "none";
-        bugInput.value = inputBugVal;
+        bugInput.appendChild(inputBugVal);
         
-        newDiv.appendChild(bugInput);
+        
         bugDiv.appendChild(bugimg1);
         bugDiv.appendChild(bugimg2);
-
+        bugDiv.appendChild(bugInput);
         
-        
-        
-        
-        
-        
+ 
                 
 //*************************************************
 //           Changes the Div based on the Swarm 
@@ -224,7 +220,7 @@ function storyCard(existingstories) {
         // value
         var swarmInput = document.createElement("div");
         swarmInput.setAttribute("id", emp.storyid+"swarmInput");
-        var inputswarmVal = document.createTextNode("1");
+        var inputswarmVal = document.createTextNode(emp.swarm);
         swarmInput.style.display = "none";
         swarmInput.appendChild(inputswarmVal);
         
@@ -236,9 +232,12 @@ function storyCard(existingstories) {
         //*************************************************
         var happyFaceDiv = document.createElement("div");
         happyFaceDiv.setAttribute("id", "happyFaceDiv");
+        
         var happyFace = document.createElement("IMG");
         happyFace.src = "pic/happyface.png";
+       
         happyFace.id = "happyFace"+emp.storyid;
+         happyFace.setAttribute("class", "happyFace");
         happyFace.style.height = '45px';
         happyFace.style.width = '45px';
         happyFaceDiv.appendChild(happyFace);
@@ -248,6 +247,7 @@ function storyCard(existingstories) {
         var sadFace = document.createElement("IMG");
         sadFace.src = "pic/sadface.png";
         sadFace.id = "sadFace"+emp.storyid;
+        sadFace.setAttribute("class", "sadFace");
         sadFace.style.height = '45px';
         sadFace.style.width = '45px';
         sadFaceDiv.appendChild(sadFace);
@@ -384,7 +384,9 @@ function storyCard(existingstories) {
       //appends user task and picture to the user3 Div
         user3Div.appendChild(selectList3);
         user3Div.appendChild(user3pic);
-        
+     
+     
+     
   
      // This appends the story cards to the selected area
      // ++++++++++++++++++++++++++++
@@ -451,6 +453,23 @@ function storyCard(existingstories) {
         savButtonCon.appendChild(revertBtn);
         newDiv.appendChild(savButtonCon);
         
+
+        // Position - hidden fields - arreange the order of the div
+        var positionInput = document.createElement("input");
+        positionInput.setAttribute("id", emp.storyid+"position");
+        var inputBugVal = document.createTextNode(emp.position);
+        positionInput.style.display = "";
+        positionInput.appendChild(inputBugVal);
+        newDiv.appendChild(positionInput);
+        
+        // column area - hidden fields - arreange the order of the div
+        var columnInput = document.createElement("input");
+        columnInput.setAttribute("id", emp.storyid+"columInput");
+        var columninput = document.createTextNode(emp.colum);
+        columnInput.style.display = "";
+        columnInput.appendChild(columninput);
+        newDiv.appendChild(columnInput);
+        
     }
     
  
@@ -469,9 +488,6 @@ function storyCard(existingstories) {
     
             //this allows the change in stat to the main div when the bug is clicked 
     $(".bug1").unbind('click').click(function () {
-       
-       
-       
         var a = $(this).closest('img').attr('src');
         var b = "pic/bug1.png";
        
@@ -526,11 +542,12 @@ function storyCard(existingstories) {
     
         
         if (emp.swarm === "1") {
-              $(this).parent().parent().parent().addClass("swarm");      
+              $(this).parent().parent().parent().addClass("swarm");
+              
         }
-
-        var inputSwarmVal = "14";
-        if( inputSwarmVal === "14") {
+        
+        var inputSwarmVal = emp.swarm;
+        if( inputSwarmVal === "1") {
                document.getElementById("ImageSwarm14").src = "pic/swarm2.png";
                document.getElementById("14").classList.add("swarm");   
             }
@@ -541,9 +558,9 @@ function storyCard(existingstories) {
       
    
    
-    $(".bug1").unbind('click').click(function (zEvent) {
+    $(".bug2").unbind('click').click(function (zEvent) {
         var a = $(this).closest('img').attr('src');
-        var b = "pic/bug2.png";
+        var b = "pic/bug1.png";
         
 
         
@@ -554,7 +571,7 @@ function storyCard(existingstories) {
             
             $(this).parent().parent().parent().addClass("bug");
             
-            document.getElementById(id+"bugInput").value = "1";
+            document.getElementById(id+"bugInput").value = "0";
             
             $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
              
@@ -563,44 +580,34 @@ function storyCard(existingstories) {
             var b = "";
             
         } else {
+            
             $(this).parent().parent().parent().removeClass("bug");
             $(this).attr("src", "pic/bug2.png");
             var id = $(this).parent().parent().parent().attr('id');
-           
-             document.getElementById(id+"bugInput").value = "0";
-             $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
-          
+            document.getElementById(id+"bugInput").value = "0";
+            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
             
-             
             var input =document.getElementById(id+"bugInput").value;
-         
-            
         }
     });
 
     // depending storycard bug status value this applies bug class
-            var inputBugVal = "15";
-            if( inputBugVal === "15") {
-               document.getElementById("bugImage15").src = "pic/bug1.png" ;
-               document.getElementById("15").classList.add("bug");   
-            } 
-    
-            
-    
-    
+        var inputBugVal = "1";
+        if( inputBugVal === "15") {
+            document.getElementById("bugImage15").src = "pic/bug1.png" ;
+            document.getElementById("15").classList.add("bug");   
+        } 
+
     //****************************************************************************************************
     //          Save changes button - Disable - if there a change on the storycard disable is than false allowing user to save changes
     //*****************************************************************************************************
     
-    
-    
-    
-    var parent;
+
+   var parent;
+
+ 
     // this gets the element the user clicks on
-    this.onclick = function (e) {
-        
-        
-        
+    this.onclick = function () {
         
         if( event.target.parentElement.parentElement.id !== ''){
             parent = event.target.parentElement.id;
@@ -614,9 +621,8 @@ function storyCard(existingstories) {
              parent = event.target.parentElement.parentElement.parentElement.id;
         }   
         
-      
         if (parent > 0) {
-            
+           
             // If a change is made to the story card save button appears
             $('#' + parent).each(function () {
                 $(this).data('serialized', $(this).serialize());
@@ -631,10 +637,31 @@ function storyCard(existingstories) {
        };
        
        
-     
-    };
+   //**************** if onclick happy face nput new value to input ************
+
+
+    $( ".happyFace" ).click(function() {
+            parent = event.target.parentElement.parentElement.parentElement.id;
+            document.getElementById(parent+"storynotes").value = "Story will be completed on time as mention in scrum";    
+            
+              $("#"+parent).find("button#"+parent+"submit-data").attr('disabled', null);
+             $("#"+parent).find("button#"+parent+"revert-data").attr('disabled', null);
+    });
+
+    $( ".sadFace" ).click(function() {
+            parent = event.target.parentElement.parentElement.parentElement.id;
+            document.getElementById(parent+"storynotes").value = "Issues!! - possible delays ";
+            
+             $("#"+parent).find("button#"+parent+"submit-data").attr('disabled', null);
+             $("#"+parent).find("button#"+parent+"revert-data").attr('disabled', null);
+             
+    });
+
+ // on drop get the position of the card and save  
+        
+ 
 
 
 
-
+};
 
