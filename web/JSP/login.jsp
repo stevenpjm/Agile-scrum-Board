@@ -30,9 +30,10 @@
                     
                 } else {
                     %>
-                
-        
-        <%}
+                 
+        <% 
+            
+            response.sendRedirect("/SCRUM_V2/index.jsp");}
 %>  
     </body>
 </html>

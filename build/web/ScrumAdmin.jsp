@@ -24,26 +24,42 @@
         <form action="Update" style="border:1px solid #ccc">
             <div class="container">
               
-              <label><b>First</b></label>
+              <label><b>Scrum Name</b></label>
               <input type="text" placeholder="First Name" name="fname" required>
               
-              <label><b>Surname</b></label>
-              <input type="text" placeholder="Surname" name="sname" required>
-              
-              <label><b>Email</b></label>
-              <input type="text" placeholder="Enter Email" name="email" required>
+              <label><b>Team</b></label>
+               <body>
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Course</th>
+                <th>Year</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                    <c:forEach items="${students}" var="student">
+                        <tr>
+                            <td><c:out value="${student.Id}" /></td>
+                            <td><c:out value="${student.username}" /></td>
+                            <td><c:out value="${student.request}" /></td>
+                            <td><c:out value="${student.course}" /></td>
+                            <td><c:out value="${student.year}" /></td>
+                            <td><a
+                                href="StudentController.do?action=edit&studentId=<c:out value="${student.studentId }"/>">Update</a></td>
+                            <td><a
+                                href="StudentController.do?action=delete&studentId=<c:out value="${student.studentId }"/>">Delete</a></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <p>
+                <a href="StudentController.do?action=insert">Add Student</a>
+            </p>
 
-              <label><b>Old Password</b></label>
-              <input type="password" placeholder="Enter Password" name="old_psw" required>
-
-              <label><b>New Password</b></label>
-              <input type="password" placeholder="Repeat Password" name="new-repeat" required>
-              
-              <label><b>Repeat New Password</b></label>
-              <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-              
-              <label><b>Scrum Team</b></label>
-              <input type="text" placeholder="Scrum Team" name="scrum-team" required>
               
               <div class="clearfix">
                 

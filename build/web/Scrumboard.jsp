@@ -51,13 +51,13 @@
             </div>
             
             <div id="linksScrum">
-                <a href="http://localhost:8080/SCRUM_V2/index.jsp"  >Home Page</a>
-                <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp">Contact Us</a>
+                <a href="http://localhost:8080/SCRUM_V2/index.jsp" class="linkbutton"  >Home Page</a>
+                <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp" class="linkbutton" >Contact Us</a>
                  <% if (session.getAttribute("userid") != null)
                 {        
                 %>
-                <a href='/SCRUM_V2/JSP/logout.jsp' id="logoutlink">Log out</a>
-                 <a href='/SCRUM_V2/admin.jsp'id="adminlink">Profile</a>
+                <a href='/SCRUM_V2/JSP/logout.jsp' id="logoutlink" class="linkbutton" >Log out</a>
+                 <a href='/SCRUM_V2/admin.jsp'id="adminlink" class="linkbutton" >Profile</a>
                 <% }
                 %>
             </div>
@@ -73,28 +73,41 @@
 
             
 
-
-            <%
+            <div class="scrumdropdown">
+                 <center>Scrum Team</center>
+            <button class="scrumbtn">  <%
                 Integer id = 1;
-
                 String scrumName = "";
-                
                 String userName = (String) session.getAttribute("userid");
                 DataAccess da = new DataAccess();
-
                 ResultSet rs = da.getscrumid(userName);
-
                 while (rs.next()) {
                     scrumName = rs.getString(rs.getMetaData().getColumnName(3));
                 }
-
                 out.println(scrumName);
-
                 //int num = da.getLastStoryID();   
-
-            %>
+             %>
+           </button>
            
-       </div>
+            <div class="scrum-content">
+              <a href="http://localhost:8080/SCRUM_V2/scrumadmin.jsp">Scrum Admin</a>
+              <a href="http://localhost:8080/SCRUM_V2/deletescrumteam.jsp">Delete Scrum Team</a>
+            </div>
+          </div>
+           
+           <div class="sprintdropdown">
+               <center>Sprint Name</center>
+            <button class="sprintbtn">Wild house
+                
+           </button>
+            <div class="scrum-content">
+              <a href="">Close Sprint</a>
+              <a href="#">Delete Sprint</a>
+              <a href="#">Create Sprint</a>
+            </div>
+          </div>
+          
+        </div>
     </div>
       <% if (session.getAttribute("userid") != null)
         
@@ -110,10 +123,11 @@
             <div id="teamNotesheader">
                 <center>Team Notes</center>
             </div>
-            <div class='label'>1: <input type="text" class="teamnotesinput" value="" /></div>
-            <div class='label'>2: <input type="text" class="teamnotesinput" value="" /></div>
-            <div class='label'>3: <input type="text" class="teamnotesinput" value="" /></div>
-            <div class='label'>4: <input type="text" class="teamnotesinput" value="" /></div>
+            <div class='label'>1: <input type="text" class="teamnotesinput" value="" id="teamNotes1"/></div>
+            <div class='label'>2: <input type="text" class="teamnotesinput" value="" id="teamNotes2" /></div>
+            <div class='label'>3: <input type="text" class="teamnotesinput" value="" id="teamNotes3"/></div>
+            <div class='label'>4: <input type="text" class="teamnotesinput" value="" id="teamNotes4"/></div>
+            <button type="button" class="button">Save</button>
          </div>
         
         <div id="teamStats">
@@ -141,7 +155,7 @@
         
          <div id="createStoryCard">
              <div id="storyCardHeader"> <center>Create Story Card</center></div>
-             <button onclick="newlayout()">+ Create Story</button>
+             <button onclick="newlayout()" id="newStory" class="button">+ Create Story</button>
              
         </div>
         
@@ -281,7 +295,7 @@
     
     <% } else { %>
     <div id="scrumboardContainer">
-    Please sign in
+       
     </div>
 
 

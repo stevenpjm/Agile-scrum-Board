@@ -4,7 +4,7 @@
     Author     : steven.masters
 --%>
 
-<script>alert("Test");</script>
+
 <%
 session.setAttribute("userid", null);
 session.invalidate();

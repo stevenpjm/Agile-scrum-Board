@@ -221,7 +221,115 @@ body{
 }
 
 
-/** Team input notes **/
+
+/** Button layout **/
+
+
+.button {
+   margin-left: 15px;
+   margin-bottom: 5px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 2.5px #999;
+}
+.button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+.button:hover {
+    background-color: #3cb0fd;
+}
+
+.button:disabled {
+    background: #dddddd;
+}
+
+/** Drop down menu for scrumlink **/
+
+.scrumbtn {
+    background-color: #E7AA11;
+    border-radius: 0px 15px 0px 0px;
+    box-shadow: 3.5px 0px 0px 0px #DDCE13;
+    color: white;
+    padding: 9px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+   
+}
+
+.scrumdropdown {
+    
+    font-family: Arial;
+    position: relative;
+    display: inline-block;
+}
+
+.sprintdropdown {
+       font-family: Arial;
+   
+    position: absolute;
+    display: inline-block;
+    left: 26%;
+    bottom: 0%;
+}
+
+.scrum-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.scrum-content a {
+    
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.scrum-content a:hover {
+    background-color: #ccc;
+    border: 1px;
+}
+
+.scrumdropdown:hover .scrum-content {
+    display: block;
+    
+}
+
+.scrumdropdown:hover .scrumbtn {
+    background-color: #F38101;
+}
 
 
 
+.sprintbtn {
+    border-radius: 0px 15px 0px 0px;
+    box-shadow: 3.5px 0px 0px 0px #84F210;
+    background-color: #5DB43A;
+    color: white;
+    padding: 9px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+   
+}
+
+.sprintdropdown:hover .scrum-content {
+    display: block;
+}
+
+.sprintdropdown:hover .scrumbtn {
+    background-color: #5DB43A;
+}

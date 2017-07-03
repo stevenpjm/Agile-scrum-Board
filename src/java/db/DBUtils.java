@@ -23,24 +23,12 @@ public class DBUtils {
     
     Connection con = DriverManager.getConnection(url, user, pass);
     ps = con.prepareStatement(sql);
-        
+       
       
     return ps;
     
     }
  
 }
-
-
-
-
-/*
-    public static PreparedStatement getPreparedStatement(String insert_into_sprint_values) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-}
-*/
-
 
 

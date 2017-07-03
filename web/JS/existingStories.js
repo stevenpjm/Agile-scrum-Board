@@ -168,13 +168,13 @@ function storyCard(existingstories) {
         bugimg1.setAttribute("class", "bug1");
         
         //bug image 2
-        var bugimg2 = document.createElement("IMG");
-        bugimg2.src = "pic/bug2.png";
-        bugimg2.id = "bugImage"+emp.storyid;
-        bugimg2.style.height = '50px';
-        bugimg2.style.width = '50px';
-        bugimg2.style.display = "none";
-        bugimg2.setAttribute("class", "bug2");
+//        var bugimg2 = document.createElement("IMG");
+//        bugimg2.src = "pic/bug2.png";
+//        bugimg2.id = "bugImage"+emp.storyid;
+//        bugimg2.style.height = '50px';
+//        bugimg2.style.width = '50px';
+//        bugimg2.style.display = "none";
+//        bugimg2.setAttribute("class", "bug2");
         
         //hidden 
         var bugInput = document.createElement("div");
@@ -185,7 +185,7 @@ function storyCard(existingstories) {
         
         
         bugDiv.appendChild(bugimg1);
-        bugDiv.appendChild(bugimg2);
+//        bugDiv.appendChild(bugimg2);
         bugDiv.appendChild(bugInput);
         
  
@@ -458,7 +458,7 @@ function storyCard(existingstories) {
         var positionInput = document.createElement("input");
         positionInput.setAttribute("id", emp.storyid+"position");
         var inputBugVal = document.createTextNode(emp.position);
-        positionInput.style.display = "";
+        positionInput.style.display = "none";
         positionInput.appendChild(inputBugVal);
         newDiv.appendChild(positionInput);
         
@@ -466,7 +466,7 @@ function storyCard(existingstories) {
         var columnInput = document.createElement("input");
         columnInput.setAttribute("id", emp.storyid+"columInput");
         var columninput = document.createTextNode(emp.colum);
-        columnInput.style.display = "";
+        columnInput.style.display = "none";
         columnInput.appendChild(columninput);
         newDiv.appendChild(columnInput);
         
@@ -493,19 +493,28 @@ function storyCard(existingstories) {
        
         if (a === b) {
             $(this).parent().parent().parent().removeClass();
-            
             $(this).parent().parent().parent().addClass("bug");
-            
             $(this).attr("src", "pic/bug2.png");
-
-            var a = "";
-            var b = "";
+            document.getElementById(id+"bugInput").innerHTML = "0";
+            //enables the save button
+            var id = $(this).parent().parent().parent().attr('id');
+            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
+            
         } else {
             $(this).parent().parent().parent().removeClass("bug");
             $(this).attr("src", "pic/bug1.png");
+            document.getElementById(id+"bugInput").innerHTML = "0";
         }
            
     });
+    
+    // depending storycard bug status value this applies bug class
+        var inputBugVal = "1";
+        if( inputBugVal === "15") {
+            document.getElementById("bugImage15").src = "pic/bug1.png" ;
+            document.getElementById("15").classList.add("bug");   
+        } 
     
 
     //****************************************************************************************************
@@ -526,6 +535,9 @@ function storyCard(existingstories) {
            
             $(this).parent().parent().parent().addClass("swarm");
             
+            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
+            
             $(this).attr("src", "pic/swarm2.png");
             var a = "";
             var b = "";
@@ -536,6 +548,9 @@ function storyCard(existingstories) {
             //changes hidden swarm input 
             var id = $(this).parent().parent().parent().attr('id');
             document.getElementById(id+"swarmInput").innerHTML = "0";
+            
+            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
         }
           
     });
@@ -551,52 +566,9 @@ function storyCard(existingstories) {
                document.getElementById("ImageSwarm14").src = "pic/swarm2.png";
                document.getElementById("14").classList.add("swarm");   
             }
-    //****************************************************************************************************
-    //          BUG button - onclick -  changes class and picture 
-    //*****************************************************************************************************
    
-      
-   
-   
-    $(".bug2").unbind('click').click(function (zEvent) {
-        var a = $(this).closest('img').attr('src');
-        var b = "pic/bug1.png";
-        
 
-        
-        if (a === b) {
-            $(this).parent().parent().parent().removeClass();
-            
-            var id = $(this).parent().parent().parent().attr('id');
-            
-            $(this).parent().parent().parent().addClass("bug");
-            
-            document.getElementById(id+"bugInput").value = "0";
-            
-            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
-             
-            $(this).attr("src", "pic/bug1.png");
-            var a = "";
-            var b = "";
-            
-        } else {
-            
-            $(this).parent().parent().parent().removeClass("bug");
-            $(this).attr("src", "pic/bug2.png");
-            var id = $(this).parent().parent().parent().attr('id');
-            document.getElementById(id+"bugInput").value = "0";
-            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
-            
-            var input =document.getElementById(id+"bugInput").value;
-        }
-    });
-
-    // depending storycard bug status value this applies bug class
-        var inputBugVal = "1";
-        if( inputBugVal === "15") {
-            document.getElementById("bugImage15").src = "pic/bug1.png" ;
-            document.getElementById("15").classList.add("bug");   
-        } 
+    
 
     //****************************************************************************************************
     //          Save changes button - Disable - if there a change on the storycard disable is than false allowing user to save changes
@@ -656,11 +628,6 @@ function storyCard(existingstories) {
              $("#"+parent).find("button#"+parent+"revert-data").attr('disabled', null);
              
     });
-
- // on drop get the position of the card and save  
-        
- 
-
 
 
 };

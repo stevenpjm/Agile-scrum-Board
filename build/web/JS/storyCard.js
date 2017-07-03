@@ -10,6 +10,8 @@ var ID ;
 var id ; 
 function newlayout() {
 
+document.getElementById("newStory").disabled = true;
+
 
 ID = "22";
 
