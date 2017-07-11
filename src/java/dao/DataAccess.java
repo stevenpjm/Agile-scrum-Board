@@ -48,8 +48,8 @@ public class DataAccess {
         ResultSet rs = null;
         try {
             rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n" +
-"where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storyid = sn2.storyid)\n" +
-"and sc.storyid = sn2.storyid;").executeQuery();
+                "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storyid = sn2.storyid)\n" +
+                "and sc.storyid = sn2.storyid;").executeQuery();
 
           //  while (rs.next()) {
            //     Story s = new Story(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));

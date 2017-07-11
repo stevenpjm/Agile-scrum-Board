@@ -254,16 +254,3 @@ div#savButtonContainer{
     
 }      
 
-.storynotes:hover{
-  
-  position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 1s;
-  
-}

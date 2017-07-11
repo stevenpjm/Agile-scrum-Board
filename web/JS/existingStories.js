@@ -427,6 +427,7 @@ function storyCard(existingstories) {
         savebtn.id = emp.storyid + "submit-data";
         savebtn.class = "savebtn";
         savebtn.disabled = "false";
+        savebtn.onclick = function(){'<% dao.dbUpdateStoryCard() %>';};
        
         
         var buttontxt = document.createTextNode("Save changes");
@@ -492,16 +493,27 @@ function storyCard(existingstories) {
         var b = "pic/bug1.png";
        
         if (a === b) {
+             var id = $(this).parent().parent().parent().attr('id');
+             alert(id);
             $(this).parent().parent().parent().removeClass();
             $(this).parent().parent().parent().addClass("bug");
+           
             $(this).attr("src", "pic/bug2.png");
-            document.getElementById(id+"bugInput").innerHTML = "0";
+            document.getElementById(id+"bugInput").innerHTML = "1";
             //enables the save button
-            var id = $(this).parent().parent().parent().attr('id');
-            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            
+          
+                
+             $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
             $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
             
         } else {
+            
+                  var id = $(this).parent().parent().parent().attr('id');
+                  alert(id);
+             $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
+            
             $(this).parent().parent().parent().removeClass("bug");
             $(this).attr("src", "pic/bug1.png");
             document.getElementById(id+"bugInput").innerHTML = "0";

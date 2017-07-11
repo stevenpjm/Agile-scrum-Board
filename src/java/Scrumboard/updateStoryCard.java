@@ -43,8 +43,8 @@ public class updateStoryCard {
         this.storybug = storybug;
         this.swarm = swarm;
         this.columstatus = columstatus;
-
-        dbUpdateStoryCard rs = new dbUpdateStoryCard(this.storyid, this.storyname, this.storynote, this.user1Task, this.user1, this.user2Task, this.user2, this.user3Task, this.user3, this.storybug, this.swarm, this.columstatus);
+                                    
+      //  dbUpdateStoryCard rs = new dbUpdateStoryCard(this.storyid, this.storyname, this.storynote, this.user1Task, this.user1, this.user2Task, this.user2, this.user3Task, this.user3, this.storybug, this.swarm, this.columstatus);
 
     }
 

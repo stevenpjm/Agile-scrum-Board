@@ -73,7 +73,7 @@
                 if (userName != null ){%>
                 <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a> 
                 <a href='/SCRUM_V2/JSP/logout.jsp'class="linkbutton" >Log out</a>
-                <a href='/SCRUM_V2/admin.jsp' class="linkbutton" >Profile</a>
+                <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
             <% } else { %>
                   <button onclick="document.getElementById('signup').style.display='block'" style="width:auto;" class="linkbutton">Sign Up</button>
                    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="linkbutton">login</button>
@@ -91,7 +91,7 @@
 
                      <div class="container">
                         <label><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required>
+                        <input type="text" placeholder="Enter Username" name="uname" required >
 
                         <label><b>Password</b></label>
                         <input type="password" placeholder="Enter Password" name="pass" required>
@@ -110,19 +110,19 @@
         <div id="signup" class="modal">
           <span onclick="document.getElementById('signup').style.display='none'" class="close" title="Close Modal">×</span>
           
-          <form  id="signup" class="modal-content animate" action="/SCRUM_V2/JSP/signup.jsp"  method="post">
+          <form  id="signup" class="modal-content animate" action="/SCRUM_V2/JSP/signup.jsp"  method="post" >
             <div class="container">
               <label><b>Email</b></label>
-              <input type="text" placeholder="Enter Email" name="email" id="email" placeholder="sophie@example.com"required>
+              <input type="text" placeholder="Enter Email" name="email" id="email" autocomplete="off" placeholder="sophie@example.com"required>
               
               <label><b>Full Name</b></label>
-              <input type="text" placeholder="Enter Email" name="username" id="username" required>
+              <input type="text" placeholder="Enter Email" name="username" autocomplete="off" id="username" required>
               
               <label><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="password" id="password" required>
+              <input type="password" placeholder="Enter Password" name="password" autocomplete="off" id="password" required>
 
               <label><b>Repeat Password</b></label>
-              <input type="password" placeholder="Repeat Password" name="password-repeat" id="password-repeat" required>
+              <input type="password" placeholder="Repeat Password" name="password-repeat"  autocomplete="off" id="password-repeat" required>
               <input type="checkbox" checked="checked"> Remember me
               <br>&nbsp;</br>
               
@@ -142,21 +142,25 @@
                 
                 
                 
-                   var emailaddress = document.getElementById("email");
+                   
+           var emailaddress = document.getElementById("email");
            
             function validatemail(){
-           
-                var x = document.forms["signup"]["email"].value;
-                var atpos = x.indexOf("@");
-                var dotpos = x.lastIndexOf(".");
-             
-             
-                if (atpos<1 || dotpos<atpos+2 || dotpos+1>= x.length) {
-                  
+                
+                var x = emailaddress.value;
+                var re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
+                alert("test");
+                if (re.test(x)) {
+                    alert(re.test(x));
+                    emailaddress.setCustomValidity('');
+                   
+                }else{
+                  alert(re.test(x) + "FFF");
                     emailaddress.setCustomValidity("Invalid email address");
-                    
-                    
+                    x = null ;
+                   
                 }
+                
             }
             emailaddress.onchange = validatemail;
                 

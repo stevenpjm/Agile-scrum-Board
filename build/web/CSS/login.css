@@ -5,6 +5,7 @@ input[type=text], input[type=password] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
 /* Set a style for all buttons */
@@ -150,3 +151,21 @@ span.psw {
        width: 100%;
     }
 }
+
+label{
+    font-family: "Helvetica Neue";
+}
+
+
+div#password{
+    padding-left: 2.5%;
+    padding-bottom: 2.5%;
+    border-radius: 10px;
+    background:#91bbd6;
+    margin: 2%;
+}
+#newpassword,#confirm-password{
+    width: 95%;
+
+}
+

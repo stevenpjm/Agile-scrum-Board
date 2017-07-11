@@ -1,12 +1,13 @@
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
         <script src="JS/login.js"></script>
         <script src="JS/signup.js"></script>
         <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        
         <title>SCRUM BOARD</title>
       </head>
 
@@ -28,7 +29,7 @@
               <input type="text" placeholder="First Name" name="fname" required>
               
               <label><b>Team</b></label>
-               <body>
+          
     <table>
         <thead>
             <tr>

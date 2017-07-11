@@ -4,6 +4,7 @@
 
 <%@page import="profile.MD5Util"%>
 <%@page import="dao.LastStoryID"%>
+<%@page import="dao.dbUpdateStoryCard"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -57,7 +58,7 @@
                 {        
                 %>
                 <a href='/SCRUM_V2/JSP/logout.jsp' id="logoutlink" class="linkbutton" >Log out</a>
-                 <a href='/SCRUM_V2/admin.jsp'id="adminlink" class="linkbutton" >Profile</a>
+                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
                 <% }
                 %>
             </div>
@@ -155,7 +156,7 @@
         
          <div id="createStoryCard">
              <div id="storyCardHeader"> <center>Create Story Card</center></div>
-             <button onclick="newlayout()" id="newStory" class="button">+ Create Story</button>
+             <button onclick="newStoryCard()" id="newStory" class="button">+ Create Story</button>
              
         </div>
         

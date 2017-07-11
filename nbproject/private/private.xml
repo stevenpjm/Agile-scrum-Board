@@ -5,6 +5,13 @@
         <group>
             <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/web/index.jsp</file>
             <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/web/UserAdmin.jsp</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/src/java/servlet/updateStoryCard.java</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/web/Scrumboard.jsp</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/web/JS/existingStories.js</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/src/java/Scrumboard/updateStoryCard.java</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/src/java/servlet/scrumTeamReq.java</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/src/java/dao/dbUpdateStoryCard.java</file>
+            <file>file:/Users/steven.masters/Desktop/Mystuff/College/Year%203/Project/SCRUM%20V2/web/JS/storyCard.js</file>
         </group>
     </open-files>
 </project-private>

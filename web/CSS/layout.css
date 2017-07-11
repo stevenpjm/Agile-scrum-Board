@@ -22,12 +22,12 @@ left{
 }
 
 #top{
-    background-color: #264475;
+        background-color: #264475;
     position: fixed;
     left: 20%;
     top: 0%;
-    height:10%;
-    width:60%;
+    height: 10%;
+    width: 60%;
 }
 
 #banner_right{

@@ -5,32 +5,30 @@ var j = 0;
 var IDNO = 0;
 var counter = 0;
 var counterstory = 0;
+var t = 1;
 
-var ID ;
-var id ; 
-function newlayout() {
-
-document.getElementById("newStory").disabled = true;
+function newStoryCard() {
 
 
-ID = "22";
+//sets the amount of story cards to be created
 
+
+//creates an object for the individual stories
+        var newID = 21;
 
 
 //creates the div as the container for the story card
         var newDiv = document.createElement("div");
-        
-        newDiv.setAttribute("id", ID );
+        newDiv.setAttribute("id", newID);
         newDiv.setAttribute("class", "storycard");
         newDiv.setAttribute("draggable", true);
         newDiv.setAttribute("ondragstart","drag(event)");
         newDiv.setAttribute("drop", "false");
-        
-        
+
 //****************************
 //Dates for the top of the card
 
-// Creates a new DIV for the Dates for the top of the storycard
+// Creats a new DIV for the Dates for the top of the storycard
         var dateDiv = document.createElement("div");
         dateDiv.setAttribute("id", "date");
         var dateDivc = document.createElement("div");
@@ -40,15 +38,12 @@ ID = "22";
         var adminDiv = document.createElement("div");
         adminDiv.setAttribute("id", "admindiv");
 //+++++++++++++++++++++++++++
-//Last updated
-       var cdate = document.createTextNode("created:" );
-// Last created 
-        var ldate = document.createTextNode("Last mod:");
-       
+
+        
  // Admin button that allows to archieve the story.
-         
+ 
         var admin = document.createElement("div");
-        admin.setAttribute("id",ID);
+        admin.setAttribute("id",newID);
         admin.setAttribute("class","dropdown");
         admin.setAttribute("drop", "false");
         admin.setAttribute("draggable", "false");
@@ -56,12 +51,14 @@ ID = "22";
         
             var button = document.createElement("button");
             button.type = "button";
-            button.id = ID + " storyadmin ";
+            button.id = newID + " storyadmin ";
             button.class = "dropbtn";
             var txt = document.createTextNode("**");
             button.appendChild(txt);
             button.onclick = function(){ 
-                    document.getElementById("myDropdown" + ID).classList.toggle("show");
+                    var IDNUM = $(this).parent().attr("id");
+                  
+                    document.getElementById("myDropdown" + IDNUM).classList.toggle("show");
                 };
 
                 // Close the dropdown if the user clicks outside of it
@@ -79,20 +76,16 @@ ID = "22";
                   }
 
             };
-        
-            
-             
             admin.appendChild(button);
             
                 var drop = document.createElement("div");
-                drop.setAttribute("id","myDropdown"+ ID);
+                drop.setAttribute("id","myDropdown"+ newID);
                 drop.setAttribute("class","dropdown-content");
-               
+                
                 
                     newlink = document.createElement('a');
                     newlink.setAttribute('class', 'a');
-                  
-                    
+                    var ID =  $(this).parent().attr("id");
                     newlink.onclick = function(){
                         removeStoryCard(ID);
                         location.reload();
@@ -102,14 +95,11 @@ ID = "22";
                     drop.appendChild(newlink);
                     admin.appendChild(drop);    
 
-// 
-////**************************************
-//
-//        //creating the top div for created date , last updated and admin button  
-      
-        
-        
-        var today = new Date();
+ 
+//**************************************
+
+        //creating the top div for created date , last updated and admin button  
+              var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
         var yyyy = today.getFullYear();
@@ -125,8 +115,8 @@ ID = "22";
         today = mm+'/'+dd+'/'+yyyy;
     
         
-        //Last updated 
-        var cdate = document.createTextNode (today);
+     //Last updated 
+        var cdate = document.createTextNode(today);
         // Last created 
         var ldate = document.createTextNode(today);
         
@@ -151,7 +141,7 @@ ID = "22";
         var inputstatus = document.createElement("input");
         inputstatus.setAttribute("drop", "false");
         inputstatus.setAttribute("draggable", "false");
-        inputstatus.setAttribute("ID", ID + "storyname");
+        inputstatus.setAttribute("ID", newID + "storyname");
         inputstatus.setAttribute("class", "storyname");
         inputstatus.setAttribute("type", "text");
         //adds the element to the container than the story card.
@@ -170,59 +160,54 @@ ID = "22";
         var storyNote = document.createElement("input");
         storyNote.setAttribute("drop", "false");
         storyNote.setAttribute("draggable", "false");
-        storyNote.setAttribute("ID", ID + "storynotes");
+        storyNote.setAttribute("ID", newID + "storynotes");
         storyNote.setAttribute("class", "storynotes");
          //adds the element to the container than the story card.
         storyNotesDiv.appendChild(storyNote);
         newDiv.appendChild(storyNotesDiv);
         
         
-////*************************************************
-////           Changes the Div based on the bug 
-////************************************************
+//*************************************************
+//           Changes the Div based on the bug 
+//************************************************
 
         var bugDiv = document.createElement("div");
         bugDiv.setAttribute("id", "bugDiv");
         //bug image 1
         var bugimg1 = document.createElement("IMG");
         bugimg1.src = "pic/bug1.png";
-         bugimg1.id = "bugImage"+ ID;
+         bugimg1.id = "bugImage"+newID;
         bugimg1.style.height = '45px';
         bugimg1.style.width = '45px';
         bugimg1.setAttribute("class", "bug1");
         
-        //bug image 2
-        var bugimg2 = document.createElement("IMG");
-        bugimg2.src = "pic/bug2.png";
-        bugimg2.id = "bugImage"+ID;
-        bugimg2.style.height = '50px';
-        bugimg2.style.width = '50px';
-        bugimg2.style.display = "none";
-        bugimg2.setAttribute("class", "bug2");
+
         
         //hidden 
-        var bugInput = document.createElement("input");
-        bugInput.setAttribute("id", ID+"bugInput");
-        var inputBugVal = "0";
+        var bugInput = document.createElement("div");
+        bugInput.setAttribute("id", newID+"bugInput");
+        var inputBugVal = document.createTextNode("");
         bugInput.style.display = "none";
-        bugInput.value = inputBugVal;
+        bugInput.appendChild(inputBugVal);
         
-        newDiv.appendChild(bugInput);
+        
         bugDiv.appendChild(bugimg1);
-        bugDiv.appendChild(bugimg2);
-
-
-////*************************************************
-////           Changes the Div based on the Swarm 
-////************************************************
-          
+//        bugDiv.appendChild(bugimg2);
+        bugDiv.appendChild(bugInput);
+        
+ 
+                
+//*************************************************
+//           Changes the Div based on the Swarm 
+//************************************************
+        
         // div container for bug area
         var swarmDiv = document.createElement("div");
         swarmDiv.setAttribute("id", "swarm");
 
         var img1swarm = document.createElement("IMG");
         img1swarm.src = "pic/swarm1.png";
-        img1swarm.id = "ImageSwarm"+ID;
+        img1swarm.id = "ImageSwarm"+newID;
         img1swarm.style.height = '45px';
         img1swarm.style.width = '45px';
         img1swarm.setAttribute("class", "swarm1");
@@ -232,7 +217,7 @@ ID = "22";
         // onlick image2 appears
         var img2swarm = document.createElement("IMG");
         img2swarm.src = "pic/swarm2.png";
-        img2swarm.id = "ImageSwarm"+ID;
+        img2swarm.id = "ImageSwarm"+newID;
         img2swarm.style.height = '45px';
         img2swarm.style.width = '45px';
         img2swarm.style.display = "none";
@@ -241,22 +226,25 @@ ID = "22";
         
         // value
         var swarmInput = document.createElement("div");
-        swarmInput.setAttribute("id", ID+"swarmInput");
-        var inputswarmVal = document.createTextNode("1");
+        swarmInput.setAttribute("id", newID+"swarmInput");
+        var inputswarmVal = document.createTextNode("");
         swarmInput.style.display = "none";
         swarmInput.appendChild(inputswarmVal);
         
         swarmDiv.appendChild(swarmInput);
         
         
-//        //*************************************************
-//        //             happy and sad faces
-//        //*************************************************
+        //*************************************************
+        //             happy and sad faces
+        //*************************************************
         var happyFaceDiv = document.createElement("div");
         happyFaceDiv.setAttribute("id", "happyFaceDiv");
+        
         var happyFace = document.createElement("IMG");
         happyFace.src = "pic/happyface.png";
-        happyFace.id = "happyFace"+ID;
+       
+        happyFace.id = "happyFace"+newID;
+         happyFace.setAttribute("class", "happyFace");
         happyFace.style.height = '45px';
         happyFace.style.width = '45px';
         happyFaceDiv.appendChild(happyFace);
@@ -265,7 +253,8 @@ ID = "22";
         sadFaceDiv.setAttribute("id", "sadFaceDiv");
         var sadFace = document.createElement("IMG");
         sadFace.src = "pic/sadface.png";
-        sadFace.id = "sadFace"+ID;
+        sadFace.id = "sadFace"+newID;
+        sadFace.setAttribute("class", "sadFace");
         sadFace.style.height = '45px';
         sadFace.style.width = '45px';
         sadFaceDiv.appendChild(sadFace);
@@ -273,16 +262,21 @@ ID = "22";
         //*************************************************
         // Button holder for buttons on right story card 
         //*************************************************
-        
         var buttonHolder = document.createElement("div");
         buttonHolder.setAttribute("id", "buttonHolder");
         buttonHolder.appendChild(happyFaceDiv);
         buttonHolder.appendChild(sadFaceDiv);
         buttonHolder.appendChild(bugDiv);
         buttonHolder.appendChild(swarmDiv);
-                
+        
+        
         newDiv.appendChild(buttonHolder);
-
+//**************************************************
+//              Div container for Profiles user 1,2 and 3 
+//**************************************************
+        var profileContainer = document.createElement("div");
+        profileContainer.setAttribute("id", "profileContainer");
+//
 //**************************************************
 //              Div container user 1,2 and 3 
 //**************************************************
@@ -295,7 +289,13 @@ ID = "22";
          
         var user3Div = document.createElement("div");
         user3Div.setAttribute("id", "user3div");
-
+        
+        
+        
+        newDiv.appendChild(profileContainer);
+        profileContainer.appendChild(user1Div);
+        profileContainer.appendChild(user2Div);
+        profileContainer.appendChild(user3Div);
 //***************************************************
 //             USER1 task and picture 
 //***************************************************
@@ -306,10 +306,10 @@ ID = "22";
 
         //User1 - create the slection element
         var selectList1 = document.createElement("select");
-        selectList1.setAttribute("id", ID + "user1Task");
+        selectList1.setAttribute("id", newID + "user1Task");
         selectList1.setAttribute("class", "user1Task");
         user1Div.appendChild(selectList1);
-        newDiv.appendChild(user1Div);
+        
         
 
         //append array of options to the user task 
@@ -324,10 +324,13 @@ ID = "22";
         var user1pic = document.createElement("div");
         user1pic.setAttribute("id", "user1pic");
         user1pic.setAttribute("class", "profilepics");
+        user1pic.setAttribute("ondrop", "true");
+        user1pic.setAttribute("ondragover", "true");
+        
 
         // Appends both slection list and the user picture to user 1 Div
         user1Div.appendChild(user1pic);
-        newDiv.appendChild(user1Div);
+        
        
 
 //***************************************************
@@ -337,7 +340,7 @@ ID = "22";
 
         //Create and append select list
         var selectList2 = document.createElement("select");
-        selectList2.setAttribute("id", ID + "user2Task");
+        selectList2.setAttribute("id", newID + "user2Task");
         selectList2.setAttribute("class", "user2Task");
 
 
@@ -358,16 +361,16 @@ ID = "22";
         //appends user task and picture to the user2 Div
         user2Div.appendChild(selectList2);
         user2Div.appendChild(user2pic);
-        newDiv.appendChild(user2Div);
+      
 
-////***************************************************
-////             USER3 - task and picture 
-////***************************************************
+//***************************************************
+//             USER3 - task and picture 
+//***************************************************
 
 
         //Create and append select list
         var selectList3 = document.createElement("select");
-        selectList3.setAttribute("id", ID + "user3Task");
+        selectList3.setAttribute("id", newID + "user3Task");
         selectList3.setAttribute("class", "user3Task");
    
 
@@ -388,25 +391,34 @@ ID = "22";
       //appends user task and picture to the user3 Div
         user3Div.appendChild(selectList3);
         user3Div.appendChild(user3pic);
-        newDiv.appendChild(user3Div);
+     
+     
+     
   
      // This appends the story cards to the selected area
      // ++++++++++++++++++++++++++++
      //++++++++++++++
      //++++++++++
-//    
-         document.getElementById("createStoryCard").appendChild(newDiv);
-//     
-//
-////****************************************************************
-////          adds the values from DB to fileds in story card              
-////*****************************************************************
 
+   
+         document.getElementById("createStoryCard").appendChild(newDiv);
+     
+
+//****************************************************************
+//          adds the values from DB to fileds in story card              
+//****************************************************************
+        // 
+        document.getElementById(newID + 'storyname').value = "";
+        document.getElementById(newID + 'storynotes').value = "";
+        document.getElementById(newID + 'user1Task').value = "";
+        document.getElementById(newID + 'user2Task').value = "";
+        document.getElementById(newID + 'user3Task').value = "";
+        //document.getElementById(newID + '').value = 
     
     
-////***************************************************
-////             Save Button - onclick - saves changes made to storycard 
-////***************************************************
+//***************************************************
+//             Save Button - onclick - saves changes made to storycard 
+//***************************************************
         var savButtonCon = document.createElement("div");
         savButtonCon.setAttribute("id", "savButtonContainer");
         savButtonCon.setAttribute("drop", "false");
@@ -415,7 +427,7 @@ ID = "22";
         var savebtn = document.createElement("button");
         savebtn.type = "submit";
         savebtn.setAttribute("class", "savButtonDiv");
-        savebtn.id = ID + "submit-data";
+        savebtn.id = newID + "submit-data";
         savebtn.class = "savebtn";
         savebtn.disabled = "false";
        
@@ -425,15 +437,15 @@ ID = "22";
         savButtonCon.appendChild(savebtn);
        
         
-////***************************************************
-////             Revert Button - onclick - reverts changes 
-////***************************************************
+//***************************************************
+//             Revert Button - onclick - reverts changes 
+//***************************************************
        
         
         var revertBtn = document.createElement("button");
         revertBtn.setAttribute("class", "revertButtonDiv");
         revertBtn.type = "submit";
-        revertBtn.id = ID + "revert-data";
+        revertBtn.id = newID + "revert-data";
         revertBtn.class = "revertbtn";
         revertBtn.disabled = "false";
        
@@ -443,6 +455,23 @@ ID = "22";
         revertBtn.appendChild(buttontxt);
         savButtonCon.appendChild(revertBtn);
         newDiv.appendChild(savButtonCon);
+        
+
+        // Position - hidden fields - arreange the order of the div
+        var positionInput = document.createElement("input");
+        positionInput.setAttribute("id", newID+"position");
+        var inputBugVal = document.createTextNode("");
+        positionInput.style.display = "none";
+        positionInput.appendChild(inputBugVal);
+        newDiv.appendChild(positionInput);
+        
+        // column area - hidden fields - arreange the order of the div
+        var columnInput = document.createElement("input");
+        columnInput.setAttribute("id", newID+"columInput");
+        var columninput = document.createTextNode("");
+        columnInput.style.display = "none";
+        columnInput.appendChild(columninput);
+        newDiv.appendChild(columnInput);
         
     
     
@@ -461,112 +490,110 @@ ID = "22";
     //*****************************************************************************************************
     
             //this allows the change in stat to the main div when the bug is clicked 
-    $(".bug1").unbind('click').click(function () {
+     $(".bug1").unbind('click').click(function () {
         var a = $(this).closest('img').attr('src');
         var b = "pic/bug1.png";
        
         if (a === b) {
-        
-            $(this).parent().parent().parent().removeClass();     
+             var id = $(this).parent().parent().parent().attr('id');
+             alert(id);
+            $(this).parent().parent().parent().removeClass();
             $(this).parent().parent().parent().addClass("bug");
+           
             $(this).attr("src", "pic/bug2.png");
-            var a = "";
-            var b = "";
-       
+            document.getElementById(id+"bugInput").innerHTML = "1";
+            //enables the save button
+             alert("1");
+          
+                  alert(id);
+             $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
+            
         } else {
+            
+                  var id = $(this).parent().parent().parent().attr('id');
+                  alert(id);
+             $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
             
             $(this).parent().parent().parent().removeClass("bug");
             $(this).attr("src", "pic/bug1.png");
-        
+            document.getElementById(id+"bugInput").innerHTML = "0";
         }
            
     });
+    // depending storycard bug status value this applies bug class
+        var inputBugVal = "1";
+        if( inputBugVal === "15") {
+            document.getElementById("bugImage15").src = "pic/bug1.png" ;
+            document.getElementById("15").classList.add("bug");   
+        } 
     
 
-//    //****************************************************************************************************
-//    //          Swarm button -  onclick changes the class and the image to be on.
-//    //*****************************************************************************************************
-//    
+    //****************************************************************************************************
+    //          Swarm button -  onclick changes the class and the image to be on.
+    //*****************************************************************************************************
+    
                 //this allows the change in stat to the main div when the bug is clicked 
-         $(".swarm1").unbind('click').click(function () {
+    $(".swarm1").unbind('click').click(function () {
         var a = $(this).closest('img').attr('src');
         var b = "pic/swarm1.png";
 
         if (a === b) {
-            
             $(this).parent().parent().parent().removeClass();
-            var id = $(this).parent().parent().parent().attr('id');
+            
+             var id = $(this).parent().parent().parent().attr('id');
+             
             document.getElementById(id+"swarmInput").innerHTML = "1";
+           
             $(this).parent().parent().parent().addClass("swarm");
+            
+            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
+            
             $(this).attr("src", "pic/swarm2.png");
             var a = "";
             var b = "";
-            
         } else {
-            
             $(this).parent().parent().parent().removeClass("swarm");
             $(this).attr("src", "pic/swarm1.png");
+            
             //changes hidden swarm input 
             var id = $(this).parent().parent().parent().attr('id');
             document.getElementById(id+"swarmInput").innerHTML = "0";
-        
+            
+            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
+            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
         }
           
     });
     
-
-    //****************************************************************************************************
-    //          BUG button - onclick -  changes class and picture 
-    //*****************************************************************************************************
-  
         
-      
+//        if (emp.swarm === "1") {
+//              $(this).parent().parent().parent().addClass("swarm");
+//              
+//        }
+        
+//        var inputSwarmVal = emp.swarm;
+//        if( inputSwarmVal === "1") {
+//               document.getElementById("ImageSwarm14").src = "pic/swarm2.png";
+//               document.getElementById("14").classList.add("swarm");   
+//            }
    
-        $("#bugDiv").unbind('click').click(function () {
-        var a = $("#bugDiv").find('img').attr('src');
-        var b = "pic/bug1.png";
-
-        if (a !== b) {
-            
-            $(this).parent().parent().parent().removeClass(); 
-            var id = $(this).parent('div').parent().attr("id");
-           
-            $(this).parent().parent().parent().addClass("bug");
-            document.getElementById(id+"bugInput").value = "1";
-            
-            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
-            $(this).attr("src", "pic/bug2.png");
-            var a = "";
-            var b = "";
-           $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
-            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
-            
-        } else {
-          
-            $(this).parent().parent().parent().removeClass("bug");
-            $(this).attr("src", "pic/bug2.png");
-            var id = $(this).parent('div').parent().attr("id");
-            document.getElementById(id+"bugInput").value = "0";
-            $("#"+id).find("button#"+id+"submit-data").attr('disabled', null);
-            $("#"+id).find("button#"+id+"revert-data").attr('disabled', null);
-            var a = "";
-            var b = "";
-        }
-    });
 
     
+
     //****************************************************************************************************
     //          Save changes button - Disable - if there a change on the storycard disable is than false allowing user to save changes
     //*****************************************************************************************************
-    //*[@id="22bugInput"]
     
-    
-    
-    var parent;
-    // this gets the element the user clicks on
-    this.onclick = function (e) {
-        
 
+   var parent;
+
+ 
+    // this gets the element the user clicks on
+    this.onclick = function () {
+        
         if( event.target.parentElement.parentElement.id !== ''){
             parent = event.target.parentElement.id;
         } 
@@ -579,9 +606,8 @@ ID = "22";
              parent = event.target.parentElement.parentElement.parentElement.id;
         }   
         
-      
         if (parent > 0) {
-            
+           
             // If a change is made to the story card save button appears
             $('#' + parent).each(function () {
                 $(this).data('serialized', $(this).serialize());
@@ -593,5 +619,29 @@ ID = "22";
                 }
             });
             }
-       };     
-    }
+       };
+       
+       
+   //**************** if onclick happy face nput new value to input ************
+
+
+    $( ".happyFace" ).click(function() {
+            parent = event.target.parentElement.parentElement.parentElement.id;
+            document.getElementById(parent+"storynotes").value = "Story will be completed on time as mention in scrum";    
+            
+              $("#"+parent).find("button#"+parent+"submit-data").attr('disabled', null);
+             $("#"+parent).find("button#"+parent+"revert-data").attr('disabled', null);
+    });
+
+    $( ".sadFace" ).click(function() {
+            parent = event.target.parentElement.parentElement.parentElement.id;
+            document.getElementById(parent+"storynotes").value = "Issues!! - possible delays ";
+            
+             $("#"+parent).find("button#"+parent+"submit-data").attr('disabled', null);
+             $("#"+parent).find("button#"+parent+"revert-data").attr('disabled', null);
+             
+    });
+
+
+};
+

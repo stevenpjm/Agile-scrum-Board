@@ -15,8 +15,8 @@ import java.util.logging.Logger;
  * @author steven.masters
  */
 public class dbUpdateStoryCard {
-    
-    public dbUpdateStoryCard(int storyid, String storyname, String storynote,String user1Task, String user1,String user2Task, String user2,String user3Task, String user3, int storybug, int swarm, String columstatus) {
+    public dbUpdateStoryCard(){
+    //public dbUpdateStoryCard(int storyid, String storyname, String storynote,String user1Task, String user1,String user2Task, String user2,String user3Task, String user3, int storybug, int swarm, String columstatus) {
         
         
         try {
