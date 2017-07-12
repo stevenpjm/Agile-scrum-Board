@@ -17,8 +17,12 @@ function drop(ev) {
     gettargetlocation(ev);
     teamsats();
     
+
+ 
+
+   
       //if there are no storycards in the create story card div than it will enable the button
-    if($('#createStoryCard').find('div.storycard').length !== 0){
+    if($('#createStoryCard').find('div.storycard').length !== 0 ){
         document.getElementById("newStory").disabled = true;
     }else{
         document.getElementById("newStory").disabled = false;
@@ -84,7 +88,7 @@ function gettargetlocation(ev) {
     if (targetDiv === "user1pic" || targetDiv === "user2pic" || targetDiv === "user3pic") {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
-     ev.target.appendChild(document.getElementById(data).cloneNode(true));  
+        ev.target.appendChild(document.getElementById(data).cloneNode(true));  
 
     } else if (targetDiv === "active" || targetDiv === "backlog" || targetDiv === "complete") {
 
@@ -107,6 +111,6 @@ function updateposition(parentid) {
         document.getElementById(parentid + "columInput").value = column;
     } 
     
-
+    
     
 }

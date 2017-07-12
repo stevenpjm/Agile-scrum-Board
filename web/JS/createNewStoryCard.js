@@ -1,4 +1,6 @@
 
+/* global lastStoryID */
+
 //This creates the story 
 var i = 0;
 var j = 0;
@@ -7,14 +9,14 @@ var counter = 0;
 var counterstory = 0;
 var t = 1;
 
-function newStoryCard() {
-
+function createNewStoryCard(lastStoryID) {
+document.getElementById("newStory").disabled = true;
 
 //sets the amount of story cards to be created
 
 
 //creates an object for the individual stories
-        var newID = 21;
+        var newID = lastStoryID;
 
 
 //creates the div as the container for the story card

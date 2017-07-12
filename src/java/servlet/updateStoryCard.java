@@ -61,50 +61,51 @@ public class updateStoryCard extends HttpServlet {
             throws ServletException, IOException {
 
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, Object> map = new HashMap<String, Object>();
-        boolean isValid = false;
-        String userinput = request.getParameter("data");
-        String scrumOptions = "";
-        String scrumOptionAll = null;
-
+            
+        String storyid = request.getParameter("storyid");
+        String storyname = request.getParameter("storyname");
+        
+        String lastupdate = request.getParameter("lastupdate");
+        
+        String storynoteid = request.getParameter("storynoteid");
+        String storynote = request.getParameter("torynote");
+        
+        String user1Task = request.getParameter("user1Task");
+        String user1 = request.getParameter("user1");
+        String user2Task = request.getParameter("user2Task");
+        String user2 = request.getParameter("user2");
+        String user3Task = request.getParameter("user3Task");
+        String user3 = request.getParameter("user3");
+        String storybug = request.getParameter("storybug");
+        String swarm = request.getParameter("swarm");
+        String columstatus = request.getParameter("columstatus");
+        
+        String sprintid = request.getParameter("sprintid");
+        
+        // control the insert to the new insert here if this is a new note.  
+        
+        
         try {
+            
+            
+                
+           DBUtils.getPreparedStatment("UPDATE `scrumboards`.`storycards` SET `storyname`="+ storyname +", `lastupdate`="+lastupdate+"`user1Task`="+user1Task+", `user2Task`="+user2Task+", `user3Task`="+user3Task+", `user1`="+user1+",`user2`="+user2+", , `user3`="+user3+", `storybug`="+storybug+", `swarm`="+swarm+", `columstatus`="+columstatus+" WHERE `storyid`="+ storyid +", `scrumid`="+ storyid +", `sprintid`="+ sprintid +";").executeQuery();     
 
-            ResultSet scrumDetails = DBUtils.getPreparedStatment("SELECT teamName FROM scrumboards.scrumboard WHERE teamName LIKE \"%" + userinput + "%\";").executeQuery();
-
-//String[] scrumTeamReturn = new String[5];
-            int i = 1;
-            while (scrumDetails.next()) {
-                scrumOptions = scrumDetails.getString("teamName");
-
-                if (scrumOptions != null && scrumOptions.trim().length() != 0 && scrumOptionAll != null) {
-                    scrumOptionAll = scrumOptionAll + ", " + scrumOptions;
-                } else {
-                    scrumOptionAll = scrumOptions;
-                }
-            }
-
+            
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (scrumOptionAll != null && scrumOptionAll.trim().length() != 0) {
-            isValid = true;
-            map.put("scrumOptions", scrumOptionAll);
+ 
 
-        }
-        map.put("isValid", isValid);
-        write(response, scrumOptionAll);
-
-    }
+   }
 
 // returns the value back to the orginating
     private void write(HttpServletResponse response, String scrumOptionAll) throws IOException {
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(scrumOptionAll);
+
     }
 
 }

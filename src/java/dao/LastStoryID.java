@@ -20,7 +20,7 @@ public class LastStoryID extends JApplet{
              
             getLastStoryID = DataAccess.getLastStoryID(); 
             
-            getLastStoryID = getLastStoryID+1;
+            getLastStoryID = getLastStoryID + 1;
         return getLastStoryID;
     }
 
