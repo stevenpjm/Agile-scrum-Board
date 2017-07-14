@@ -1,12 +1,21 @@
-
+<%@page import="dao.userDetails"%>
 <%@page import="java.lang.String"%>
-<%@page import="dao.userAdmin"%>
 <%@page import="dao.scrumboard"%>
 <%@page import="java.sql.ResultSet"%>
+<%
+                String username = "";
+                String email = "";
+                String userName1 = (String) session.getAttribute("email");
+                ResultSet rs = userDetails.userDetails(userName1);
+
+                while (rs.next()) {
+                    username = rs.getString(2);
+                    email = rs.getString(4);
+                }
+            %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-       
         <link href="CSS/searchoptions.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="JS/login.js"></script>
@@ -14,40 +23,18 @@
         <script src="JS/ajaxCall.js"></script>
         <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
-        
         <link href="CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/searchoptions.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        
         <title>SCRUM BOARD</title>
     </head>
 
     <body>
-
         <div id="left">
-
         </div>
 
         <div id="main">
-
-            <%
-
-                String username = "";
-                String email = "";
-
-                String userName1 = (String) session.getAttribute("userid");
-                ResultSet rs = userAdmin.userAdmin(userName1);
-
-                while (rs.next()) {
-
-                    username = rs.getString(2);
-                    email = rs.getString(4);
-
-            // ... do something with these variables ...
-                }
-
-
-            %>
+            
             <form action="Update" style="border:1px solid #ccc">
                 <div class="container" id="userform">
 
@@ -74,8 +61,8 @@
                     <label><b>Scrum Team</b></label>
                     <input type="text" placeholder="Scrum Team" name="scrum-team" name="scrumTeamReq" autocomplete="off" required id="scrumNamevalue">
                     <div id="scrumSearchOptions"> 
-                       
-                        
+
+
                     </div>
                     <div class="clearfix">
                         <button type="submit" class="update">Update Profile</button>
@@ -102,28 +89,22 @@
             </div>
 
             <div id="linkhome"> 
-            <a href="http://localhost:8080/SCRUM_V2/" class="linkbutton" >Home Page</a>
+                <a href="http://localhost:8080/SCRUM_V2/" class="linkbutton" >Home Page</a>
 
-            
-            <a href="http://localhost:8080/SCRUM_V2/ContactUs.jsp" class="linkbutton" >Contact Us</a>
-            
-            
-            
-            <% 
-                  String userName = (String) session.getAttribute("userid");
-               
-                if (userName != null ){%>
+
+                <a href="http://localhost:8080/SCRUM_V2/ContactUs.jsp" class="linkbutton" >Contact Us</a>
+
+                <%
+                    String userName = (String) session.getAttribute("userid");
+                    if (userName != null) {%>
                 <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a> 
                 <a href='/SCRUM_V2/JSP/logout.jsp'class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
-            <% } else { %>
-                  <button onclick="document.getElementById('signup').style.display='block'" style="width:auto;" class="linkbutton">Sign Up</button>
-                   <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="linkbutton">login</button>
-            
+                <% } else { %>
+                <button onclick="document.getElementById('signup').style.display = 'block'" style="width:auto;" class="linkbutton">Sign Up</button>
+                <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;" class="linkbutton">login</button>
                 <%};%>
-             
-        </div>
-
+            </div>
         </div>
 
         <script>
@@ -131,21 +112,18 @@
             $("#scrumNamevalue").keyup(function (event) {
                 $("#scrumOptionsSelect").remove();
                 var searchVal = $(this).val();
-                
-                if(searchVal !== ""){
+
+                if (searchVal !== "") {
                     ajaxCall('#scrumSearchOptions', 1, searchVal);
                 }
             });
-            
-            $("#scrumSearchOptions").click(function() {
+
+            $("#scrumSearchOptions").click(function () {
                 var optionSelected = $("#scrumSearchOptions").find(":selected").val();
                 var targetVal = document.getElementById("scrumNamevalue");
                 targetVal.value = optionSelected;
                 $("#scrumOptionsSelect").remove();
             });
-            
         </script>   
-
     </body>
-
 </html>

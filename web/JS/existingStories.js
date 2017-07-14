@@ -427,6 +427,7 @@ function storyCard(existingstories) {
         savebtn.id = emp.storyid + "submit-data";
         savebtn.class = "savebtn";
         savebtn.disabled = "false";
+        //savebtn.action = saveData();
         savebtn.onclick = function(){'<% dao.dbUpdateStoryCard() %>';};
        
         

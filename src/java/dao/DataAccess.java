@@ -50,7 +50,7 @@ public class DataAccess {
         }
     }
 
-    public static ResultSet getAll() {
+    public static ResultSet getAll(int sprintid) {
         ResultSet rs = null;
         try {
             rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n"
@@ -100,20 +100,22 @@ public class DataAccess {
         return id;
     }
 
-    public static ResultSet getscrumid(String userName) {
+    public static ResultSet getscrumid(String email) {
         ResultSet rs = null;
         try {
-            rs = DBUtils.getPreparedStatment("select users.userid, users.scrumid, scrumboard.teamName from users INNER JOIN scrumboard ON users.scrumid = scrumboard.scrumid where userName ='" + userName + "';").executeQuery();
+            rs = DBUtils.getPreparedStatment("select users.userid, users.scrumid, scrumboard.teamName from users INNER JOIN scrumboard ON users.scrumid = scrumboard.scrumid where email ='" + email + "';").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
     }
 
-    public static ResultSet getUserDetails() {
+ 
+
+    public static ResultSet getUserDetails(int scrumID) {
         ResultSet userDetails = null;
         try {
-            userDetails = DBUtils.getPreparedStatment("SELECT userid, username, email  FROM USERS WHERE scrumid='4001';").executeQuery();
+            userDetails = DBUtils.getPreparedStatment("SELECT userid, username, email  FROM USERS WHERE scrumid="+scrumID+";").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }

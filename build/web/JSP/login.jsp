@@ -16,18 +16,13 @@
     <body>
         <%@ page import ="java.sql.*" %>
             <%
-                String userid = request.getParameter("uname");    
+                String email = request.getParameter("email");    
                 String pwd = request.getParameter("pass");
-                
-               // DataAccess st = new DataAccess();
-                
                 ResultSet rs;
-                rs = DBUtils.getPreparedStatment("select * from users where username='" + userid + "' and password='" + pwd + "'").executeQuery();
+                rs = DBUtils.getPreparedStatment("select * from users where email='" + email + "' and password='" + pwd + "'").executeQuery();
                 if (rs.next()) {
-                    session.setAttribute("userid", userid);
-
-                    response.sendRedirect("/SCRUM_V2/Scrumboard.jsp");
-                    
+                    session.setAttribute("email", email);
+                    response.sendRedirect("/SCRUM_V2/Scrumboard.jsp");   
                 } else {
                     %>
                  

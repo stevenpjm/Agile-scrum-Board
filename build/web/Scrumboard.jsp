@@ -1,12 +1,8 @@
-
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
-
 <%@page import="profile.MD5Util"%>
 <%@page import="dao.*"%>
-
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -18,6 +14,50 @@ Created on : Feb 1, 2017, 2:11:57 PM
 Author     : steven.masters
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
+<%
+//*******************************************
+//Get All User Details 
+//*******************************************
+
+    String username = "";
+    String email = "";
+    int userID = 0;
+    int scrumID = 0;
+    String userName1 = (String) session.getAttribute("email");
+    ResultSet getUserDetails = userDetails.userDetails(userName1);
+
+    while (getUserDetails.next()) {
+        userID = getUserDetails.getInt(1);
+        username = getUserDetails.getString(2);
+        email = getUserDetails.getString(4);
+        scrumID = getUserDetails.getInt(6);
+
+    }
+
+//*******************************************
+//Get All scrum details 
+//*******************************************
+    String scrumName = "";
+    DataAccess da = new DataAccess();
+    ResultSet getScrumDetails = da.getscrumid(email);
+    while (getScrumDetails.next()) {
+        scrumName = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(3));
+    }
+
+//*******************************************
+//Get All Sprint details 
+//*******************************************
+    String sprintName = "";
+    int sprintId = 0;
+    ResultSet getSprintDetails = sprintDetails.getSprintDetails(scrumID);
+    while (getSprintDetails.next()) {
+        sprintName = getSprintDetails.getString(getSprintDetails.getMetaData().getColumnName(2));
+        sprintId = getSprintDetails.getInt(getSprintDetails.getMetaData().getColumnName(1));
+    }
+%>
+
 
 
 <!DOCTYPE html>
@@ -51,37 +91,27 @@ Author     : steven.masters
                 <a href="http://localhost:8080/SCRUM_V2/index.jsp" class="linkbutton"  >Home Page</a>
                 <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp" class="linkbutton" >Contact Us</a>
 
-                <% if (session.getAttribute("userid") != null) {
-                %>
-
+                <% if (session.getAttribute("email") != null) {%>
                 <a href='/SCRUM_V2/JSP/logout.jsp' id="logoutlink" class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
-                <% }
-                %>
+                <%}%>
 
             </div>
 
             <div id="profile">
                 <img src="https://www.gravatar.com/avatar/<% MD5Util md5u = new MD5Util();
-    out.println(md5u.md5Hex("test23@email.com")); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="60px" height="60px">
+                    email = (String) session.getAttribute("email");
+                    out.println(md5u.md5Hex(email)); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="60px" height="60px">
                 <br>
-                <% out.println(session.getAttribute("userid"));%>
+                <% out.println(session.getAttribute("email"));%>
             </div>
 
 
             <div class="scrumdropdown">
                 <center>Scrum Team</center>
-                <button class="scrumbtn">  <%
-                    Integer id = 1;
-                    String scrumName = "";
-                    String userName = (String) session.getAttribute("userid");
-                    DataAccess da = new DataAccess();
-                    ResultSet rs = da.getscrumid(userName);
-                    while (rs.next()) {
-                        scrumName = rs.getString(rs.getMetaData().getColumnName(3));
-                    }
-                    out.println(scrumName);
-                    %>
+                <button class="scrumbtn">  
+
+                    <%out.println(scrumName);%>
                 </button>
 
                 <div class="scrum-content">
@@ -92,7 +122,7 @@ Author     : steven.masters
 
             <div class="sprintdropdown">
                 <center>Sprint Name</center>
-                <button class="sprintbtn">Wild house</button>
+                <button class="sprintbtn"><%out.println(sprintName);%> </button>
                 <div class="scrum-content">
                     <a href="">Close Sprint</a>
                     <a href="#">Delete Sprint</a>
@@ -102,7 +132,7 @@ Author     : steven.masters
 
         </div>
 
-        <% if (session.getAttribute("userid") != null) {
+        <% if (session.getAttribute("email") != null) {
 
         %>
         <div id="scrumboardContainer">
@@ -144,7 +174,7 @@ Author     : steven.masters
                 <div id="createStoryCard">
                     <div id="storyCardHeader"> <center>Create Story Card</center></div>
                     <button onclick="createNewStory()" id="newStory" class="button">+ Create Story</button>
-                    
+
                     <input type="hidden" name="fname" id="storyCardcontainer">
                 </div>
 
@@ -154,13 +184,13 @@ Author     : steven.masters
                     <script>
                         $(".userprofilepic").draggable({helper: 'clone'});
                     </script>
-                    <%    ResultSet userDetails = dao.DataAccess.getUserDetails();
+                    <%    ResultSet userDetails = dao.DataAccess.getUserDetails(scrumID);
                         while (userDetails.next()) {
                     %>
                     <div id="userFrame"> 
-                        <div data-id="<% out.println(userDetails.getString("userid")); %>" class="teamProfilePics" >
+                        <div data-id="<% out.println(userDetails.getString("email")); %>" class="teamProfilePics" >
                             <img src="https://www.gravatar.com/avatar/<% MD5Util md5u2 = new MD5Util();
-                                out.println(md5u2.md5Hex(userDetails.getString("email"))); %>?d=identicon&r=g" id="<% out.println(userDetails.getString("userid")); %>" draggable="true" ondragstart="drag(event)" width="70" height="70" class="profilePicture">
+    out.println(md5u2.md5Hex(userDetails.getString("email"))); %>?d=identicon&r=g" id="<% out.println(userDetails.getString("userid")); %>" draggable="true" ondragstart="drag(event)" width="70" height="70" class="profilePicture">
                         </div>  
 
                         <div id="username" class="profileUsername">
@@ -187,23 +217,18 @@ Author     : steven.masters
 
         <%StringBuilder sb = new StringBuilder();
             sb.append("'{\"employees\":['+");
-        //DataAccess da = new DataAccess();
-            ResultSet ls = da.getAll();
-
+            ResultSet ls = da.getAll(sprintId);
             ResultSetMetaData rsmd = ls.getMetaData();
             int columnCount = rsmd.getColumnCount();
             boolean lastRow;
-
             while (ls.next()) {
                 for (int i = 1; i <= columnCount; i++) {
                     if (i == 1) {
                         sb.append("'{");
                     }
-
                     if (i > 1) {
                         sb.append(",");
                     }
-
                     String columnValue = ls.getString(i);
                     sb.append("\"" + rsmd.getColumnName(i) + "\":\"" + columnValue + "\"");
                 }
@@ -214,76 +239,103 @@ Author     : steven.masters
                 }
             }
             sb.append("}]}';");
-
             String test1 = sb.toString();
-
             String myVar = test1;
-
         %>
 
 
         <script>
-            var txt3 = <%=myVar%>;
-            var existingstories = $.parseJSON(txt3).employees;
-            storyCard(existingstories);
+    var txt3 = <%=myVar%>;
+    var existingstories = $.parseJSON(txt3).employees;
+    storyCard(existingstories);
 
-            $('#sprint tr #date').each(function () {
-                var rowDate = $(this).html();
-                var today = new Date();
-                var dd = today.getDate();
-                var mm = today.getMonth() + 1;
-                var yyyy = today.getFullYear();
-                if (dd < 10)
-                {
-                    dd = '0' + dd;
-                }
-                if (mm < 10)
-                {
-                    mm = '0' + mm;
-                }
-                todaysdate = dd + '/' + mm + '/' + yyyy;
+    $('#sprint tr #date').each(function () {
+        var rowDate = $(this).html();
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        if (dd < 10)
+        {
+            dd = '0' + dd;
+        }
+        if (mm < 10)
+        {
+            mm = '0' + mm;
+        }
+        todaysdate = dd + '/' + mm + '/' + yyyy;
 
-                if (todaysdate - rowDate < 1 && rowDate < todaysdate) {
-                    $(this).parent('tr').addClass('');
-                } else {
-                    if (rowDate < todaysdate) {
-                        $(this).parent('tr').addClass('old');
-                    }
-                }
-            });
+        if (todaysdate - rowDate < 1 && rowDate < todaysdate) {
+            $(this).parent('tr').addClass('');
+        } else {
+            if (rowDate < todaysdate) {
+                $(this).parent('tr').addClass('old');
+            }
+        }
+    });
 
 // loads up the teamstats
-            teamsats();
+    teamsats();
 
 // creates a new storycard
-            function createNewStory() {
-                var lastStoryID="";
-                var y = 1;
-                var storyCardcontainer = document.getElementById('storyCardcontainer').value;
-                var x = parseInt(storyCardcontainer);
-               
-                if (storyCardcontainer !== "") {
-                     newValue = x + y;                  
-                     document.getElementById('storyCardcontainer').value = newValue;
-                     lastStoryID = newValue;
-                }else{
-                 
-                    <% int newid = dao.LastStoryID.LastStoryID();%>;
-                    lastStoryID = <%= newid%>;
-                    document.getElementById('storyCardcontainer').value = lastStoryID;
-                }
-                createNewStoryCard(lastStoryID);
-            }
+    function createNewStory() {
+        var lastStoryID = "";
+        var y = 1;
+        var storyCardcontainer = document.getElementById('storyCardcontainer').value;
+        var x = parseInt(storyCardcontainer);
+
+        if (storyCardcontainer !== "") {
+            newValue = x + y;
+            document.getElementById('storyCardcontainer').value = newValue;
+            lastStoryID = newValue;
+        } else {
+
+            <% int newid = dao.LastStoryID.LastStoryID();%>;
+            lastStoryID = <%= newid%>;
+            document.getElementById('storyCardcontainer').value = lastStoryID;
+        }
+        createNewStoryCard(lastStoryID);
+    }
+
+
+    // this removes the profile pic when double clicked
+    $(this).dblclick(function (event) {
+        var currentEl1 = $(event.target).closest('img').attr('class');
+        var currentEl2 = $(event.target).parent().attr('class');
+        var currentEl3 = $(event.target).parents().attr('id');
+        if (currentEl1 === "profilePicture" &&  currentEl2 !== "teamProfilePics") {
+            $(event.target).remove();
+        }
+    });
+
 
         </script>
 
-        <% } else { %>
+        <%-- The below block of code helps maintain   --%>
 
-        <div id="scrumboardContainer">
+        <div id="signup" class="modal">
+            <span onclick="document.getElementById('signup').style.display = 'none'" class="close" title="Close Modal">×</span>
+
+            <form  id="SCRUMNAME" class="modal-content animate" action="/SCRUM_V2/JSP/scrumsetup.jsp"  method="post" >
+                <div class="container">
+                    <label><b>Scrum Name</b></label>
+                    <input type="text" placeholder="Enter Email" name="email" id="email" autocomplete="off" placeholder="sophie@example.com"required>
+
+                    Team
+
+                </div>
         </div>
+    </form>
+</div>
 
-        <%}%>
-    </body>
+<% } else { %>
+
+<div id="scrumboardContainer">
+    Please sign in!!  
+</div>
+
+<%}%>
+</body>
 </html>
 
 

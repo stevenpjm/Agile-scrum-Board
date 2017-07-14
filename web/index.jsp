@@ -68,9 +68,9 @@
             
             
             <% 
-                  String userName = (String) session.getAttribute("userid");
+                  String email = (String) session.getAttribute("email");
                
-                if (userName != null ){%>
+                if (email != null ){%>
                 <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a> 
                 <a href='/SCRUM_V2/JSP/logout.jsp'class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
@@ -90,8 +90,8 @@
 
 
                      <div class="container">
-                        <label><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required >
+                        <label><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" name="email" required autocomplete="on">
 
                         <label><b>Password</b></label>
                         <input type="password" placeholder="Enter Password" name="pass" required>
