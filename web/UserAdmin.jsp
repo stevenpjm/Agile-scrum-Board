@@ -6,11 +6,14 @@
                 String username = "";
                 String email = "";
                 String userName1 = (String) session.getAttribute("email");
+                String teamName = ""; 
                 ResultSet rs = userDetails.userDetails(userName1);
 
                 while (rs.next()) {
                     username = rs.getString(2);
-                    email = rs.getString(4);
+                    email = rs.getString(3);
+                    teamName = rs.getString(5);
+                    
                 }
             %>
 <html>
@@ -35,7 +38,7 @@
 
         <div id="main">
             
-            <form action="Update" style="border:1px solid #ccc">
+            <form  method="post" style="border:1px solid #ccc">
                 <div class="container" id="userform">
 
                     <label><b>Email</b></label>
@@ -51,21 +54,21 @@
                     <div id="password"><br>
                         Password Reset!<br>
                         <label><b>New Password</b></label><br>
-                        <input type="password" placeholder="Repeat Password" name="new-repeat" autocomplete="off" required id="newpassword"><br>
+                        <input type="password" placeholder="new Password" name="new-repeat" autocomplete="off" id="newpassword"><br>
 
                         <label><b>Repeat New Password</b></label><br>
-                        <input type="password" placeholder="Repeat Password" name="psw-repeat" autocomplete="off" required id="confirm-password">
+                        <input type="password" placeholder="Repeat new Password" name="psw-repeat" autocomplete="off" id="confirm-password">
 
                     </div>
 
                     <label><b>Scrum Team</b></label>
-                    <input type="text" placeholder="Scrum Team" name="scrum-team" name="scrumTeamReq" autocomplete="off" required id="scrumNamevalue">
+                    <input type="text" placeholder="Scrum Team" name="scrumTeamReq" autocomplete="off" value="<% out.println(teamName);%>" id="scrumNamevalue">
                     <div id="scrumSearchOptions"> 
 
 
                     </div>
                     <div class="clearfix">
-                        <button type="submit" class="update">Update Profile</button>
+                        <button type="submit" class="update" formaction="/SCRUM_V2/JSP/userAdmin.jsp">Update Profile</button>
                         <button type="delete" class="cancelbtn">Delete Profile</button>
                     </div>
 

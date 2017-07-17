@@ -31,8 +31,8 @@ Author     : steven.masters
     while (getUserDetails.next()) {
         userID = getUserDetails.getInt(1);
         username = getUserDetails.getString(2);
-        email = getUserDetails.getString(4);
-        scrumID = getUserDetails.getInt(6);
+        email = getUserDetails.getString(3);
+        scrumID = getUserDetails.getInt(4);
 
     }
 
@@ -103,7 +103,7 @@ Author     : steven.masters
                     email = (String) session.getAttribute("email");
                     out.println(md5u.md5Hex(email)); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="60px" height="60px">
                 <br>
-                <% out.println(session.getAttribute("email"));%>
+                <% out.println(username);%>
             </div>
 
 
@@ -302,7 +302,7 @@ Author     : steven.masters
     $(this).dblclick(function (event) {
         var currentEl1 = $(event.target).closest('img').attr('class');
         var currentEl2 = $(event.target).parent().attr('class');
-        var currentEl3 = $(event.target).parents().attr('id');
+        //var currentEl3 = $(event.target).parents().attr('id');
         if (currentEl1 === "profilePicture" &&  currentEl2 !== "teamProfilePics") {
             $(event.target).remove();
         }
