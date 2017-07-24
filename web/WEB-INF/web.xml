@@ -29,8 +29,12 @@
         <servlet-name>AllPost</servlet-name>
         <url-pattern>/AllPost</url-pattern>
     </servlet-mapping>
-      <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>scrumTeamReq</servlet-name>
         <url-pattern>/scrumTeamReq</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TaskUserUpdate</servlet-name>
+        <url-pattern>/TaskUserUpdate</url-pattern>
     </servlet-mapping>
 </web-app>

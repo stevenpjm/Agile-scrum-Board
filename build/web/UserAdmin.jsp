@@ -41,9 +41,11 @@
             <form  method="post" style="border:1px solid #ccc">
                 <div class="container" id="userform">
 
-                    <label><b>Email</b></label>
-                    <input type="text" placeholder="Enter Email" name="email" autocomplete="off" required value="<% out.println(email);%>" id="email">
+                    <label><b>Email   :    You can not amend your email, you must sign up with a new user.</b></label>
+                    <input type="text" placeholder="Enter Email" name="email" autocomplete="off" required value="<% out.println(email);%>" id="email" readonly>
                     <br>
+                   
+                
                     <label><b>Username</b></label>
                     <input type="text" placeholder="Username" name="uname" autocomplete="off" required value="<% out.println(username); %>" id="username">
                     <br>

@@ -8,16 +8,18 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
-
     parentid = ev.target.id;
     return parentid;
 }
 
-function drop(ev) {
-    gettargetlocation(ev);
+function drop(ev,sprintID) {
+    
+    
+    
+    
     teamsats();
     ev.preventDefault();
-
+    gettargetlocation(ev,sprintID);
 //if there are no storycards in the create story card div than it will enable the button
     if ($('#createStoryCard').find('div.storycard').length !== 0) {
         document.getElementById("newStory").disabled = true;
@@ -66,7 +68,7 @@ function teamsats() {
     document.getElementById('storyTotal').innerHTML = total;
 }
 
-function gettargetlocation(ev) {
+function gettargetlocation(ev,sprintID) {
     $('.dropzone').droppable({
         drop: function (event, ui) {
             console.log('dragged ' + ui.draggable.attr('id') + ' onto ' + this.id);
@@ -77,8 +79,20 @@ function gettargetlocation(ev) {
 
 if (targetDiv === "user1pic" || targetDiv === "user2pic" || targetDiv === "user3pic") {
     ev.preventDefault();
+    
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data).cloneNode(true));
+
+   
+    // saves image by grabbing email address
+    var storyID = $(event.target).closest('.storycard').attr('id');
+    var userID = ev.dataTransfer.getData("text");
+    var targetProfile = $(event.target).attr('id');
+
+    // saves image by grabbing email address
+    PicUpdate(storyID, sprintID, userID, targetProfile);
+    
+    
 } else if (targetDiv === "active" || targetDiv === "backlog" || targetDiv === "complete") {
 ev.preventDefault();
 var data = ev.dataTransfer.getData("text");

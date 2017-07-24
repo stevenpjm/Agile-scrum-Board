@@ -48,10 +48,10 @@
                 String emailin = request.getParameter("email"); 
                 String usernamein = request.getParameter("uname");    
                 String passwordin = request.getParameter("old_psw");
-                String password_new = request.getParameter("new-repeat");
+                String passwordrepeatin = request.getParameter("new-repeat");
                 String teamNamein = request.getParameter("scrumTeamReq");
                 
-                String test = new userDetails(emailin, usernamein, passwordin, password_new, teamNamein) ;
+                int test = dao.userDetails.userDetails(emailin, usernamein, passwordin,passwordrepeatin, teamNamein);
                
    %>
     <div id="left">
@@ -60,11 +60,11 @@
 
         
     <div id="main">
-        <% %>
+        <% if(test == 1){ %>
         <h2>You have updated your details!</h2> 
-        
+        <%}else{ %>
         <h2>Your request could not be processed at this time!</h2> 
-        
+        <%  }  %>
     </div>
 
     <div id="bottom">

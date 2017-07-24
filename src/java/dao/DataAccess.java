@@ -55,7 +55,7 @@ public class DataAccess {
         try {
             rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n"
                     + "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storyid = sn2.storyid)\n"
-                    + "and sc.storyid = sn2.storyid;").executeQuery();
+                    + "and sc.storyid = sn2.storyid AND sc.sprintID ="+ sprintid +";").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,12 +110,23 @@ public class DataAccess {
         return rs;
     }
 
- 
+   // this gets the user datils based on Scrum ID
 
     public static ResultSet getUserDetails(int scrumID) {
         ResultSet userDetails = null;
         try {
             userDetails = DBUtils.getPreparedStatment("SELECT userid, username, email  FROM USERS WHERE scrumid="+scrumID+";").executeQuery();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userDetails;
+    }
+    
+       // this gets the user datils based on Scrum ID
+    public static ResultSet getUserDetailsByUserId(int userID) {
+        ResultSet userDetails = null;
+        try {
+            userDetails = DBUtils.getPreparedStatment("SELECT userid, username, email  FROM USERS WHERE userid="+userID+";").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -320,7 +320,7 @@ function storyCard(existingstories) {
         user1pic.setAttribute("ondrop", "true");
         user1pic.setAttribute("ondragover", "true");
         
-
+        
         // Appends both slection list and the user picture to user 1 Div
         user1Div.appendChild(user1pic);
         
@@ -410,8 +410,11 @@ function storyCard(existingstories) {
         document.getElementById(emp.storyid + 'user1Task').value = emp.user1Task;
         document.getElementById(emp.storyid + 'user2Task').value = emp.user2Task;
         document.getElementById(emp.storyid + 'user3Task').value = emp.user3Task;
-        //document.getElementById(emp.storyid + '').value = 
-    
+       
+       document.getElementById("user1pic").src =emp.user1 ;
+       alert(emp.user1+ "<< - user test");
+        document.getElementById("user2pic").src =emp.user2 ;
+       document.getElementById("user3pic").src =emp.user3 ;
     
 //***************************************************
 //             Save Button - onclick - saves changes made to storycard 
@@ -427,8 +430,13 @@ function storyCard(existingstories) {
         savebtn.id = emp.storyid + "submit-data";
         savebtn.class = "savebtn";
         savebtn.disabled = "false";
-        //savebtn.action = saveData();
-        savebtn.onclick = function(){'<% dao.dbUpdateStoryCard() %>';};
+    
+        savebtn.onclick = function () {
+           var storyID = $(this).parent().parent().attr('id');
+            var storyName = $(this).parent().parent().find('.storyname').val();
+            // there are two parts to this update. 
+            updateP1(storyID, storyName);
+        };
        
         
         var buttontxt = document.createTextNode("Save changes");

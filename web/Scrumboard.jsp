@@ -1,3 +1,5 @@
+<%@page import="dao.dbUpdateStoryCard"%>
+<%@page import="java.lang.String"%>
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
@@ -70,9 +72,11 @@ Author     : steven.masters
 
         <%--  Javscripts files  --%>
         <script src="JS/createNewStoryCard.js"></script>
+        <script src="JS/updateStoryCard.js"></script>
         <%--<script src="JS/scrumboard.js"></script> --%>
         <script src="JS/existingStories.js"></script>
         <script src="JS/dragDropEvent.js"></script>
+        <script src="JS/picUpdate.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <%--<link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">--%>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -204,43 +208,49 @@ Author     : steven.masters
 
                 </div>
             </div>
-            <div id="complete" ondrop="drop(event)" ondragover="allowDrop(event)">
+                
+            <div id="complete" ondrop="drop(event,<% out.println(sprintId);%>)" ondragover="allowDrop(event)">
                 <h3 id = "completeHeader"><center>Complete</center></h3>
             </div>
-            <div id="active" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div id="active" ondrop="drop(event,<% out.println(sprintId);%>)" ondragover="allowDrop(event)">
                 <h3 id = "activeheader"><center>Active</center></h3>
             </div>
-            <div id="backlog" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div id="backlog" ondrop="drop(event,<% out.println(sprintId);%>)" ondragover="allowDrop(event)">
                 <h3 id = "backlogheader"><center>Backlog</center></h3>
             </div>
         </div>
 
         <%StringBuilder sb = new StringBuilder();
+            String myVar = "";
             sb.append("'{\"employees\":['+");
             ResultSet ls = da.getAll(sprintId);
+
             ResultSetMetaData rsmd = ls.getMetaData();
             int columnCount = rsmd.getColumnCount();
-            boolean lastRow;
-            while (ls.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    if (i == 1) {
-                        sb.append("'{");
-                    }
-                    if (i > 1) {
-                        sb.append(",");
-                    }
-                    String columnValue = ls.getString(i);
-                    sb.append("\"" + rsmd.getColumnName(i) + "\":\"" + columnValue + "\"");
-                }
-                lastRow = ls.isLast();
 
-                if (lastRow == false) {
-                    sb.append("},' + ");
+            if (columnCount != 0) {
+
+                boolean lastRow;
+                while (ls.next()) {
+                    for (int i = 1; i <= columnCount; i++) {
+                        if (i == 1) {
+                            sb.append("'{");
+                        }
+                        if (i > 1) {
+                            sb.append(",");
+                        }
+                        String columnValue = ls.getString(i);
+                        sb.append("\"" + rsmd.getColumnName(i) + "\":\"" + columnValue + "\"");
+                    }
+                    lastRow = ls.isLast();
+
+                    if (lastRow == false) {
+                        sb.append("},' + ");
+                    }
                 }
-            }
-            sb.append("}]}';");
-            String test1 = sb.toString();
-            String myVar = test1;
+                sb.append("}]}';");
+                String test1 = sb.toString();
+                myVar = test1;
         %>
 
 
@@ -248,65 +258,86 @@ Author     : steven.masters
     var txt3 = <%=myVar%>;
     var existingstories = $.parseJSON(txt3).employees;
     storyCard(existingstories);
+        </script>
+        <% }%>
+        <script>
+            $('#sprint tr #date').each(function () {
+                var rowDate = $(this).html();
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                if (dd < 10)
+                {
+                    dd = '0' + dd;
+                }
+                if (mm < 10)
+                {
+                    mm = '0' + mm;
+                }
+                todaysdate = dd + '/' + mm + '/' + yyyy;
 
-    $('#sprint tr #date').each(function () {
-        var rowDate = $(this).html();
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        if (dd < 10)
-        {
-            dd = '0' + dd;
-        }
-        if (mm < 10)
-        {
-            mm = '0' + mm;
-        }
-        todaysdate = dd + '/' + mm + '/' + yyyy;
+                if (todaysdate - rowDate < 1 && rowDate < todaysdate) {
+                    $(this).parent('tr').addClass('');
+                } else {
+                    if (rowDate < todaysdate) {
+                        $(this).parent('tr').addClass('old');
+                    }
+                }
+            });
 
-        if (todaysdate - rowDate < 1 && rowDate < todaysdate) {
-            $(this).parent('tr').addClass('');
-        } else {
-            if (rowDate < todaysdate) {
-                $(this).parent('tr').addClass('old');
-            }
-        }
-    });
+        // loads up the teamstats
+            teamsats();
 
-// loads up the teamstats
-    teamsats();
+        // creates a new storycard
+            function createNewStory() {
+                var lastStoryID = "";
+                var y = 1;
+                var storyCardcontainer = document.getElementById('storyCardcontainer').value;
+                var x = parseInt(storyCardcontainer);
 
-// creates a new storycard
-    function createNewStory() {
-        var lastStoryID = "";
-        var y = 1;
-        var storyCardcontainer = document.getElementById('storyCardcontainer').value;
-        var x = parseInt(storyCardcontainer);
-
-        if (storyCardcontainer !== "") {
-            newValue = x + y;
-            document.getElementById('storyCardcontainer').value = newValue;
-            lastStoryID = newValue;
-        } else {
+                if (storyCardcontainer !== "") {
+                    newValue = x + y;
+                    document.getElementById('storyCardcontainer').value = newValue;
+                    lastStoryID = newValue;
+                } else {
 
             <% int newid = dao.LastStoryID.LastStoryID();%>;
-            lastStoryID = <%= newid%>;
-            document.getElementById('storyCardcontainer').value = lastStoryID;
-        }
-        createNewStoryCard(lastStoryID);
-    }
+                    lastStoryID = <%= newid%>;
+                    document.getElementById('storyCardcontainer').value = lastStoryID;
+                }
+                createNewStoryCard(lastStoryID);
+            }
+            
+            var sprintID=<%=sprintId%>;
 
-
-    // this removes the profile pic when double clicked
-    $(this).dblclick(function (event) {
-        var currentEl1 = $(event.target).closest('img').attr('class');
-        var currentEl2 = $(event.target).parent().attr('class');
-        //var currentEl3 = $(event.target).parents().attr('id');
-        if (currentEl1 === "profilePicture" &&  currentEl2 !== "teamProfilePics") {
-            $(event.target).remove();
-        }
-    });
+        // this removes the profile pic when double clicked
+            $(this).dblclick(function (event) {
+                var currentEl1 = $(event.target).closest('img').attr('class');
+                var currentEl2 = $(event.target).parent().attr('class');
+       
+                if (currentEl1 === "profilePicture" && currentEl2 !== "teamProfilePics") {
+                    //Gets the relevant details to remove pic user from story card.
+                    var storyID = $(event.target).closest('.storycard').attr('id');
+                    var targetProfile =$(event.target).closest('.profilepics').attr('id');
+                    PicUpdateRemove(storyID,sprintID,targetProfile);
+                    
+                    
+                    
+                    $(event.target).remove();
+                }
+            });
+            
+            
+            
+            var storyID="";
+            var storyName="";
+           
+            
+            function updateP1(storyID, storyName) {
+                  
+                   updateStoryCard(storyID, storyName, sprintID); 
+            }
 
 
         </script>
