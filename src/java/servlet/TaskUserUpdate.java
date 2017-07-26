@@ -10,6 +10,7 @@ import db.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class TaskUserUpdate extends HttpServlet {
         Map<String, Object> map = new HashMap<String, Object>();
         boolean isValid = false;
 
-        String ProfileDiv;
+        String ProfileDiv="";
         String storyID_input = request.getParameter("storyID");
         String sprintID_input = request.getParameter("sprintID");
         String targetProfile_input = request.getParameter("targetProfile");
@@ -82,27 +83,39 @@ public class TaskUserUpdate extends HttpServlet {
         } else {userID_converted = 0;}
         int storyID_converted = Integer.parseInt(storyID_input);
         int sprintID_converted = Integer.parseInt(sprintID_input);
-        //
+        String compare1 = storyID_converted+"user1pic";
+        String compare2 = storyID_converted+"user2pic";
+        String compare3 = storyID_converted+"user3pic";
         
         // converts the input from DIV ID to the SQL column name
-        switch (targetProfile_input) {
-            case "user3pic":
-                ProfileDiv = "user3";
-                break;
-            case "user2pic":
-                ProfileDiv = "user2";
-                break;
-            default:
+                if(compare1.equals(targetProfile_input)){
                 ProfileDiv = "user1";
-                break;
-        }
+                }else if(compare2.equals(targetProfile_input)){
+                    ProfileDiv = "user2";
+                }else if(compare3.equals(targetProfile_input)){
+                ProfileDiv = "user3";
+                }
+    
                
         PreparedStatement ts;
-
-        try{   
+      
+        ResultSet userDetails = null;
+        String user_email= "";
+        
+        try{
+            
+            if(userID_converted!=0){
+            userDetails = DBUtils.getPreparedStatment("SELECT userid, username, email  FROM USERS WHERE userid="+ userID_converted +";").executeQuery();
+            userDetails.next();
+            user_email = userDetails.getString(3);
+            }
             ts = DBUtils.getPreparedStatment("UPDATE scrumboards.storycards SET "+ProfileDiv+" = ?, lastupdate = current_date() WHERE storycards.storyid = ? AND storycards.sprintid = ?;");
             
-            ts.setInt(1,userID_converted);
+            if(userID_converted!=0){
+                ts.setString(1,user_email);
+             }else{
+                ts.setString(1, "");
+            }
             ts.setInt(2, storyID_converted);
             ts.setInt(3, sprintID_converted);
             ts.executeUpdate();
@@ -112,7 +125,7 @@ public class TaskUserUpdate extends HttpServlet {
         }
         updatedStatus = "updated";
         map.put("isValid", isValid);
-        write(response, updatedStatus);
+            write(response, updatedStatus);
 
         }
 

@@ -193,8 +193,8 @@ Author     : steven.masters
                     %>
                     <div id="userFrame"> 
                         <div data-id="<% out.println(userDetails.getString("email")); %>" class="teamProfilePics" >
-                            <img src="https://www.gravatar.com/avatar/<% MD5Util md5u2 = new MD5Util();
-    out.println(md5u2.md5Hex(userDetails.getString("email"))); %>?d=identicon&r=g" id="<% out.println(userDetails.getString("userid")); %>" draggable="true" ondragstart="drag(event)" width="70" height="70" class="profilePicture">
+                             <img src="https://www.gravatar.com/avatar/<% MD5Util md5u2 = new MD5Util();
+                                out.println(md5u2.md5Hex(userDetails.getString("email"))); %>?d=identicon&r=g" id="<% out.println(userDetails.getString("userid")); %>" draggable="true" ondragstart="drag(event)" width="70" height="70" class="profilePicture">
                         </div>  
 
                         <div id="username" class="profileUsername">
@@ -205,10 +205,9 @@ Author     : steven.masters
                     <%
                         }
                     %>
-
                 </div>
             </div>
-                
+
             <div id="complete" ondrop="drop(event,<% out.println(sprintId);%>)" ondragover="allowDrop(event)">
                 <h3 id = "completeHeader"><center>Complete</center></h3>
             </div>
@@ -255,11 +254,12 @@ Author     : steven.masters
 
 
         <script>
-    var txt3 = <%=myVar%>;
-    var existingstories = $.parseJSON(txt3).employees;
-    storyCard(existingstories);
+            var txt3 = <%=myVar%>;
+            var existingstories = $.parseJSON(txt3).employees;
+            storyCard(existingstories);
         </script>
         <% }%>
+
         <script>
             $('#sprint tr #date').each(function () {
                 var rowDate = $(this).html();
@@ -286,10 +286,10 @@ Author     : steven.masters
                 }
             });
 
-        // loads up the teamstats
+            // loads up the teamstats
             teamsats();
 
-        // creates a new storycard
+            // creates a new storycard
             function createNewStory() {
                 var lastStoryID = "";
                 var y = 1;
@@ -308,52 +308,41 @@ Author     : steven.masters
                 }
                 createNewStoryCard(lastStoryID);
             }
-            
-            var sprintID=<%=sprintId%>;
 
-        // this removes the profile pic when double clicked
+            var sprintID =<%=sprintId%>;
+
+            // this removes the profile pic when double clicked
             $(this).dblclick(function (event) {
                 var currentEl1 = $(event.target).closest('img').attr('class');
                 var currentEl2 = $(event.target).parent().attr('class');
-       
+
                 if (currentEl1 === "profilePicture" && currentEl2 !== "teamProfilePics") {
                     //Gets the relevant details to remove pic user from story card.
                     var storyID = $(event.target).closest('.storycard').attr('id');
-                    var targetProfile =$(event.target).closest('.profilepics').attr('id');
-                    PicUpdateRemove(storyID,sprintID,targetProfile);
-                    
-                    
-                    
-                    $(event.target).remove();
+                    var targetProfile = $(event.target).closest('.profilepicsholder').attr('id');
+                    alert(storyID + "<<StoryID " + sprintID + "<<SprintID " + targetProfile + "<<target");
+                    PicUpdateRemove(storyID, sprintID, targetProfile);
+                    $(event.target).closest('IMG').remove();
                 }
             });
-            
-            
-            
-            var storyID="";
-            var storyName="";
-           
-            
+
+            // This adds the pic
+            var storyID = "";
+            var storyName = "";
             function updateP1(storyID, storyName) {
-                  
-                   updateStoryCard(storyID, storyName, sprintID); 
+                updateStoryCard(storyID, storyName, sprintID);
             }
 
-
         </script>
-
         <%-- The below block of code helps maintain   --%>
 
         <div id="signup" class="modal">
             <span onclick="document.getElementById('signup').style.display = 'none'" class="close" title="Close Modal">×</span>
-
             <form  id="SCRUMNAME" class="modal-content animate" action="/SCRUM_V2/JSP/scrumsetup.jsp"  method="post" >
                 <div class="container">
                     <label><b>Scrum Name</b></label>
                     <input type="text" placeholder="Enter Email" name="email" id="email" autocomplete="off" placeholder="sophie@example.com"required>
-
                     Team
-
                 </div>
         </div>
     </form>

@@ -13,10 +13,6 @@ function drag(ev) {
 }
 
 function drop(ev,sprintID) {
-    
-    
-    
-    
     teamsats();
     ev.preventDefault();
     gettargetlocation(ev,sprintID);
@@ -76,9 +72,12 @@ function gettargetlocation(ev,sprintID) {
     });
 
     var targetDiv = event.target.id;
-
-if (targetDiv === "user1pic" || targetDiv === "user2pic" || targetDiv === "user3pic") {
-    ev.preventDefault();
+    var parentID = event.target.parentElement.parentElement.parentElement.id;
+    alert(parentID+"user1pic");
+if (targetDiv === parentID+"user1pic" || targetDiv === parentID+"user2pic" || targetDiv === parentID+"user3pic") {
+    
+     alert(parentID);   
+     ev.preventDefault();
     
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data).cloneNode(true));

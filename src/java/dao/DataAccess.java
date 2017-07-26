@@ -123,14 +123,16 @@ public class DataAccess {
     }
     
        // this gets the user datils based on Scrum ID
-    public static ResultSet getUserDetailsByUserId(int userID) {
+    public static String getUserDetailsByUserId(int userID) {
         ResultSet userDetails = null;
+        String email="";
         try {
             userDetails = DBUtils.getPreparedStatment("SELECT userid, username, email  FROM USERS WHERE userid="+userID+";").executeQuery();
+            email = userDetails.getString(2);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return userDetails;
+        return email;
     }
 
 }
