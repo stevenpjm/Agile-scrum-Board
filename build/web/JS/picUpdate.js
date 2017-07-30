@@ -20,7 +20,7 @@ function PicUpdate(storyID, sprintID, userID, targetProfile)
                 },
                 error: function (jqXHR, textStatus, errorThrown)
                 {
-                    alert("not");
+                    alert("Could not process your request");
                     console.log(textStatus + " - " + errorThrown);
                 }
             });

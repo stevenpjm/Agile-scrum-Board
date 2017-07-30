@@ -5,14 +5,14 @@
  */
 
 
-function updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column, sprintID, userID)
+function deleteStorycard(storyID,  sprintID)
 {
- 
-    var data = {storyID: storyID, storyNote: storyNote, storyName: storyName, sprintID: sprintID, user1Task: user1Task, user2Task: user2Task, user3Task: user3Task, storyBug: storyBug, swarm: swarm, column: column , userID: userID };
-           
+
+    var data = {storyID: storyID, sprintID: sprintID};
+
     $.ajax(
             {
-                url: "updateStoryCardV2",
+                url: "deleteStorycardServ",
                 type: "POST",
                 data: data,
                 success: function ()
@@ -22,7 +22,7 @@ function updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, us
                 error: function (jqXHR, textStatus, errorThrown)
                 {
                     alert("Could not process your request");
-                    console.log(textStatus + " - " + errorThrown);
+                   
                 }
             });
 }

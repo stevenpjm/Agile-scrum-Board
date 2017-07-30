@@ -18,7 +18,7 @@
 /*this is main layout of the story card - when not selected*/
 .storycard{
     min-width: 350px;
-    min-height: 200px;
+    min-height: 215px;
     background-color:white;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -243,14 +243,26 @@ div[id^="story1"]:hover{
 .show {display:block;}
               
 div#savButtonContainer{
- width: 40%;
-
+    display: block;
+    position: relative;
+    top: 108px;
+    bottom: 0px;
+    background: none;
+    width: 80%;
+    height: 22px;
 }
-        
+
+.savButtonDiv{
+    position: absolute;
+    bottom: 0px;
+    left: 5px;
+    top:2px;
+    }    
 .revertButtonDiv{
-        position: relative;
+    position: absolute;
     left: 100px;
-    bottom: 19px;
+    bottom: 0px;
+    top:2px;
     
 }   
 

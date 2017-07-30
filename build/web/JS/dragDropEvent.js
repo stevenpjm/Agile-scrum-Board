@@ -14,6 +14,7 @@ function drag(ev) {
 
 function drop(ev,sprintID) {
     teamsats();
+    
     ev.preventDefault();
     gettargetlocation(ev,sprintID);
 //if there are no storycards in the create story card div than it will enable the button
@@ -22,6 +23,8 @@ function drop(ev,sprintID) {
     } else {
         document.getElementById("newStory").disabled = false;
     }
+    
+    
 //updateposition(parentid);
 }
 
@@ -73,16 +76,12 @@ function gettargetlocation(ev,sprintID) {
 
     var targetDiv = event.target.id;
     var parentID = event.target.parentElement.parentElement.parentElement.id;
-    alert(parentID+"user1pic");
+  
 if (targetDiv === parentID+"user1pic" || targetDiv === parentID+"user2pic" || targetDiv === parentID+"user3pic") {
-    
-     alert(parentID);   
-     ev.preventDefault();
-    
+    ev.preventDefault();    
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data).cloneNode(true));
 
-   
     // saves image by grabbing email address
     var storyID = $(event.target).closest('.storycard').attr('id');
     var userID = ev.dataTransfer.getData("text");
@@ -98,7 +97,7 @@ var data = ev.dataTransfer.getData("text");
 ev.target.appendChild(document.getElementById(data));
 }
 
-
+// this update dates the position of the storycard.
     function updateposition(parentid) {
         event.preventDefault();
         var position = $(".storycard").position();

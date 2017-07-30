@@ -28,35 +28,33 @@ public class DataAccess {
             ResultSet rs = DBUtils.getPreparedStatment("SELECT MAX(storyid) FROM scrumboards.storycards;").executeQuery();
             while (rs.next()) {
                 StoryId = rs.getString(1);
-                MaxStoryId = Integer.parseInt(StoryId);
-            }
+                if(StoryId==null){
+                    MaxStoryId=0;
+                }else{
+                    MaxStoryId = Integer.parseInt(StoryId);
+                }
+                }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
         return MaxStoryId;
     }
 
-    public void addNew(Story s) {
-        PreparedStatement ts;
-        try {
-            ts = DBUtils.getPreparedStatment("INSERT INTO scrumboards.storycards (storyname, storynotes, storybug, createdate, swarm) VALUES ( ?, ?, ?, ?, ?);");
-            ts.setString(1, s.getStoryname());
-            ts.setString(2, s.getStorynotes());
-            ts.setInt(3, s.getStorybug());
-            ts.setString(4, s.getStoryuser1());
-            ts.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     public static ResultSet getAll(int sprintid) {
         ResultSet rs = null;
         try {
             rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n"
-                    + "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storyid = sn2.storyid)\n"
-                    + "and sc.storyid = sn2.storyid AND sc.sprintID ="+ sprintid +";").executeQuery();
-        } catch (ClassNotFoundException | SQLException ex) {
+                    + "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storynoteid = sc.storynoteid)\n"
+                    + " AND sc.sprintID ="+ sprintid +";").executeQuery();
+        
+            //Old Verion
+//             rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n"
+//                    + "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storyid = sn2.storyid)\n"
+//                    + "and sc.storyid = sn2.storyid AND sc.sprintID ="+ sprintid +";").executeQuery();
+            
+             } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
@@ -76,16 +74,7 @@ public class DataAccess {
         return ls;
     }
 
-    public void delete(int ID) {
-        PreparedStatement ps;
-        try {
-            ps = DBUtils.getPreparedStatment("DELETE FROM scrumboards.storycards WHERE storyid =" + ID + ";");
-            ps.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     /*-------------------'*/
     public static int getuserid(String userName) {
         int id = 0;

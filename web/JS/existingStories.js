@@ -9,12 +9,12 @@ var t = 1;
 
 function storyCard(existingstories) {
 
-
 //sets the amount of story cards to be created
     for (var p = 0; p < existingstories.length; p++) {
 
 //creates an object for the individual stories
         var emp = existingstories[p];
+        
 
 
 //creates the div as the container for the story card
@@ -87,13 +87,14 @@ function storyCard(existingstories) {
 
 
         newlink = document.createElement('a');
-        newlink.setAttribute('class', 'a');
+        newlink.setAttribute('class', 'deleteButton');
+        newlink.setAttribute('data-toggle',"dropdown");
         var ID = $(this).parent().attr("id");
-        newlink.onclick = function () {
-            removeStoryCard(ID);
-            location.reload();
-        };
-        var link1 = document.createTextNode("test");
+//        newlink.onclick = function () {
+//            removeStoryCard(ID);
+//            location.reload();
+//        };
+        var link1 = document.createTextNode("Delete");
         newlink.appendChild(link1);
         drop.appendChild(newlink);
         admin.appendChild(drop);
@@ -110,7 +111,7 @@ function storyCard(existingstories) {
         newDiv.appendChild(adminDiv);
 
 //Last updated 
-        var cdate = document.createTextNode(emp.date);
+        var cdate = document.createTextNode(emp.datecreated);
 // Last created 
         var ldate = document.createTextNode(emp.lastupdate);
 
@@ -167,25 +168,16 @@ function storyCard(existingstories) {
         bugimg1.style.width = '45px';
         bugimg1.setAttribute("class", "bug1");
 
-//bug image 2
-//        var bugimg2 = document.createElement("IMG");
-//        bugimg2.src = "pic/bug2.png";
-//        bugimg2.id = "bugImage"+emp.storyid;
-//        bugimg2.style.height = '50px';
-//        bugimg2.style.width = '50px';
-//        bugimg2.style.display = "none";
-//        bugimg2.setAttribute("class", "bug2");
-
 //hidden 
-        var bugInput = document.createElement("div");
+        var bugInput = document.createElement("input");
         bugInput.setAttribute("id", emp.storyid + "bugInput");
-        var inputBugVal = document.createTextNode(emp.bug);
+        bugInput.setAttribute("class", "bugInput");
+        bugInput.value = emp.storybug;
         bugInput.style.display = "none";
-        bugInput.appendChild(inputBugVal);
+     
 
 
         bugDiv.appendChild(bugimg1);
-//        bugDiv.appendChild(bugimg2);
         bugDiv.appendChild(bugInput);
 
 
@@ -218,11 +210,12 @@ function storyCard(existingstories) {
         swarmDiv.appendChild(img2swarm);
 
 // value
-        var swarmInput = document.createElement("div");
+        var swarmInput = document.createElement("input");
         swarmInput.setAttribute("id", emp.storyid + "swarmInput");
-        var inputswarmVal = document.createTextNode(emp.swarm);
+        swarmInput.setAttribute("class", "swarmInput");
+        swarmInput.value = emp.swarm ;
         swarmInput.style.display = "none";
-        swarmInput.appendChild(inputswarmVal);
+        
 
         swarmDiv.appendChild(swarmInput);
 
@@ -394,15 +387,10 @@ function storyCard(existingstories) {
 // ++++++++++++++++++++++++++++
 //++++++++++++++
 //++++++++++
-        var column = emp.column;
-        if (column === "B") {
-            document.getElementById("active").appendChild(newDiv);
-        } else if (column === "C") {
-            document.getElementById("complete").appendChild(newDiv);
-        } else {
-            document.getElementById("backlog").appendChild(newDiv);
-        }
-
+        var column = emp.columstatus;
+        document.getElementById(column).appendChild(newDiv);
+       
+         
 //****************************************************************
 //          adds the values from DB to fileds in story card              
 //****************************************************************
@@ -412,29 +400,28 @@ function storyCard(existingstories) {
         document.getElementById(emp.storyid + 'user1Task').value = emp.user1Task;
         document.getElementById(emp.storyid + 'user2Task').value = emp.user2Task;
         document.getElementById(emp.storyid + 'user3Task').value = emp.user3Task;
-        alert(emp.user1);
+ 
         if (emp.user1 !== "") {
             user1exiting = document.createElement("IMG");
             user1exiting.setAttribute("src", "https://www.gravatar.com/avatar/" + emp.user1 + "?d=identicon");
             user1exiting.setAttribute("class", "profilePicture");
             document.getElementById(emp.storyid + "user1pic").appendChild(user1exiting);
         }
-alert(emp.user2);
+
         if (emp.user2 !== "") {
             user2exiting = document.createElement("IMG");
             user2exiting.setAttribute("src", "https://www.gravatar.com/avatar/" + emp.user2 + "?d=identicon");
             user2exiting.setAttribute("class", "profilePicture");
             document.getElementById(emp.storyid + "user2pic").appendChild(user2exiting);
         }
-        alert(emp.user3);
+    
         if (emp.user3 !== "") {
             user3exiting = document.createElement("IMG");
             user3exiting.setAttribute("src", "https://www.gravatar.com/avatar/" + emp.user3 + "?d=identicon");
             user3exiting.setAttribute("class", "profilePicture");
             document.getElementById(emp.storyid + "user3pic").appendChild(user3exiting);
         }
-//user2pic.setAttribute("src", emp.user2);
-//user3pic.setAttribute("src", emp.user3);
+
 
 //***************************************************
 //             Save Button - onclick - saves changes made to storycard 
@@ -454,10 +441,18 @@ alert(emp.user2);
             savebtn.onclick = function () {
                 var storyID = $(this).parent().parent().attr('id');
                 var storyName = $(this).parent().parent().find('.storyname').val();
+                var storyNotes = $(this).parent().parent().find('.storynotes').val();
+                var user1Task = $(this).parent().parent().find('.user1Task').val();
+                var user2Task = $(this).parent().parent().find('.user2Task').val();
+                var user3Task = $(this).parent().parent().find('.user3Task').val();
+                var storyBug = $(this).parent().parent().find('.bugInput').val();
+                var swarm = $(this).parent().parent().find('.swarmInput').val();
+                var column = $(this).parent().parent().parent().attr("id");
+                
+           
 // there are two parts to this update. 
-                updateP1(storyID, storyName);
+                updateP1(storyID, storyName, storyNotes, user1Task, user2Task, user3Task, storyBug, swarm, column);
             };
-
 
             var buttontxt = document.createTextNode("Save changes");
             savebtn.appendChild(buttontxt);
@@ -468,7 +463,7 @@ alert(emp.user2);
 //             Revert Button - onclick - reverts changes 
 //***************************************************
 
-
+            // revert changes made  by users
             var revertBtn = document.createElement("button");
             revertBtn.setAttribute("class", "revertButtonDiv");
             revertBtn.type = "submit";
@@ -479,21 +474,21 @@ alert(emp.user2);
             revertBtn.onclick = function () {
                 location.reload();
             };
-
+            
             var buttontxt = document.createTextNode("Revert changes");
             revertBtn.appendChild(buttontxt);
             savButtonCon.appendChild(revertBtn);
             newDiv.appendChild(savButtonCon);
 
 
-// Position - hidden fields - arreange the order of the div
+            // Position - hidden fields - arreange the order of the div
             var positionInput = document.createElement("input");
             positionInput.setAttribute("id", emp.storyid + "position");
             var inputBugVal = document.createTextNode(emp.position);
             positionInput.style.display = "none";
             positionInput.appendChild(inputBugVal);
             newDiv.appendChild(positionInput);
-
+         
 // column area - hidden fields - arreange the order of the div
             var columnInput = document.createElement("input");
             columnInput.setAttribute("id", emp.storyid + "columInput");
@@ -502,8 +497,23 @@ alert(emp.user2);
             columnInput.appendChild(columninput);
             newDiv.appendChild(columnInput);
 
-        }
+    // depending storycard bug status value this applies bug class
+      
+        var storyid = emp.storyid;
 
+        var inputBugVal = emp.storybug;
+        if (inputBugVal === "1") {
+            document.getElementById("bugImage"+storyid).src = "pic/bug2.png";
+            document.getElementById(storyid).classList.add("bug");
+        } 
+        
+        var inputSwarmVal = emp.swarm;
+        if (inputSwarmVal === "1") {
+            document.getElementById("ImageSwarm"+storyid).src = "pic/swarm2.png";
+            document.getElementById(storyid).classList.add("swarm");
+        }
+    
+    }
 
 //========================================================
 //  end of loop
@@ -522,18 +532,13 @@ alert(emp.user2);
         $(".bug1").unbind('click').click(function () {
             var a = $(this).closest('img').attr('src');
             var b = "pic/bug1.png";
-
             if (a === b) {
                 var id = $(this).parent().parent().parent().attr('id');
-                alert(id);
                 $(this).parent().parent().parent().removeClass();
                 $(this).parent().parent().parent().addClass("bug");
-
                 $(this).attr("src", "pic/bug2.png");
-                document.getElementById(id + "bugInput").innerHTML = "1";
+                document.getElementById(id + "bugInput").value = "1";
 //enables the save button
-
-
 
                 $("#" + id).find("button#" + id + "submit-data").attr('disabled', null);
                 $("#" + id).find("button#" + id + "revert-data").attr('disabled', null);
@@ -541,77 +546,43 @@ alert(emp.user2);
             } else {
 
                 var id = $(this).parent().parent().parent().attr('id');
-                alert(id);
                 $("#" + id).find("button#" + id + "submit-data").attr('disabled', null);
                 $("#" + id).find("button#" + id + "revert-data").attr('disabled', null);
 
                 $(this).parent().parent().parent().removeClass("bug");
                 $(this).attr("src", "pic/bug1.png");
-                document.getElementById(id + "bugInput").innerHTML = "0";
+                document.getElementById(id + "bugInput").value = "0";
             }
 
         });
-
-// depending storycard bug status value this applies bug class
-        var inputBugVal = "1";
-        if (inputBugVal === "15") {
-            document.getElementById("bugImage15").src = "pic/bug1.png";
-            document.getElementById("15").classList.add("bug");
-        }
-
-
 //****************************************************************************************************
 //          Swarm button -  onclick changes the class and the image to be on.
 //*****************************************************************************************************
 
-//this allows the change in stat to the main div when the bug is clicked 
+//this allows the change in state to the main div when the SWARM is clicked 
         $(".swarm1").unbind('click').click(function () {
             var a = $(this).closest('img').attr('src');
             var b = "pic/swarm1.png";
-
             if (a === b) {
                 $(this).parent().parent().parent().removeClass();
-
                 var id = $(this).parent().parent().parent().attr('id');
-
-                document.getElementById(id + "swarmInput").innerHTML = "1";
-
+                document.getElementById(id + "swarmInput").value = "1";
                 $(this).parent().parent().parent().addClass("swarm");
-
                 $("#" + id).find("button#" + id + "submit-data").attr('disabled', null);
                 $("#" + id).find("button#" + id + "revert-data").attr('disabled', null);
-
                 $(this).attr("src", "pic/swarm2.png");
                 var a = "";
                 var b = "";
             } else {
                 $(this).parent().parent().parent().removeClass("swarm");
                 $(this).attr("src", "pic/swarm1.png");
-
-//changes hidden swarm input 
+                //changes hidden swarm input 
                 var id = $(this).parent().parent().parent().attr('id');
-                document.getElementById(id + "swarmInput").innerHTML = "0";
-
+                document.getElementById(id + "swarmInput").value = "0";
                 $("#" + id).find("button#" + id + "submit-data").attr('disabled', null);
                 $("#" + id).find("button#" + id + "revert-data").attr('disabled', null);
             }
-
         });
-
-
-        if (emp.swarm === "1") {
-            $(this).parent().parent().parent().addClass("swarm");
-
-        }
-
-        var inputSwarmVal = emp.swarm;
-        if (inputSwarmVal === "1") {
-            document.getElementById("ImageSwarm14").src = "pic/swarm2.png";
-            document.getElementById("14").classList.add("swarm");
-        }
-
-
-
 
 //****************************************************************************************************
 //          Save changes button - Disable - if there a change on the storycard disable is than false allowing user to save changes
@@ -671,8 +642,10 @@ alert(emp.user2);
             $("#" + parent).find("button#" + parent + "revert-data").attr('disabled', null);
 
         });
-
+        
+        
+        
+   
 
     }
-    ;
 

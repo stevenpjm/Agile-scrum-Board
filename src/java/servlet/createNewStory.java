@@ -1,4 +1,4 @@
-    /*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,12 +9,10 @@ import dao.storyNoteUpdate;
 import db.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,13 +27,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author steven.masters
  */
-@WebServlet(name = "updateStoryCardV2", urlPatterns = {"/updateStoryCardV2"})
-public class updateStoryCardV2 extends HttpServlet {
-    String updatedStatus="";
+@WebServlet(name = "createNewStory", urlPatterns = {"/createNewStory"})
+public class createNewStory extends HttpServlet {
+    
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat lastmod = new SimpleDateFormat("yyyy-MM-dd");
     String lastmodConvert = lastmod.format(cal.getTime());
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -73,58 +70,43 @@ public class updateStoryCardV2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
         Map<String, Object> map = new HashMap<String, Object>();
-        boolean isValid = false;
-
-  
-        String storyName_input = request.getParameter("storyName");
-        String storyID_input = request.getParameter("storyID");
-        String storyNote = request.getParameter("storyNote");
+        
+        
         String sprintID_input = request.getParameter("sprintID");
-        String user1Task = request.getParameter("user1Task");
-        String user2Task = request.getParameter("user2Task");
-        String user3Task = request.getParameter("user3Task");
-        String storybug = request.getParameter("storyBug");
-        String lastmod = lastmodConvert;
-        String swarm = request.getParameter("swarm");
-        String columstatus = request.getParameter("column");
-        int storyID_converted = Integer.parseInt(storyID_input);
         int sprintID_converted = Integer.parseInt(sprintID_input);
         
         String userID = request.getParameter("userID");
         int userID_converted = Integer.parseInt(userID);
-       
+        
+        String scrumID = request.getParameter("scrumID");
+        int scrumID_converted = Integer.parseInt(scrumID);
+        
+        int storyID_converted = 0;
+        String storyNote = "";
+      
+        
+        
         
         dao.storyNoteUpdate check = new storyNoteUpdate(storyID_converted, storyNote, userID_converted);
-        
+           
         PreparedStatement ts;
-        try{   
-            ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`storycards` SET `storyname`= ?, `user1Task`= ?, `user2Task`= ? , `user3Task`= ? , `storybug`= ?, `swarm`= ? , columstatus= ? ,lastupdate = ? WHERE storyid=? and sprintid= ?;");
-            ts.setString(1, storyName_input);
-            ts.setString(2, user1Task);
-            ts.setString(3, user2Task);
-            ts.setString(4, user3Task);
-            ts.setString(5, storybug);
-            ts.setString(6, swarm);
-            ts.setString(7, columstatus);
-            ts.setString(8, lastmod);
-            ts.setInt(9, storyID_converted);
-            ts.setInt(10, sprintID_converted);
-            
+        try {
+            ts = DBUtils.getPreparedStatment("INSERT INTO scrumboards.storycards (userid, scrumid, sprintid, storynoteid, datecreated, lastupdate) VALUES ( ?, ?, ?, ?, ?, ?);");
+            ts.setInt(1, userID_converted);
+            ts.setInt(2, scrumID_converted);
+            ts.setInt(3, sprintID_converted);
+            ts.setInt(4, 1);
+            ts.setString(5, lastmodConvert);
+            ts.setString(6, lastmodConvert);
             ts.executeUpdate();
-            
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        updatedStatus = "updated";
-        map.put("isValid", isValid);
-        write(response, updatedStatus);
+    
+            
+       
 
         }
 
-// returns the value back to the orginating
-    private void write(HttpServletResponse response, String updatedStatus) throws IOException {
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("Updated");
-    }
+
 }

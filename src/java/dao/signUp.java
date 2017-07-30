@@ -23,14 +23,14 @@ import java.util.logging.Logger;
  * @author steven.masters
  */
 
-public class signup {
+public class signUp {
     
     private final String email;
     private final String username;
     private final String password;
     
 
-    public signup(String emailin, String usernamein, String passwordin) {
+    public signUp(String emailin, String usernamein, String passwordin) {
        this.email = emailin;
        this.username = usernamein;
        this.password = passwordin;          
