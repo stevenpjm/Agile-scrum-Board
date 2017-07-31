@@ -42,4 +42,8 @@
         <servlet-name>deleteStorycardServ</servlet-name>
         <url-pattern>/deleteStorycardServ</url-pattern>
     </servlet-mapping>
+       <servlet-mapping>
+        <servlet-name>teamNotes</servlet-name>
+        <url-pattern>/teamNotes</url-pattern>
+    </servlet-mapping>
 </web-app>

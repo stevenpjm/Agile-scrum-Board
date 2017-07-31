@@ -92,7 +92,7 @@ public class DataAccess {
     public static ResultSet getscrumid(String email) {
         ResultSet rs = null;
         try {
-            rs = DBUtils.getPreparedStatment("select users.userid, users.scrumid, scrumboard.teamName from users INNER JOIN scrumboard ON users.scrumid = scrumboard.scrumid where email ='" + email + "';").executeQuery();
+            rs = DBUtils.getPreparedStatment("select users.userid, users.scrumid, scrumboard.teamName, teamnote1, teamnote2, teamnote3, teamnote4 from users INNER JOIN scrumboard ON users.scrumid = scrumboard.scrumid where email ='" + email + "';").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }

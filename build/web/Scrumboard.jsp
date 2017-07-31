@@ -23,6 +23,11 @@ Author     : steven.masters
     String scrumName = "";
     int userID = 0;
     int scrumID = 0;
+    String teamnote1="";
+    String teamnote2="";
+    String teamnote3="";
+    String teamnote4="";
+    
 
     if (session.getAttribute("email") != null) {
 //*******************************************
@@ -47,6 +52,10 @@ Author     : steven.masters
         ResultSet getScrumDetails = da.getscrumid(email);
         while (getScrumDetails.next()) {
             scrumName = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(3));
+            teamnote1 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(4));
+            teamnote2 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(5));
+            teamnote3 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(6));
+            teamnote4 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(7));
         }
 
 //*******************************************
@@ -72,6 +81,7 @@ Author     : steven.masters
         <%--  Javscripts files  --%>
         <script src="JS/createNewStoryCard.js"></script>
         <script src="JS/createNewStoryAjaxCall.js"></script>
+        <script src="JS/teamNotesAjaxCall.js"></script>
         <script src="JS/updateStoryCard.js"></script>
         <script src="JS/deleteStoryCard.js"></script>
       
@@ -140,11 +150,12 @@ Author     : steven.masters
                     <div id="teamNotesheader">
                         <center>Team Notes</center>
                     </div>
-                    <div class='label'>1: <input type="text" class="teamnotesinput" value="" id="teamNotes1"/></div>
-                    <div class='label'>2: <input type="text" class="teamnotesinput" value="" id="teamNotes2" /></div>
-                    <div class='label'>3: <input type="text" class="teamnotesinput" value="" id="teamNotes3"/></div>
-                    <div class='label'>4: <input type="text" class="teamnotesinput" value="" id="teamNotes4"/></div>
-                    <button type="button" class="button">Save</button>
+                    <div class='label'>1: <input type="text" class="teamnotesinput" value=" <% out.println(teamnote1); %>" id="teamNotes1"/></div>
+                    <div class='label'>2: <input type="text" class="teamnotesinput" value="<% out.println(teamnote2); %>" id="teamNotes2" /></div>
+                    <div class='label'>3: <input type="text" class="teamnotesinput" value="<% out.println(teamnote3); %>" id="teamNotes3"/></div>
+                    <div class='label'>4: <input type="text" class="teamnotesinput" value="<% out.println(teamnote4); %>" id="teamNotes4"/></div>
+                    
+                    <button type="button" id="teamNotesSaveBtn"class="teamNotesSaveBtn">Save</button>
                 </div>
 
                 <div id="teamStats">
@@ -325,6 +336,16 @@ Author     : steven.masters
                  $(this).parent().parent().parent().parent().remove();
                  deleteStorycard(storyID,  sprintID);
              });
+             
+             //gets the team notes values and updates the values to database using ajax call
+             $(".teamNotesSaveBtn").click(function () {
+                var teamNote1 = document.getElementById("teamNotes1").value ;
+                var teamNote2 = document.getElementById("teamNotes2").value ;
+                var teamNote3 = document.getElementById("teamNotes3").value ;
+                var teamNote4 = document.getElementById("teamNotes4").value ;
+               
+                teamNotes(scrumID ,teamNote1, teamNote2, teamNote3, teamNote4);
+            });
             
         </script>
 

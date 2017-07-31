@@ -5,7 +5,7 @@
  */
 
 
-function updateStoryCard(element, callId, dataIn)
+function ajaxCall(element, callId, dataIn)
 {
     var data = {id: callId, data: dataIn};
 

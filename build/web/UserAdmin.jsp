@@ -115,6 +115,7 @@
         <script>
             // Using the userinput to retrieve scrumteam. 
             $("#scrumNamevalue").keyup(function (event) {
+              
                 $("#scrumOptionsSelect").remove();
                 var searchVal = $(this).val();
 

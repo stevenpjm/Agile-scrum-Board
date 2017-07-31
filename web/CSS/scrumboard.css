@@ -223,9 +223,23 @@ body{
 
 
 /** Button layout **/
-
-
 .button {
+   margin-left: 15px;
+   margin-bottom: 5px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 2.5px #999;
+}
+
+.teamNotesSaveBtn {
    margin-left: 15px;
    margin-bottom: 5px;
     padding: 4px 8px;
