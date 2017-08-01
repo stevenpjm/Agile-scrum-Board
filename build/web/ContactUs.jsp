@@ -35,7 +35,6 @@
             <br>
             <h2><u>Terms and Conditions</u></h2>
             These terms and conditions govern your use of this website; by using this website, you accept these terms and conditions in full.   If you disagree with these terms and conditions or any part of these terms and conditions, you must not use this website.
-
             <ol>
                 <li>Republish material from this website (including republication on another website)</li>
                 <li>Sell, rent or sub-license material from this website</li>
@@ -46,11 +45,11 @@
             <br>
             Agile Scrumboard members who post content deemed unsuitable by Agile Scrumboard may have their access revoked at any time, without warning. Agile Scrumboard may, but is not obliged to monitor submissions on each scrum boards.
         </div>
+
         <div id="bottom">
-
         </div>
-        <div id="right">
 
+        <div id="right">
         </div>
 
         <div id="top">

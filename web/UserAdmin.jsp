@@ -1,6 +1,6 @@
 <%@page import="dao.userDetails"%>
 <%@page import="java.lang.String"%>
-<%@page import="dao.scrumboard"%>
+<%@page import="dao.*"%>
 <%@page import="java.sql.ResultSet"%>
 <%
                 String username = "";
@@ -25,6 +25,7 @@
         <script src="JS/signup.js"></script>
         <script src="JS/ajaxCall.js"></script>
         <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+       
         <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/searchoptions.css" rel="stylesheet" type="text/css"/>

@@ -3,80 +3,62 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="profile.MD5Util"%>
 <%@page import="dao.*"%>
-  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 
-
 <html>
     <head>
-        
-  
         <link href="/SCRUM_V2/CSS/login.css" rel="stylesheet" type="text/css"/>
         <link href="/SCRUM_V2/CSS/layout.css" rel="stylesheet" type="text/css"/>
         <link href="/SCRUM_V2/CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         <link href="/SCRUM_V2/CSS/layout.css" rel="stylesheet" type="text/css"/>
-     
         <title>SCRUM BOARD</title>
-      </head>
+    </head>
 
-            
-<body>
-    
-     <div id="banner">
+    <body>
+        <div id="banner">
             <div id="Logo">
                 AGILE SCRUMBOARD
             </div>
             <div id="linksScrum">
                 <a href="http://localhost:8080/SCRUM_V2/index.jsp" class="linkbutton"  >Home Page</a>
                 <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp" class="linkbutton" >Contact Us</a>
-
                 <% if (session.getAttribute("email") != null) {%>
                 <a href='/SCRUM_V2/JSP/logout.jsp' id="logoutlink" class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
                 <%}%>
-
             </div>
-     </div>
+        </div>
 
-            
+        <%
+            String emailin = request.getParameter("email");
+            String usernamein = request.getParameter("uname");
+            String passwordin = request.getParameter("old_psw");
+            String passwordrepeatin = request.getParameter("new-repeat");
+            String teamNamein = request.getParameter("scrumTeamReq");
+            int test = dao.userDetails.userDetails(emailin, usernamein, passwordin, passwordrepeatin, teamNamein);
+        %>
+        <div id="left">
+        </div>
 
-    <%
-                String emailin = request.getParameter("email"); 
-                String usernamein = request.getParameter("uname");    
-                String passwordin = request.getParameter("old_psw");
-                String passwordrepeatin = request.getParameter("new-repeat");
-                String teamNamein = request.getParameter("scrumTeamReq");
-                
-                int test = dao.userDetails.userDetails(emailin, usernamein, passwordin,passwordrepeatin, teamNamein);
-               
-   %>
-    <div id="left">
+        <div id="main">
+            <% if (test == 1) { %>
+            <h2>You have updated your details!</h2> 
+            <%} else { %>
+            <h2>Your request could not be processed at this time!</h2> 
+            <%  }%>
+        </div>
 
-    </div>
+        <div id="bottom">
+        </div>
 
-        
-    <div id="main">
-        <% if(test == 1){ %>
-        <h2>You have updated your details!</h2> 
-        <%}else{ %>
-        <h2>Your request could not be processed at this time!</h2> 
-        <%  }  %>
-    </div>
-
-    <div id="bottom">
-        
-    </div>
-
-    <div id="right">
-      
-    </div>
+        <div id="right">
+        </div>
 
 
-</body>
+    </body>
 </html>
 
 

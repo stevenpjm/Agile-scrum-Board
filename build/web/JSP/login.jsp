@@ -17,8 +17,8 @@
         <link href="/SCRUM_V2/CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <title>SCRUM BOARD</title>
-      </head>
-      
+    </head>
+
     <body>
         <%@ page import ="java.sql.*" %>
         <%
@@ -34,7 +34,7 @@
         <div id="left">
 
         </div>
-        
+
         <div id="main">
             <h2> Invalid details entered</h2>
         </div>
@@ -57,9 +57,9 @@
                 <a href="http://localhost:8080/SCRUM_V2/" class="linkbutton" >Home Page</a>
             </div>
         </div>
-        
+
         <div id="main">
-            
+
             <form class="modal-content animate" action="/SCRUM_V2/JSP/login.jsp" method="post">
                 <div class="container">
                     <label><b>Email</b></label>
@@ -75,7 +75,7 @@
             </form>
         </div>
 
-            <%}%>
+        <%}%>
 
-        </body>
+    </body>
 </html>

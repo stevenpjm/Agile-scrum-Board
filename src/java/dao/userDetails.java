@@ -22,7 +22,7 @@ public class userDetails {
         String email_input = email;
         ResultSet rs = null;
         try {
-            rs = DBUtils.getPreparedStatment("SELECT user.userid, user.username, user.email,user.scrumid,team.teamName, team.userid as admin FROM scrumboards.users user, scrumboards.scrumboard team WHERE user.email='" + email_input + "'AND team.scrumid = user.scrumid;").executeQuery();
+            rs = DBUtils.getPreparedStatment("SELECT user.userid, user.username, user.email, user.scrumid, team.teamName, team.userid as admin FROM scrumboards.users user, scrumboards.scrumboard team WHERE user.email='" + email_input + "'AND team.scrumid = user.scrumid;").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -4,12 +4,11 @@
  * and open the template in the editor.
  */
 
-
-function createNewStoryAjaxCall(scrumID , sprintID, userID)
+// create a new story 
+function createNewStoryAjaxCall(scrumID, sprintID, userID)
 {
- 
-    var data = {scrumID: scrumID, sprintID: sprintID, userID: userID };
-    
+    var data = {scrumID: scrumID, sprintID: sprintID, userID: userID};
+
     $.ajax(
             {
                 url: "createNewStory",
@@ -17,11 +16,11 @@ function createNewStoryAjaxCall(scrumID , sprintID, userID)
                 data: data,
                 success: function ()
                 {
-                  alert("Updated");
+                    alert("Updated");
                 },
                 error: function (jqXHR, textStatus, errorThrown)
                 {
-                     alert("Could not process your request");
+                    alert("Could not process your request");
                     console.log(textStatus + " - " + errorThrown);
                 }
             });

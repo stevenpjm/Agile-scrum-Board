@@ -34,12 +34,12 @@ function ajaxCall(element, callId, dataIn)
                     for (var i = 0; i < returnValuesSplit.length; i++) {
                         var option = document.createElement("option");
                         option.setAttribute("value", returnValuesSplit[i]);
-                        option.setAttribute("id", "scrumopt"+i);
+                        option.setAttribute("id", "scrumopt" + i);
                         option.text = returnValuesSplit[i];
                         scrumOptionsSelect.appendChild(option);
                     }
 
-                    //$("scrumOptionsSelect").remove();
+//$("scrumOptionsSelect").remove();
                     $(element).append(scrumOptionsSelect);
                 },
                 error: function (jqXHR, textStatus, errorThrown)

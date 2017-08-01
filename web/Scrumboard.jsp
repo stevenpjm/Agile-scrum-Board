@@ -23,11 +23,10 @@ Author     : steven.masters
     String scrumName = "";
     int userID = 0;
     int scrumID = 0;
-    String teamnote1="";
-    String teamnote2="";
-    String teamnote3="";
-    String teamnote4="";
-    
+    String teamnote1 = "";
+    String teamnote2 = "";
+    String teamnote3 = "";
+    String teamnote4 = "";
 
     if (session.getAttribute("email") != null) {
 //*******************************************
@@ -36,13 +35,11 @@ Author     : steven.masters
 
         String userName1 = (String) session.getAttribute("email");
         ResultSet getUserDetails = userDetails.userDetails(userName1);
-
         while (getUserDetails.next()) {
             userID = getUserDetails.getInt(1);
             username = getUserDetails.getString(2);
             email = getUserDetails.getString(3);
             scrumID = getUserDetails.getInt(4);
-
         }
 
 //*******************************************
@@ -66,7 +63,6 @@ Author     : steven.masters
             sprintName = getSprintDetails.getString(getSprintDetails.getMetaData().getColumnName(2));
             sprintId = getSprintDetails.getInt(getSprintDetails.getMetaData().getColumnName(1));
         }
-
     }
 %>
 
@@ -84,7 +80,7 @@ Author     : steven.masters
         <script src="JS/teamNotesAjaxCall.js"></script>
         <script src="JS/updateStoryCard.js"></script>
         <script src="JS/deleteStoryCard.js"></script>
-      
+
         <%--<script src="JS/scrumboard.js"></script> --%>
         <script src="JS/existingStories.js"></script>
         <script src="JS/dragDropEvent.js"></script>
@@ -126,26 +122,19 @@ Author     : steven.masters
                 </button>
 
                 <div class="scrum-content">
-                    <a href="http://localhost:8080/SCRUM_V2/scrumadmin.jsp">Scrum Admin</a>
-                    <a href="http://localhost:8080/SCRUM_V2/deletescrumteam.jsp">Delete Scrum Team</a>
+                    <a href="http://localhost:8080/SCRUM_V2/ScrumAdmin.jsp">Scrum Admin</a>
                 </div>
             </div>
 
             <div class="sprintdropdown">
                 <center>Sprint Name</center>
                 <button class="sprintbtn"><%out.println(sprintName);%> </button>
-                <div class="scrum-content">
-                    <a href="">Close Sprint</a>
-                    <a href="#">Delete Sprint</a>
-                    <a href="#">Create Sprint</a>
-                </div>
             </div>
         </div>
 
         <% if (session.getAttribute("email") != null) {%>
         <div id="scrumboardContainer">
             <div id="toolbar"> 
-
                 <div id="teamNotes">
                     <div id="teamNotesheader">
                         <center>Team Notes</center>
@@ -154,7 +143,6 @@ Author     : steven.masters
                     <div class='label'>2: <input type="text" class="teamnotesinput" value="<% out.println(teamnote2); %>" id="teamNotes2" /></div>
                     <div class='label'>3: <input type="text" class="teamnotesinput" value="<% out.println(teamnote3); %>" id="teamNotes3"/></div>
                     <div class='label'>4: <input type="text" class="teamnotesinput" value="<% out.println(teamnote4); %>" id="teamNotes4"/></div>
-                    
                     <button type="button" id="teamNotesSaveBtn"class="teamNotesSaveBtn">Save</button>
                 </div>
 
@@ -183,7 +171,6 @@ Author     : steven.masters
                 <div id="createStoryCard">
                     <div id="storyCardHeader"> <center>Create Story Card</center></div>
                     <button onclick="createNewStory()" id="newStory" class="button">+ Create Story</button>
-
                     <input type="hidden" name="fname" id="storyCardcontainer">
                 </div>
 
@@ -201,12 +188,10 @@ Author     : steven.masters
                             <img src="https://www.gravatar.com/avatar/<% MD5Util md5u2 = new MD5Util();
     out.println(md5u2.md5Hex(userDetails.getString("email"))); %>?d=identicon&r=g" id="<% out.println(userDetails.getString("userid")); %>" draggable="true" ondragstart="drag(event)" width="70" height="70" class="profilePicture">
                         </div>  
-
                         <div id="username" class="profileUsername">
                             <% out.println(userDetails.getString("username")); %>
                         </div>
                     </div>
-
                     <%
                         }
                     %>
@@ -258,7 +243,7 @@ Author     : steven.masters
         %>
 
         <script>
-           
+
             var txt3 = <%=getAllSprintStories%>;
             var existingstories = $.parseJSON(txt3).employees;
             storyCard(existingstories);
@@ -290,10 +275,8 @@ Author     : steven.masters
                     }
                 }
             });
-     
             // loads up the teamstats
             teamsats();
-            
             //This allow the user to create a new storycard
             var sprintID =<%=sprintId%>;
             var scrumID =<%=scrumID%>;
@@ -301,13 +284,12 @@ Author     : steven.masters
             // creates a new storycard
             function createNewStory() {
             <% int newid = dao.LastStoryID.LastStoryID();%>
-                    lastStoryID = <%= newid%>;
-                    document.getElementById('storyCardcontainer').value = lastStoryID;
-                    createNewStoryCard(lastStoryID);
-                    createNewStoryAjaxCall(scrumID , sprintID, userID);
+                lastStoryID = <%= newid%>;
+                document.getElementById('storyCardcontainer').value = lastStoryID;
+                createNewStoryCard(lastStoryID);
+                createNewStoryAjaxCall(scrumID, sprintID, userID);
             }
 
-            
             // this removes the profile pic when double clicked
             $(this).dblclick(function (event) {
                 var currentEl1 = $(event.target).closest('img').attr('class');
@@ -320,37 +302,32 @@ Author     : steven.masters
                     $(event.target).closest('IMG').remove();
                 }
             });
-      
+
             // This adds the pic to the profilePic Area
             var storyID = "";
             var storyName = "";
             var userID =<%=userID%>;
             function updateP1(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column) {
-                updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column, sprintID,userID);
+                updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column, sprintID, userID);
             }
-            
-            
+
             //this delete the storycard
-             $(".deleteButton").click(function () {
-                 var storyID = $(this).parent().parent().parent().parent().attr('id');
-                 $(this).parent().parent().parent().parent().remove();
-                 deleteStorycard(storyID,  sprintID);
-             });
-             
-             //gets the team notes values and updates the values to database using ajax call
-             $(".teamNotesSaveBtn").click(function () {
-                var teamNote1 = document.getElementById("teamNotes1").value ;
-                var teamNote2 = document.getElementById("teamNotes2").value ;
-                var teamNote3 = document.getElementById("teamNotes3").value ;
-                var teamNote4 = document.getElementById("teamNotes4").value ;
-               
-                teamNotes(scrumID ,teamNote1, teamNote2, teamNote3, teamNote4);
+            $(".deleteButton").click(function () {
+                var storyID = $(this).parent().parent().parent().parent().attr('id');
+                $(this).parent().parent().parent().parent().remove();
+                deleteStorycard(storyID, sprintID);
             });
-            
+
+            //gets the team notes values and updates the values to database using ajax call
+            $(".teamNotesSaveBtn").click(function () {
+                var teamNote1 = document.getElementById("teamNotes1").value;
+                var teamNote2 = document.getElementById("teamNotes2").value;
+                var teamNote3 = document.getElementById("teamNotes3").value;
+                var teamNote4 = document.getElementById("teamNotes4").value;
+                teamNotes(scrumID, teamNote1, teamNote2, teamNote3, teamNote4);
+            });
         </script>
-
         <%-- The below block of code helps maintain Sprint  --%>
-
         <div id="signup" class="modal">
             <span onclick="document.getElementById('sprintCreated').style.display = 'none'" class="close" title="Close Modal">×</span>
             <form  id="SCRUMNAME" class="modal-content animate" action="/SCRUM_V2/JSP/scrumsetup.jsp"  method="post" >
@@ -362,13 +339,10 @@ Author     : steven.masters
         </div>
     </form>
 </div>
-
 <% } else { %>
-
 <div id="scrumboardContainer">
     Please sign in!!  
 </div>
-
 <%}%>
 </body>
 </html>
