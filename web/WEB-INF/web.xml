@@ -21,7 +21,7 @@
         <servlet-name>EditStory</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
- 
+
     <servlet-mapping>
         <servlet-name>AllPost</servlet-name>
         <url-pattern>/AllPost</url-pattern>
@@ -45,5 +45,17 @@
        <servlet-mapping>
         <servlet-name>teamNotes</servlet-name>
         <url-pattern>/teamNotes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateScrumDetails</servlet-name>
+        <url-pattern>/updateScrumDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSprintDetails</servlet-name>
+        <url-pattern>/UpdateSprintDetails</url-pattern>
+    </servlet-mapping>
+     <servlet-mapping>
+        <servlet-name>updateUserAccess</servlet-name>
+        <url-pattern>/updateUserAccess</url-pattern>
     </servlet-mapping>
 </web-app>

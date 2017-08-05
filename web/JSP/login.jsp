@@ -24,10 +24,12 @@
         <%
             String email = request.getParameter("email");
             String pwd = request.getParameter("pass");
+            
+      
             ResultSet rs = dao.signIn.signIn(email, pwd);
             if (rs.next()) {
                 session.setAttribute("email", email);
-                response.sendRedirect("/SCRUM_V2/Scrumboard.jsp");
+                response.sendRedirect("/SCRUM_V2/index.jsp");
             } else {
         %>
 

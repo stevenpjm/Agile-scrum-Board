@@ -9,7 +9,7 @@ function updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, us
 {
  
     var data = {storyID: storyID, storyNote: storyNote, storyName: storyName, sprintID: sprintID, user1Task: user1Task, user2Task: user2Task, user3Task: user3Task, storyBug: storyBug, swarm: swarm, column: column , userID: userID };
-           
+       alert(storyID);    
     $.ajax(
             {
                 url: "updateStoryCardV2",

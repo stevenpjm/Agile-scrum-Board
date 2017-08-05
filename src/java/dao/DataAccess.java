@@ -42,19 +42,14 @@ public class DataAccess {
 
     
 
-    public static ResultSet getAll(int sprintid) {
+    public static ResultSet getAll(int sprintId) {
         ResultSet rs = null;
         try {
-            rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n"
-                    + "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storynoteid = sc.storynoteid)\n"
-                    + " AND sc.sprintID ="+ sprintid +";").executeQuery();
-        
-            //Old Verion
-//             rs = DBUtils.getPreparedStatment("select sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2\n"
-//                    + "where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storyid = sn2.storyid)\n"
-//                    + "and sc.storyid = sn2.storyid AND sc.sprintID ="+ sprintid +";").executeQuery();
+            PreparedStatement stmt = DBUtils.getPreparedStatment("SELECT sn2.storynote, sn2.date, sc.* from scrumboards.storycards sc, scrumboards.storynotes sn2 where sn2.storynoteid = (select max(sn.storynoteid) from scrumboards.storynotes sn where sn.storynoteid = sc.storynoteid) AND sc.sprintID=?;");
+            stmt.setInt(1, sprintId);
+            rs = stmt.executeQuery();
             
-             } catch (ClassNotFoundException | SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
@@ -63,7 +58,10 @@ public class DataAccess {
     public static List<Story> getNewById(int id) {
         List<Story> ls = new LinkedList<>();
         try {
-            ResultSet rs = DBUtils.getPreparedStatment("SELECT * FROM scrumboards.storycards WHERE storyid =" + id + " ;").executeQuery();
+            PreparedStatement stmt = DBUtils.getPreparedStatment("SELECT * FROM scrumboards.storycards WHERE storyid=?;");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
             while (rs.next()) {
                 Story s = new Story(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(6));
                 ls.add(s);
@@ -92,7 +90,7 @@ public class DataAccess {
     public static ResultSet getscrumid(String email) {
         ResultSet rs = null;
         try {
-            rs = DBUtils.getPreparedStatment("select users.userid, users.scrumid, scrumboard.teamName, teamnote1, teamnote2, teamnote3, teamnote4 from users INNER JOIN scrumboard ON users.scrumid = scrumboard.scrumid where email ='" + email + "';").executeQuery();
+            rs = DBUtils.getPreparedStatment("select users.userid, users.scrumid, scrumboard.teamName, scrumboard.teamnote1, scrumboard.teamnote2, scrumboard.teamnote3, scrumboard.teamnote4, users.teamaccess from users INNER JOIN scrumboard ON users.scrumid = scrumboard.scrumid where email ='"+email+"' AND teamaccess != 0;").executeQuery();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }

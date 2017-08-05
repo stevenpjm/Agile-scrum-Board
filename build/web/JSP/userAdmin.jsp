@@ -1,3 +1,5 @@
+<%@page import="dao.dbUpdateStoryCard"%>
+<%@page import="java.lang.String"%>
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
@@ -5,16 +7,24 @@
 <%@page import="dao.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
-    <head>
-        <link href="/SCRUM_V2/CSS/login.css" rel="stylesheet" type="text/css"/>
+       <head>
+        <%--  CSS  --%>
+          <link href="/SCRUM_V2/CSS/login.css" rel="stylesheet" type="text/css"/>
         <link href="/SCRUM_V2/CSS/layout.css" rel="stylesheet" type="text/css"/>
         <link href="/SCRUM_V2/CSS/menubanner.css" rel="stylesheet" type="text/css"/>
         <link href="/SCRUM_V2/CSS/layout.css" rel="stylesheet" type="text/css"/>
-        <title>SCRUM BOARD</title>
+
+       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <%--<link  href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">--%>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>All post</title>
     </head>
 
     <body>
@@ -22,7 +32,7 @@
             <div id="Logo">
                 AGILE SCRUMBOARD
             </div>
-            <div id="linksScrum">
+             <div id="linksScrum">
                 <a href="http://localhost:8080/SCRUM_V2/index.jsp" class="linkbutton"  >Home Page</a>
                 <a href="http://localhost:8080/SCRUM_V2/scrumboard.jsp" class="linkbutton" >Contact Us</a>
                 <% if (session.getAttribute("email") != null) {%>
@@ -30,6 +40,10 @@
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
                 <%}%>
             </div>
+                
+        
+          
+            
         </div>
 
         <%

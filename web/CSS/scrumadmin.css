@@ -48,7 +48,8 @@ font{
     padding-top: 5px;
     padding-bottom: 10px;
     width: 96.9%;
-    background:#F0F0F0; 
+    background:#F0F0F0;
+    font-size:20px;
 }
 
 .adminheadersScrum{
@@ -91,5 +92,38 @@ font{
 .spacer{
     float:left;
     width:45%;
-    background:#84F210;
+    font-size: 16px;
+ 
+}
+
+.tablespacing{
+    padding: 10px 50px 10px 50px;
+    font-size:19px;
+    border: 1px;
+     background:#F0F0F0; 
+}
+
+.tableheader{
+  
+    text-align:center;
+     background:#888;
+    text-decoration:#264475;
+    font-size: 20px;
+}
+
+label{
+    font-size: 19px;
+    padding:0px 0px 5px 5px;
+}
+
+.datePicker{
+    font-size: 19px;
+    padding: 5px 10px 5px 10px;
+    width:25%;
+    height:4%;
+}
+
+.DBoutput{
+    font-size: 22px;
+    padding: 10px 10px 10px 10px;
 }

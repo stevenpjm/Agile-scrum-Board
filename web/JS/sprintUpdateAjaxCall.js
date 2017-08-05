@@ -5,23 +5,23 @@
  */
 
 
-function updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column, sprintID, userID)
+function updateSprintDetails(SprintBlock, sprintId, sprintName, startDate, endDate, scrumID)
 {
+
+    var data = {SprintBlock:SprintBlock, sprintId:sprintId, sprintName:sprintName, startDate:startDate, endDate:endDate, scrumID: scrumID};
  
-    var data = {storyID: storyID, storyNote: storyNote, storyName: storyName, sprintID: sprintID, user1Task: user1Task, user2Task: user2Task, user3Task: user3Task, storyBug: storyBug, swarm: swarm, column: column , userID: userID };
-       alert(storyID);    
     $.ajax(
             {
-                url: "updateStoryCardV2",
+                url: "UpdateSprintDetails",
                 type: "POST",
                 data: data,
                 success: function ()
                 {
-                  alert("updated");
+                  alert("Updated");
                 },
                 error: function (jqXHR, textStatus, errorThrown)
                 {
-                    alert("Could not process your request");
+                     alert("Could not process your request");
                     console.log(textStatus + " - " + errorThrown);
                 }
             });

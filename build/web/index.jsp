@@ -1,3 +1,5 @@
+<%@page import="dao.sprintDetails"%>
+<%@page import="dao.userDetails"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dao.DataAccess"%>
 <%@page import="java.sql.ResultSetMetaData"%>
@@ -7,6 +9,64 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%
+    int sprintId = 0;
+    String sprintName = "";
+    String username = "";
+    String email = "";
+    String scrumName = "";
+    int userID = 0;
+    int scrumID = 0;
+    String teamnote1 = "";
+    String teamnote2 = "";
+    String teamnote3 = "";
+    String teamnote4 = "";
+    String teamaccess = "";
+
+    if (session.getAttribute("email") != null) {
+//*******************************************
+//Get All User Details 
+//*******************************************
+
+        String userName1 = (String) session.getAttribute("email");
+        ResultSet getUserDetails = userDetails.userDetails(userName1);
+        while (getUserDetails.next()) {
+            userID = getUserDetails.getInt(1);
+            username = getUserDetails.getString(2);
+            email = getUserDetails.getString(3);
+            scrumID = getUserDetails.getInt(4);
+        }
+
+//*******************************************
+//Get All scrum details 
+//*******************************************
+        DataAccess da = new DataAccess();
+        ResultSet getScrumDetails = da.getscrumid(email);
+        while (getScrumDetails.next()) {
+            teamaccess = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(8));
+            if(teamaccess.equals("1") || teamaccess.equals("2")){
+            scrumName = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(3));
+            teamnote1 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(4));
+            teamnote2 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(5));
+            teamnote3 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(6));
+            teamnote4 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(7));
+            }
+            }
+
+//*******************************************
+//Get All Sprint details 
+//*******************************************
+        ResultSet getSprintDetails = sprintDetails.getSprintDetails(scrumID);
+        while (getSprintDetails.next()) {
+             if(teamaccess.equals("1") || teamaccess.equals("2") ){
+            sprintName = getSprintDetails.getString(getSprintDetails.getMetaData().getColumnName(2));
+            sprintId = getSprintDetails.getInt(getSprintDetails.getMetaData().getColumnName(1));
+            }
+        }
+    }
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -51,11 +111,15 @@
                 <a href="http://localhost:8080/SCRUM_V2/" class="linkbutton" >Home Page</a>
                 <a href="http://localhost:8080/SCRUM_V2/ContactUs.jsp" class="linkbutton" >Contact Us</a>
                 <%
-                    String email = (String) session.getAttribute("email");
+                     email = (String) session.getAttribute("email");
                     if (email != null) {%>
                 <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a> 
                 <a href='/SCRUM_V2/JSP/logout.jsp'class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
+                 <% if (teamaccess.equals("2")) {%>
+                    <a href="http://localhost:8080/SCRUM_V2/ScrumAdmin.jsp" class="linkbutton">Scrum Setup/Admin</a>
+                <%}%>
+                
                 <% } else { %>
                 <button onclick="document.getElementById('signup').style.display = 'block'" style="width:auto;" class="linkbutton">Sign Up</button>
                 <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;" class="linkbutton">login</button>
@@ -110,12 +174,12 @@
                 function validatemail() {
                     var x = emailaddress.value;
                     var re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
-                    alert("test");
+                   
                     if (re.test(x)) {
-                        alert(re.test(x));
+                       
                         emailaddress.setCustomValidity('');
                     } else {
-                        alert(re.test(x) + "FFF");
+                        
                         emailaddress.setCustomValidity("Invalid email address");
                         x = null;
                     }

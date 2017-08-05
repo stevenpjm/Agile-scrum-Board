@@ -27,6 +27,7 @@ Author     : steven.masters
     String teamnote2 = "";
     String teamnote3 = "";
     String teamnote4 = "";
+    String teamaccess = "";
 
     if (session.getAttribute("email") != null) {
 //*******************************************
@@ -48,20 +49,25 @@ Author     : steven.masters
         DataAccess da = new DataAccess();
         ResultSet getScrumDetails = da.getscrumid(email);
         while (getScrumDetails.next()) {
+            teamaccess = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(8));
+            if(teamaccess.equals("1") || teamaccess.equals("2")){
             scrumName = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(3));
             teamnote1 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(4));
             teamnote2 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(5));
             teamnote3 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(6));
             teamnote4 = getScrumDetails.getString(getScrumDetails.getMetaData().getColumnName(7));
-        }
+            }
+            }
 
 //*******************************************
 //Get All Sprint details 
 //*******************************************
         ResultSet getSprintDetails = sprintDetails.getSprintDetails(scrumID);
         while (getSprintDetails.next()) {
+             if(teamaccess.equals("1") || teamaccess.equals("2") ){
             sprintName = getSprintDetails.getString(getSprintDetails.getMetaData().getColumnName(2));
             sprintId = getSprintDetails.getInt(getSprintDetails.getMetaData().getColumnName(1));
+            }
         }
     }
 %>
@@ -104,6 +110,10 @@ Author     : steven.masters
                 <% if (session.getAttribute("email") != null) {%>
                 <a href='/SCRUM_V2/JSP/logout.jsp' id="logoutlink" class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
+                
+                 <% if (teamaccess.equals("2")) {%>
+                <a href="http://localhost:8080/SCRUM_V2/ScrumAdmin.jsp" class="linkbutton">Scrum Admin</a>
+                <%}%>
                 <%}%>
             </div>
 
@@ -114,25 +124,24 @@ Author     : steven.masters
                 <br>
                 <% out.println(username);%>
             </div>
-
+            <% if (teamaccess.equals("1")|| teamaccess.equals("2")) {%>
             <div class="scrumdropdown">
                 <center>Scrum Team</center>
                 <button class="scrumbtn">  
                     <%out.println(scrumName);%>
                 </button>
 
-                <div class="scrum-content">
-                    <a href="http://localhost:8080/SCRUM_V2/ScrumAdmin.jsp">Scrum Admin</a>
-                </div>
+              
             </div>
 
             <div class="sprintdropdown">
                 <center>Sprint Name</center>
                 <button class="sprintbtn"><%out.println(sprintName);%> </button>
             </div>
+                <%}%>
         </div>
 
-        <% if (session.getAttribute("email") != null) {%>
+        <% if (session.getAttribute("email") != null &&teamaccess.equals("1") || teamaccess.equals("2")) {%>
         <div id="scrumboardContainer">
             <div id="toolbar"> 
                 <div id="teamNotes">
@@ -341,7 +350,7 @@ Author     : steven.masters
 </div>
 <% } else { %>
 <div id="scrumboardContainer">
-    Please sign in!!  
+    <h2><font face="verdana"><center>Sorry! <br>You need to signed in<br>  OR<br> Join a Scrum Team!<br> Or <br>Your Request is been processed! </center></font></h2>  
 </div>
 <%}%>
 </body>

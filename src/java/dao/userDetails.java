@@ -17,17 +17,32 @@ import java.util.logging.Logger;
  * @author steven.masters
  */
 public class userDetails {
+    
+      
 
     public static ResultSet userDetails(String email) {
-        String email_input = email;
+        
+        ResultSet team;
+        ResultSet teamNew;
+        
+        PreparedStatement ts;
+        PreparedStatement pstmt;
+        String query="";
+       
         ResultSet rs = null;
         try {
-            rs = DBUtils.getPreparedStatment("SELECT user.userid, user.username, user.email, user.scrumid, team.teamName, team.userid as admin FROM scrumboards.users user, scrumboards.scrumboard team WHERE user.email='" + email_input + "'AND team.scrumid = user.scrumid;").executeQuery();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rs;
-    }
+            query = "SELECT user.userid, user.username, user.email, user.scrumid, team.teamName, team.userid, user.teamaccess FROM scrumboards.users user left join scrumboards.scrumboard team on  user.scrumid = team.scrumid WHERE user.email= ?";
+            
+            pstmt = DBUtils.getPreparedStatment(query);
+            pstmt.setString(1, email);
+            rs = pstmt.executeQuery();
+            
+            
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return rs;
+            }
 
 
     public static int userDetails(String emailin, String usernamein, String passwordin, String password_new_in, String teamNamein) throws ClassNotFoundException, SQLException{
@@ -39,18 +54,28 @@ public class userDetails {
         String teamName_new = teamNamein;
         String password_in = password_new_in;
         int TeamID_new = 0;
-        
+        String query;
         String dbUserName="";
         String dbpassword="";
         String dbTeamName="";
         String dbemail = "";
         int dbTeamID=0;
-        
-        ResultSet rs;
         ResultSet team;
         ResultSet teamNew;
+        
+        PreparedStatement ts;
+        PreparedStatement pstmt;
+  
+        ResultSet rs = null;
+        
                  //============================= Check that the user name and password match 
-        rs = DBUtils.getPreparedStatment("select * from users,scrumboard scrum where email='" + email_new + "' and password='" + password_cur + "'and users.scrumid = scrum.scrumid;").executeQuery();
+        query = "select * from users,scrumboard scrum where email=? and password= ?;" ;
+          
+        pstmt = DBUtils.getPreparedStatment(query);
+        pstmt.setString(1, email_new);
+        pstmt.setString(2, password_cur);
+        rs = pstmt.executeQuery();
+        
         while (rs.next()) {
             dbTeamName = rs.getString(10);
             dbpassword = rs.getString(3);
@@ -61,25 +86,35 @@ public class userDetails {
          //============================= if the user name and password matches it get the curr team ID
         
          if (dbpassword.equals(password_cur)){
-        team = DBUtils.getPreparedStatment("SELECT * FROM scrumboards.scrumboard WHERE scrumid ='" + dbTeamID+"';").executeQuery();
-        while (team.next()) {
-             dbTeamName = team.getString(3);
-             dbTeamID = team.getInt(1);
+         query = "SELECT * FROM scrumboards.scrumboard WHERE scrumid = ?;";
+         pstmt = DBUtils.getPreparedStatment(query);
+        pstmt.setInt(1, dbTeamID);
+        rs = pstmt.executeQuery();
+    
+        while (rs.next()) {
+             dbTeamName = rs.getString(3);
+             dbTeamID = rs.getInt(1);
         }
         }
         
                  //============================= if the user name and password matches it get the curr team ID
+       
         if (dbpassword.equals(password_cur)){
-        teamNew = DBUtils.getPreparedStatment("SELECT * FROM scrumboards.scrumboard WHERE teamName ='" + teamName_new +"';").executeQuery();
-        while (teamNew.next()) {
-             teamName_new = teamNew.getString(3);
-             TeamID_new = teamNew.getInt(1);
+        query = "SELECT * FROM scrumboards.scrumboard WHERE teamName = ?;";
+          
+        pstmt = DBUtils.getPreparedStatment(query);
+        pstmt.setString(1, teamName_new);
+        rs = pstmt.executeQuery();  
+                
+        while (rs.next()) {
+             teamName_new = rs.getString(3);
+             TeamID_new = rs.getInt(1);
         }
         }
         
            //============================= Check if the password need to be changed as per the users request
-               PreparedStatement ts;
-            if ( !dbpassword.equals("") && !dbpassword.equals(password_in) && !password_in.equals("")) {
+            
+            if ( !dbpassword.equals("") && !dbpassword.equals(password_in) && !password_in.equals("") && dbpassword.equals(password_cur)) {
                 try {
                     ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `password`= ? WHERE `email`= ?;");
                     ts.setString(1, password_in);
@@ -91,7 +126,7 @@ public class userDetails {
                 }
             }
             //============================= Check if the team name need to be changed as per the users request
-            if(!teamName_new.equals(dbTeamName) && TeamID_new != dbTeamID){
+            if(!teamName_new.equals(dbTeamName) && TeamID_new != dbTeamID && dbpassword.equals(password_cur)){
             
                 try {
                     ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `scrumid`= ?, teamaccess ='0' WHERE `email`= ?;");
@@ -104,12 +139,12 @@ public class userDetails {
                 }
             }
             
-            if ( !dbUserName.equals(username_new)) {
+            if ( dbpassword.equals(password_cur) && !dbUserName.equals(username_new)) {
                 try {
                     ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `username`=?, `email`=? WHERE `email`= ?;");
                     ts.setString(1, username_new);
                     ts.setString(2, email_new);
-                    ts.setString(3, dbemail);
+                    ts.setString(3, emailin);
                   
                     ts.executeUpdate();
                     processed = 1;

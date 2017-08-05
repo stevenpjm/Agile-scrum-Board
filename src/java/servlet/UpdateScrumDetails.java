@@ -5,16 +5,11 @@
  */
 package servlet;
 import dao.DataAccess;
-import dao.storyNoteUpdate;
 import db.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -29,12 +24,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author steven.masters
  */
-@WebServlet(name = "updateStoryCardV2", urlPatterns = {"/updateStoryCardV2"})
-public class updateStoryCardV2 extends HttpServlet {
+@WebServlet(name = "updateScrumDetails", urlPatterns = {"/updateScrumDetails"})
+public class UpdateScrumDetails extends HttpServlet {
     String updatedStatus="";
-    Calendar cal = Calendar.getInstance();
-    SimpleDateFormat lastmod = new SimpleDateFormat("yyyy-MM-dd");
-    String lastmodConvert = lastmod.format(cal.getTime());
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -74,47 +67,33 @@ public class updateStoryCardV2 extends HttpServlet {
        
         Map<String, Object> map = new HashMap<String, Object>();
         boolean isValid = false;
-
-  
-        String storyName_input = request.getParameter("storyName");
-        String storyID_input = request.getParameter("storyID");
-        String storyNote = request.getParameter("storyNote");
-        String sprintID_input = request.getParameter("sprintID");
-        String user1Task = request.getParameter("user1Task");
-        String user2Task = request.getParameter("user2Task");
-        String user3Task = request.getParameter("user3Task");
-        String storybug = request.getParameter("storyBug");
-        String lastmod = lastmodConvert;
-        String swarm = request.getParameter("swarm");
-        String columstatus = request.getParameter("column");
-        int storyID_converted = Integer.parseInt(storyID_input);
-        int sprintID_converted = Integer.parseInt(sprintID_input);
         
-        String userID = request.getParameter("userID");
+        String newScrum = request.getParameter("newScrum");
+        String scrumName = request.getParameter("scrumName");
+        String userID = request.getParameter("scrumID");
         int userID_converted = Integer.parseInt(userID);
-       
-        
-        dao.storyNoteUpdate check = new storyNoteUpdate(storyID_converted, storyNote, userID_converted);
-        
+        String scrumID = request.getParameter("scrumID");
+        int scrumID_converted = Integer.parseInt(scrumID);
+
         PreparedStatement ts;
         try{   
-            ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`storycards` SET `storyname`= ?, `user1Task`= ?, `user2Task`= ? , `user3Task`= ? , `storybug`= ?, `swarm`= ? , columstatus= ? ,lastupdate = ? WHERE storyid=? and sprintid= ?;");
-            ts.setString(1, storyName_input);
-            ts.setString(2, user1Task);
-            ts.setString(3, user2Task);
-            ts.setString(4, user3Task);
-            ts.setString(5, storybug);
-            ts.setString(6, swarm);
-            ts.setString(7, columstatus);
-            ts.setString(8, lastmod);
-            ts.setInt(9, storyID_converted);
-            ts.setInt(10, sprintID_converted);
-            
-            ts.executeUpdate();
-            
-            DBUtils.close(ts);
-         
-            
+            if(!"1".equals(newScrum)){
+                ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`scrumboard` SET `teamName`= ? WHERE `scrumid`= ? AND userid = ?");
+                ts.setString(1, scrumName);
+                ts.setInt(2, scrumID_converted);
+                ts.setString(3,userID); 
+                ts.executeUpdate();
+                ts.close();
+         }else{
+        
+                ts = DBUtils.getPreparedStatment("INSERT INTO `scrumboards`.`scrumboard` (`userid`, `teamName`) VALUES (?, ?);");
+                ts.setString(1,userID);
+                ts.setString(2, scrumName);
+                ts.setInt(3, scrumID_converted);
+                
+                ts.executeUpdate();
+                ts.close();
+        }     
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }

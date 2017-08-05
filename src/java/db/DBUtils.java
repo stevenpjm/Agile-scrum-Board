@@ -23,10 +23,16 @@ public class DBUtils {
     
     Connection con = DriverManager.getConnection(url, user, pass);
     ps = con.prepareStatement(sql);
-       
-      
+  
     return ps;
     
+    }
+    
+
+    public static void close(PreparedStatement ps) throws SQLException {
+        if (ps != null) {
+            ps.close();
+        }
     }
  
 }

@@ -22,7 +22,7 @@ public class storyNoteUpdate {
         
         PreparedStatement ns;
         try {
-            ns = DBUtils.getPreparedStatment("SELECT * FROM scrumboards.storynotes where storyID = ? and storynote= ?;");
+            ns = DBUtils.getPreparedStatment("SELECT storynote FROM scrumboards.storynotes where storyID = ? and storynote= ?;");
             ns.setInt(1, storyID);
             ns.setString(2, storyNote);
             ResultSet rs = ns.executeQuery();
@@ -42,7 +42,7 @@ public class storyNoteUpdate {
             
             
             PreparedStatement ts;
-            //PreparedStatement getLastStoryId;
+
             PreparedStatement updateStoryCard;
             try {
                 ts = DBUtils.getPreparedStatment("INSERT INTO scrumboards.storynotes (storynote, userid, date, storyid) VALUES (?, ?, ?, ?)");

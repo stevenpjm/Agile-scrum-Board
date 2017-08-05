@@ -81,16 +81,6 @@ public class Story {
         this.storyuser1 = storyuser1;
     }
 
-    /*
-    public String getStoryuser2() {
-        return storyuser2;
-    }
-
-    public void setStoryuser2(String storyuser2) {
-        this.storyuser2 = storyuser2;
-    }
-   */
-    
       public String getCreatedate() {
         return createdate;
     }
