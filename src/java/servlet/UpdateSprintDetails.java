@@ -73,7 +73,18 @@ public class UpdateSprintDetails extends HttpServlet {
 
         PreparedStatement ts;
         try{   
-            if(!"1".equals(newSprint)){
+            if("1".equals(newSprint)) {
+                 ts = DBUtils.getPreparedStatment("INSERT INTO `scrumboards`.`sprints` (`sprintname`, `startdate`, `enddate`, `scrumid`, `status`) VALUES (?, ?, ?, ?, ?);");
+                ts.setString(1, sprintName);
+                ts.setString(2, startDate);
+                ts.setString(3, endDate);
+                ts.setInt(4, scrumID_converted);
+                ts.setString(5, "active");
+                ts.executeUpdate();
+                ts.close();
+                
+                
+         }else if("2".equals(newSprint)){
                 ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`sprints` SET `sprintname`=?, `startdate`=?, `enddate`=?, `scrumid`=? WHERE `sprintid`=? and status = 'active';");
                 ts.setString(1, sprintName);
                 ts.setString(2, startDate);
@@ -81,17 +92,17 @@ public class UpdateSprintDetails extends HttpServlet {
                 ts.setInt(4, scrumID_converted);
                 ts.setInt(5, sprintID_converted);
                 ts.executeUpdate();
-                ts.close();
-         }else{
-        
-                ts = DBUtils.getPreparedStatment("INSERT INTO `scrumboards`.`sprints` (`sprintname`, `startdate`, `enddate`, `scrumid`, `status`) VALUES (?, ?, ?, ?, ?);");
+                ts.close();   
+        }else if("3".equals(newSprint)){
+             ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`sprints` SET `sprintname`=?, `startdate`=?, `enddate`=?, `scrumid`=?, status = 'closed' WHERE `sprintid`=? and status = 'active';");
                 ts.setString(1, sprintName);
                 ts.setString(2, startDate);
                 ts.setString(3, endDate);
-                ts.setInt(4, sprintID_converted);
-                ts.setString(5, "active");
+                ts.setInt(4, scrumID_converted);
+                ts.setInt(5, sprintID_converted);
                 ts.executeUpdate();
                 ts.close();
+            
         }
             
         } catch (ClassNotFoundException | SQLException ex) {

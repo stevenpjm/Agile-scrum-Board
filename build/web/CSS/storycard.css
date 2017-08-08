@@ -17,7 +17,7 @@
 
 /*this is main layout of the story card - when not selected*/
 .storycard{
-    min-width: 350px;
+    min-width: 340px;
     min-height: 215px;
     background-color:white;
     box-sizing: border-box;

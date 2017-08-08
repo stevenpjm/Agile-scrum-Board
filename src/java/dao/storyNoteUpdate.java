@@ -22,6 +22,7 @@ public class storyNoteUpdate {
         
         PreparedStatement ns;
         try {
+            // this gets the last story and compares it to the input to make a decision to update the note
             ns = DBUtils.getPreparedStatment("SELECT storynote FROM scrumboards.storynotes where storyID = ? and storynote= ?;");
             ns.setInt(1, storyID);
             ns.setString(2, storyNote);
@@ -60,7 +61,7 @@ public class storyNoteUpdate {
                 
                 updateStoryCard = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`storycards` SET `storynoteid`=? WHERE `storyid`=?;");  
                 updateStoryCard.setInt(1, storynoteid);
-                updateStoryCard.setInt(2, 1);
+                updateStoryCard.setInt(2, storyID);
                 updateStoryCard.executeUpdate();
                 
             } catch (ClassNotFoundException | SQLException ex) {
@@ -78,9 +79,7 @@ public class storyNoteUpdate {
                 ts.executeUpdate();
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-            }
-            
+            } 
         }
     }
 }

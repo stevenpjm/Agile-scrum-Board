@@ -31,7 +31,7 @@ public class userDetails {
        
         ResultSet rs = null;
         try {
-            query = "SELECT user.userid, user.username, user.email, user.scrumid, team.teamName, team.userid, user.teamaccess FROM scrumboards.users user left join scrumboards.scrumboard team on  user.scrumid = team.scrumid WHERE user.email= ?";
+            query = "SELECT user.userid, user.username, user.email, user.scrumid, team.teamName, team.userid, user.teamaccess, team.status FROM scrumboards.users user left join scrumboards.scrumboard team on user.scrumid = team.scrumid WHERE user.email= ?";
             
             pstmt = DBUtils.getPreparedStatment(query);
             pstmt.setString(1, email);

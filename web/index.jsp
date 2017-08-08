@@ -1,3 +1,4 @@
+<%@page import="profile.MD5Util"%>
 <%@page import="dao.sprintDetails"%>
 <%@page import="dao.userDetails"%>
 <%@page import="java.util.Arrays"%>
@@ -116,15 +117,25 @@
                 <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a> 
                 <a href='/SCRUM_V2/JSP/logout.jsp'class="linkbutton" >Log out</a>
                 <a href='/SCRUM_V2/UserAdmin.jsp' class="linkbutton" >Profile</a>
-                 <% if (teamaccess.equals("2")) {%>
+                 
                     <a href="http://localhost:8080/SCRUM_V2/ScrumAdmin.jsp" class="linkbutton">Scrum Setup/Admin</a>
-                <%}%>
+                
                 
                 <% } else { %>
                 <button onclick="document.getElementById('signup').style.display = 'block'" style="width:auto;" class="linkbutton">Sign Up</button>
                 <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;" class="linkbutton">login</button>
                 <%};%>      
             </div>
+            <% if (session.getAttribute("email") != null){ %>
+            <div id="profile">
+                <img src="https://www.gravatar.com/avatar/<% MD5Util md5u = new MD5Util();
+                    email = (String) session.getAttribute("email");
+                    out.println(md5u.md5Hex(email)); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="60px" height="60px">
+                <br>
+                <% out.println(username);%>
+            </div>
+            <%}%>
+            
             <div id="login">  
                 <div id="id01" class="modal">
                     <form class="modal-content animate" action="/SCRUM_V2/JSP/login.jsp" method="post">

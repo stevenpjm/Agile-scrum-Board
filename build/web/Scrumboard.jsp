@@ -28,6 +28,7 @@ Author     : steven.masters
     String teamnote3 = "";
     String teamnote4 = "";
     String teamaccess = "";
+    String status = "";
 
     if (session.getAttribute("email") != null) {
 //*******************************************
@@ -67,6 +68,7 @@ Author     : steven.masters
              if(teamaccess.equals("1") || teamaccess.equals("2") ){
             sprintName = getSprintDetails.getString(getSprintDetails.getMetaData().getColumnName(2));
             sprintId = getSprintDetails.getInt(getSprintDetails.getMetaData().getColumnName(1));
+            
             }
         }
     }
@@ -116,7 +118,8 @@ Author     : steven.masters
                 <%}%>
                 <%}%>
             </div>
-
+            
+            <% if (session.getAttribute("email") != null){ %>
             <div id="profile">
                 <img src="https://www.gravatar.com/avatar/<% MD5Util md5u = new MD5Util();
                     email = (String) session.getAttribute("email");
@@ -124,24 +127,28 @@ Author     : steven.masters
                 <br>
                 <% out.println(username);%>
             </div>
-            <% if (teamaccess.equals("1")|| teamaccess.equals("2")) {%>
-            <div class="scrumdropdown">
-                <center>Scrum Team</center>
-                <button class="scrumbtn">  
-                    <%out.println(scrumName);%>
-                </button>
-
-              
-            </div>
-
-            <div class="sprintdropdown">
-                <center>Sprint Name</center>
-                <button class="sprintbtn"><%out.println(sprintName);%> </button>
-            </div>
-                <%}%>
+            <%}%>
+            
+            <% if (teamaccess.equals("1")|| teamaccess.equals("2")) { %>
+          
+            <div class="scrumHeader" class="scrum-content">
+                <center> <u>Scrum Board:</u></font>  
+                   <%out.println(scrumName);%></center>
+           </div>
+           <div class="scrumdiv">&nbsp;</div>
+           
+            <% if(sprintId != 0){%>
+             <div class="sprintHeader">
+                 <center><font color="white"><u>Sprint Name</u> :  
+                 <%out.println(sprintName);%> </font></center>
+                 
+             </div>
+             <div class="sprintDiv">&nbsp;</div>
+             <%}%>
+            <%}%>
         </div>
-
-        <% if (session.getAttribute("email") != null &&teamaccess.equals("1") || teamaccess.equals("2")) {%>
+        
+        <% if (session.getAttribute("email") != null &&teamaccess.equals("1") || teamaccess.equals("2") && sprintId != 0) {%>
         <div id="scrumboardContainer">
             <div id="toolbar"> 
                 <div id="teamNotes">
@@ -297,6 +304,13 @@ Author     : steven.masters
                 document.getElementById('storyCardcontainer').value = lastStoryID;
                 createNewStoryCard(lastStoryID);
                 createNewStoryAjaxCall(scrumID, sprintID, userID);
+                
+                
+                
+        
+            location.href = location.pathname;
+            location.replace(location.pathname);
+            location.reload(true);
             }
 
             // this removes the profile pic when double clicked
@@ -318,12 +332,15 @@ Author     : steven.masters
             var userID =<%=userID%>;
             function updateP1(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column) {
                 updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column, sprintID, userID);
+            
             }
 
             //this delete the storycard
+            
             $(".deleteButton").click(function () {
                 var storyID = $(this).parent().parent().parent().parent().attr('id');
                 $(this).parent().parent().parent().parent().remove();
+                alert(storyID +">>"+sprintID);
                 deleteStorycard(storyID, sprintID);
             });
 
@@ -350,7 +367,7 @@ Author     : steven.masters
 </div>
 <% } else { %>
 <div id="scrumboardContainer">
-    <h2><font face="verdana"><center>Sorry! <br>You need to signed in<br>  OR<br> Join a Scrum Team!<br> Or <br>Your Request is been processed! </center></font></h2>  
+    <h2><font face="verdana"><center>Sorry this scrum board is not available ! <br>You either need to sign in<br>  OR<br> There are no active sprints </center></font></h2>  
 </div>
 <%}%>
 </body>

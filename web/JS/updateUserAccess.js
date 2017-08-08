@@ -9,7 +9,7 @@ function updateUserAccess(UserId, userName, access)
 {
 
     var data = {UserId:UserId, userName:userName, access:access};
-     alert("start");
+   
     $.ajax(
             {
                 url: "updateUserAccess",

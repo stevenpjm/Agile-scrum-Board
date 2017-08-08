@@ -20,9 +20,8 @@ div#profile{
     position:absolute;
     top:3%;
     right:1%;
-    
+        color: white;
 }
-
 
 .linkbutton {
  
@@ -59,13 +58,7 @@ div#profile{
 }
 
 
-#profile {
-    
-     position: absolute;
-     top:4px;
-     right: 10.1%;
-    
-}
+
 
 div#Logo{
     font-style:normal;
@@ -78,6 +71,7 @@ div#Logo{
 }
 
 div#linksScrum {
-    position: absolute;
+    position: fixed;
     right: 10.1%;
+    top: 45px;
 }

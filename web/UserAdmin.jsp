@@ -1,3 +1,4 @@
+<%@page import="profile.MD5Util"%>
 <%@page import="dao.userDetails"%>
 <%@page import="java.lang.String"%>
 <%@page import="dao.*"%>
@@ -43,12 +44,17 @@
             
             <form  method="post" style="border:1px solid #ccc">
                 <div class="container" id="userform">
-
+                    
+                    <img src="https://www.gravatar.com/avatar/<% MD5Util md5u = new MD5Util();
+                                        email = (String) session.getAttribute("email");
+                                        out.println(md5u.md5Hex(email)); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="120px" height="120px">
+                                    <br>
+                
+                    
                     <label><b>Email   :    You can not amend your email, you must sign up with a new user.</b></label>
                     <input type="text" placeholder="Enter Email" name="email" autocomplete="off" required value="<% out.println(email);%>" id="email" readonly>
                     <br>
                    
-                
                     <label><b>Username</b></label>
                     <input type="text" placeholder="Username" name="uname" autocomplete="off" required value="<% out.println(username); %>" id="username">
                     <br>
@@ -92,7 +98,7 @@
         </div>
 
         <div id="right">
-
+            
         </div>
 
         <div id="top">
@@ -104,8 +110,15 @@
             <div id="linkhome"> 
                 <a href="http://localhost:8080/SCRUM_V2/" class="linkbutton" >Home Page</a>
                 <a href="http://localhost:8080/SCRUM_V2/ContactUs.jsp" class="linkbutton" >Contact Us</a>
-                <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a>
                 
+                 <% if (session.getAttribute("email") != null){ %>
+                 <a href="http://localhost:8080/SCRUM_V2/Scrumboard.jsp" class="linkbutton" >Scrum_Board</a>
+            <div id="profile">
+                
+              
+            </div>
+            <%}%>
+            
             </div>
         </div>
 
@@ -127,6 +140,15 @@
                 targetVal.value = optionSelected;
                 $("#scrumOptionsSelect").remove();
             });
+            
+            
+             $(".deleteBtn").click(function () {
+                    var email = document.getElementById("email").value;
+                    alert(email);
+                     if (confirm("Are you sure you want to delete this profile?") === true) {
+                       DataAccess.deleteUserDetails(email);
+                   }
+                });
         </script>   
     </body>
 </html>

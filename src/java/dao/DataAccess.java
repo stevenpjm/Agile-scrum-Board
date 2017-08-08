@@ -86,6 +86,19 @@ public class DataAccess {
         }
         return id;
     }
+      public static int getUserIdByemail(String email) {
+        int id = 0;
+        try {
+            ResultSet rs = DBUtils.getPreparedStatment("SELECT userid FROM scrumboards.users WHERE email='" + email + "';").executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("userid");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
 
     public static ResultSet getscrumid(String email) {
         ResultSet rs = null;
@@ -122,5 +135,22 @@ public class DataAccess {
         return email;
     }
     
+  public static void deleteUserDetails(int userID) {
+      
+        try {
+           
+         PreparedStatement stmt = DBUtils.getPreparedStatment("DELETE FROM `scrumboards`.`users` WHERE `userid`= ?;");
+            stmt.setInt(1, userID);
+            stmt.execute();
+            
 
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  }
 }
+
+
+
+       
+   

@@ -16,17 +16,14 @@ left{
     height: 100%;
 }
 
-#profile{
-    float: right;
-    background: #fff;
-}
+
 
 #top{
         background-color: #264475;
     position: fixed;
     left: 20%;
     top: 0%;
-    height: 10%;
+    height: 90px;
     width: 60%;
 }
 
@@ -37,10 +34,9 @@ left{
 }
 
 #main{
-  
     position: fixed;
     left: 20%;
-    top: 10%;
+    top: 125px;
     width:60%;
     height:90%; 
 }
@@ -56,8 +52,10 @@ left{
 }
 
 div#linkhome{
-        position: fixed;
-        right: 20.1%;
+    position: fixed;
+    right: 20.1%;
+    top: 100px;
+
 }
 
 

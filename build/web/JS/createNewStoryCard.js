@@ -69,7 +69,7 @@ document.getElementById("newStory").disabled = true;
 
         var button = document.createElement("button");
         button.type = "button";
-        button.id =  + " storyadmin ";
+        button.id = newID + " storyadmin ";
         button.class = "dropbtn";
         var txt = document.createTextNode("**");
         button.appendChild(txt);
@@ -94,27 +94,25 @@ document.getElementById("newStory").disabled = true;
             }
 
         };
-        admin.appendChild(button);
-
-        var drop = document.createElement("div");
-        drop.setAttribute("id", "myDropdown" + newID);
-        drop.setAttribute("class", "dropdown-content");
-
-        // this dropdown button allow the user to delete the button
-        newlink = document.createElement('a');
-        newlink.setAttribute('class', 'deleteButton');
-        newlink.setAttribute('data-toggle',"dropdown");
-        var ID = $(this).parent().attr("id");
-//        newlink.onclick = function () {
-//            removeStoryCard(ID);
-//            location.reload();
-//        };
-        var link1 = document.createTextNode("Delete");
-        newlink.appendChild(link1);
-        drop.appendChild(newlink);
-        admin.appendChild(drop);
-
-
+//        admin.appendChild(button);
+//
+//        var drop = document.createElement("div");
+//        drop.setAttribute("id", "myDropdown" + newID);
+//        drop.setAttribute("class", "dropdown-content");
+//
+//
+//        newlink = document.createElement('a');
+//        newlink.setAttribute('class', 'deleteButton');
+//        newlink.setAttribute('data-toggle',"dropdown");
+//        var ID = $(this).parent().attr("id");
+////        newlink.onclick = function () {
+////            removeStoryCard(ID);
+////            location.reload();
+////        };
+//        var link1 = document.createTextNode("Delete");
+//        newlink.appendChild(link1);
+//        drop.appendChild(newlink);
+//        admin.appendChild(drop);
 
 //**************************************
 

@@ -5,10 +5,12 @@
  */
 package servlet;
 import dao.DataAccess;
+import dao.userDetails;
 import db.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,32 +69,51 @@ public class UpdateScrumDetails extends HttpServlet {
        
         Map<String, Object> map = new HashMap<String, Object>();
         boolean isValid = false;
-        
+        String email = request.getParameter("email");
         String newScrum = request.getParameter("newScrum");
         String scrumName = request.getParameter("scrumName");
-        String userID = request.getParameter("scrumID");
-        int userID_converted = Integer.parseInt(userID);
-        String scrumID = request.getParameter("scrumID");
-        int scrumID_converted = Integer.parseInt(scrumID);
-
+        scrumName = scrumName.trim();
+        String userId = request.getParameter("userId");
+        userId = userId.trim();
+        int userId_converted = Integer.parseInt(userId);
+        String scrumId = request.getParameter("scrumId");
+        scrumId = scrumId.trim();
+        int scrumId_converted = Integer.parseInt(scrumId);
+        
+        if(userId_converted == 0){
+             userId_converted = DataAccess.getUserIdByemail(email);
+            
+        }
+        
+        
         PreparedStatement ts;
         try{   
-            if(!"1".equals(newScrum)){
+            if("1".equals(newScrum)){
+                // This creates the scrum board
+                ts = DBUtils.getPreparedStatment("INSERT INTO `scrumboards`.`scrumboard` (`userid`, `teamName`, `status`) VALUES (?, ?, 'active');");
+                ts.setInt(1,userId_converted);
+                ts.setString(2, scrumName);
+                ts.executeUpdate();
+                ts.close();
+                
+         }else if("2".equals(newScrum)){
+             // This updates the scrum board
                 ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`scrumboard` SET `teamName`= ? WHERE `scrumid`= ? AND userid = ?");
                 ts.setString(1, scrumName);
-                ts.setInt(2, scrumID_converted);
-                ts.setString(3,userID); 
+                ts.setInt(2, scrumId_converted);
+                ts.setInt(3,userId_converted); 
                 ts.executeUpdate();
                 ts.close();
-         }else{
-        
-                ts = DBUtils.getPreparedStatment("INSERT INTO `scrumboards`.`scrumboard` (`userid`, `teamName`) VALUES (?, ?);");
-                ts.setString(1,userID);
-                ts.setString(2, scrumName);
-                ts.setInt(3, scrumID_converted);
                 
+         }else if("3".equals(newScrum)){
+                // This closes the scrum board
+                ts = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`scrumboard` SET `teamName`= ? , status = 'closed' WHERE `scrumid`= ? AND userid = ?");
+                ts.setString(1, scrumName);
+                ts.setInt(2, scrumId_converted);
+                ts.setInt(3,userId_converted); 
                 ts.executeUpdate();
                 ts.close();
+
         }     
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);

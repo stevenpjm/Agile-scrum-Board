@@ -54,7 +54,6 @@ div#scrumboardContainer{
     border: 2px solid #aaaaaa;
 }
 
-
 /********************/
  /*      SUB DIVS IN TOOLBAR    */
 /********************/        
@@ -64,14 +63,10 @@ div#createStoryCard{
     
 }
 
-
-
 .teamProfilePics{
    margin: 10%;
    min-width: 100px;
    }
-
-
 
 
 #active {
@@ -267,33 +262,8 @@ body{
 
 /** Drop down menu for scrumlink **/
 
-.scrumbtn {
-    background-color: #E7AA11;
-    border-radius: 0px 15px 0px 0px;
-    box-shadow: 3.5px 0px 0px 0px #DDCE13;
-    color: white;
-    padding: 9px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-   
-}
 
-.scrumdropdown {
-    
-    font-family: Arial;
-    position: relative;
-    display: inline-block;
-}
 
-.sprintdropdown {
-       font-family: Arial;
-   
-    position: absolute;
-    display: inline-block;
-    left: 26%;
-    bottom: 0%;
-}
 
 .scrum-content {
     display: none;
@@ -305,7 +275,6 @@ body{
 }
 
 .scrum-content a {
-    
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -317,33 +286,56 @@ body{
     border: 1px;
 }
 
-.scrumdropdown:hover .scrum-content {
-    display: block;
+
+.scrumHeader{
+    font-family: Arial;
+    position: absolute;
+    width: 15%;
+    height: 45px;
+    left: .5%;
+    background: #94b8b8;
+    top: 45px;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-bottom: 0px;
+    font-size: 14px;
     
 }
-
-.scrumdropdown:hover .scrumbtn {
-    background-color: #F38101;
-}
-
-
-
-.sprintbtn {
-    border-radius: 0px 15px 0px 0px;
-    box-shadow: 3.5px 0px 0px 0px #84F210;
-    background-color: #5DB43A;
-    color: white;
-    padding: 9px;
+.scrumdiv {
+    font-family: Arial;
+    position: initial;
+    top: 67px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    background-color: #94b8b8;
+    margin-top: 35px;
+    
+}
+
+
+
+.sprintHeader {
+    font-family: Arial;
+    position: absolute;
+    width: 15%;
+    height: 35px;
+    left: 25%;
+    background: buttonshadow;
+    top: 55px;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-bottom: 0px;
+    font-size: 14px;
+}
    
-}
-
-.sprintdropdown:hover .scrum-content {
-    display: block;
-}
-
-.sprintdropdown:hover .scrumbtn {
-    background-color: #5DB43A;
+.sprintDiv {
+    font-family: Arial;
+    position: relative;
+    left: 0px;
+    top: -9px;
+    height: 9px;
+    width: 100%;
+    background-color: buttonshadow;
+    margin-bottom: -10px;
 }

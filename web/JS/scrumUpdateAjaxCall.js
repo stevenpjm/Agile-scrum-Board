@@ -5,11 +5,11 @@
  */
 
 
-function scrumUpdate(newScrum, scrumID, userID, teamName)
+function scrumUpdate(newScrum, scrumId, userId, scrumName, email)
 {
-   alert("sprint");
-    var data = {newScrum:newScrum, userID:userID, scrumID:scrumID, teamName:teamName};
-    
+
+    var data = {newScrum:newScrum, userId:userId, scrumId:scrumId, scrumName:scrumName, email:email};
+   
     $.ajax(
             {
                 url: "updateScrumDetails",
