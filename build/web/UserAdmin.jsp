@@ -8,7 +8,8 @@
                 String email = "";
                 String userName1 = (String) session.getAttribute("email");
                 String teamName = "";
-                ResultSet rs = userDetails.userDetails(userName1);
+                int getDetails=0;
+                ResultSet rs = userDetails.userDetails( userName1, getDetails);
 
                 while (rs.next()) {
                     username = rs.getString(2);
@@ -23,6 +24,7 @@
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
        
         <script src="JS/ajaxCall.js"></script>
+
         <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
        
         <link href="CSS/layout.css" rel="stylesheet" type="text/css"/>
@@ -48,12 +50,15 @@
                     <img src="https://www.gravatar.com/avatar/<% MD5Util md5u = new MD5Util();
                                         email = (String) session.getAttribute("email");
                                         out.println(md5u.md5Hex(email)); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="120px" height="120px">
-                                    <br>
+                    <p><b>If you want to change your avatar picture please go to <u><a href="https://en.gravatar.com/" target="_blank">gravatar.com</u></a></b><br></p>                
+                    <br>
                 
                     
                     <label><b>Email   :    You can not amend your email, you must sign up with a new user.</b></label>
                     <input type="text" placeholder="Enter Email" name="email" autocomplete="off" required value="<% out.println(email);%>" id="email" readonly>
                     <br>
+                    
+                                               
                    
                     <label><b>Username</b></label>
                     <input type="text" placeholder="Username" name="uname" autocomplete="off" required value="<% out.println(username); %>" id="username">
@@ -144,9 +149,9 @@
             
              $(".deleteBtn").click(function () {
                     var email = document.getElementById("email").value;
-                    alert(email);
+                   
                      if (confirm("Are you sure you want to delete this profile?") === true) {
-                       DataAccess.deleteUserDetails(email);
+                      updateUserAccess(email);
                    }
                 });
         </script>   

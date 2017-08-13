@@ -39,7 +39,7 @@ function storyCard(existingstories) {
         adminDiv.setAttribute("id", "admindiv");
 //+++++++++++++++++++++++++++
 //Last updated
-        var cdate = document.createTextNode("created:" + emp.createdate);
+        var cdate = document.createTextNode("created:" + emp.datecreated);
 // Last created 
         var ldate = document.createTextNode("Last mod:" + emp.lastupdate);
 

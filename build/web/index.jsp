@@ -88,17 +88,24 @@
             <br>
             <img src="pic/index.jpg" alt="Office" style="width:100%;height:228px;">
             <p>
-                Agile Scrumboard is a web application designed to help scrum teams<br>
-                track sprints and stories. The tool is based around the life cycle of<br>
-                track help scrum  
-                Sprint
-                Sprint Planning
-                Daily Scrum
-                Sprint Review
-                Sprint Retrospective
+            <div id="AppInfo">
+               
+                    <h2><u>Welcome to the Agile Scrumboard</u></h2> 
+                 <h3>This is a full based cloud application designed for scrum teams to aid with<br>
+                life-cycle of a release, This application will help track Developers, Automation, <br>
+                Quality Assurance and Research tasks, This is achieved by recording the task as a story<br>
+                cards giving the scrum team visual reference of the tasks in progress.<p> 
+                
+                    This tool works along side other tools such as Jira Sprint Planning, Daily Scrum, Sprint Review,<br> Sprint Retrospective
+                </h3>
         </div>
+            <div id="scrumPic">
+                <img src="pic/scrumTeam.jpg" alt="Scrum Team" style="width:304px;height:228px;">
+                <img src="pic/scrumteam.png" alt="Scrum Team" style="width:304px;height:228px;">
+                <img src="pic/Agile.jpg" alt="Scrum Team" style="width:394px;height:228px;">
+            </div>
 
-        <div id="bottom">
+        <div id="bottom" background>
         </div>
 
         <div id="right">
@@ -166,8 +173,9 @@
                         <input type="password" placeholder="Repeat Password" name="password-repeat"  autocomplete="off" id="password-repeat" required>
                         <input type="checkbox" checked="checked"> Remember me
                         <br>&nbsp;</br>
-
-                        By creating an account you agree to our terms and conditions
+                        By creating an account you agree to our terms and conditions<p>
+                            <b>If you want to change your avatar picture please go to <u><a href="https://en.gravatar.com/" target="_blank">gravatar.com</u></a></b><br>
+                        
                         <br>&nbsp;</br>
                         <a href="ContactUs.jsp">Terms / Privacy / About </a> <br>
                         <br>&nbsp;</br>

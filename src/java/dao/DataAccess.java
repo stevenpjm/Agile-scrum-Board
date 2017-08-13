@@ -148,9 +148,42 @@ public class DataAccess {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
   }
+  
+  
+    public static void giveAdminAccess(int userID, int scrumid) {
+      
+        try {
+                PreparedStatement ps;
+                ps = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `teamaccess`= '2' , scrumid = ? WHERE `userid`= ?;");
+                ps.setInt(1, scrumid);
+                 ps.setInt(2, userID); 
+                ps.execute();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+  
+  
+  public static int getScrumIdOnly(int userID) {
+        int scrumId = 0;
+        ResultSet rs=null;
+        try {
+         
+         PreparedStatement stmt = DBUtils.getPreparedStatment("SELECT scrumid FROM `scrumboards`.`scrumboard` WHERE `userid`= ? AND status='active';");
+            stmt.setInt(1, userID);
+             rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+              scrumId = rs.getInt("scrumid");
+            }
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return scrumId;
+  }
+
 }
-
-
 
        
    

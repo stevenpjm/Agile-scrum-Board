@@ -91,19 +91,20 @@ Author     : steven.masters
             <div id="header" class="adminheadersScrum">Scrum Details </div>
             <div id="scrumContainer" class="scrumContainer">
 
-                <div class="spacer"><label><b>Scrumboard Name : </b></label><text class="DBoutput" id="scrumName"><% out.println(scrumName);%></text> -: <label id="scrumId"><% out.println(scrumId);%></label></div> <div class="spacer"><label><b>Status : </b></label> <text class="DBoutput">active</text><text class="DBoutput"><b>User ID :</b> </text><text class="DBoutput" id="userId"><% out.println(userId);%></text> </div>
+                <div class="spacer"><label><b>Scrumboard Name : 
+                            </b></label><text class="DBoutput" id="scrumName"><% out.println(scrumName);%></text> -: <label id="scrumId"><% out.println(scrumId);%></label></div> <div class="spacer"><label><b>Status : </b></label> <text class="DBoutput">active</text><text class="DBoutput"><b>User ID :</b> </text><text class="DBoutput" id="userId"><% out.println(userId);%></text> </div>
                 <input type="text" name="scrumName" autocomplete="off" required value="<% out.println(scrumName);%>" id="scrumNameinputVal" class="inputScrumVal" >
                 <br>
-                <%if (scrumName == "") {%>
+                <%if (scrumName == "" || scrumName == null) {%>
                 <button type="submit" class="createScrum">Create Scrum Board</button>
                 <% } else {%>
                 <button type="submit" class="UpdateScrum">Update Scrum Name</button>
-                <button type="submit" class="closeScrum">Delete Scrum</button>
+                <button type="submit" class="closeScrum">Close Scrum</button>
                 <%}%>
             </div>
             <div id="header" class="adminheadersSprint"> Sprint Details</div>
             
-             <%if (scrumName != "") {%>
+            <% if (teamaccess.equals("2")) {%>
             <div id="SprintContainer" class="SprintContainer">
                 <div class="spacer"><label><b>Current Sprint : </b></label></b></label><text class="DBoutput" id="DBoutput"><% out.println(sprintName);%></text>-:<label id="sprintID"> <% out.println(sprintId);%></label></div>  <div class="spacer"><label><b>Status : </b></label> <text class="DBoutput"><% if (sprintId != 0){out.println(sprintStatus);}else{out.println("No active Sprints");}%></text></div>
                 <input type="text" placeholder="sprintName" name="sprintName" autocomplete="off" required value="<% out.println(sprintName); %>" id="sprintName">
@@ -194,8 +195,7 @@ Author     : steven.masters
                     email = (String) session.getAttribute("email");
                     out.println(md5u.md5Hex(email)); %>?d=identicon&r=g" title="Default Avatar" alt="Default Avatar" width="60px" height="60px">
                 <br>
-                
-                <% out.println(username);%>
+                    <% out.println(username);%>
                 </center>
             </div>
             <%}%>
@@ -210,7 +210,9 @@ Author     : steven.masters
                 $(".createScrum").click(function () {
                     var scrumId = document.getElementById("scrumId").innerHTML;
                     var scrumName = document.getElementById("scrumNameinputVal").value;
-                    var userId = document.getElementById("userId").innerHTML;
+                    <% userId = DataAccess.getUserIdByemail(email);%>        
+                     userId = <%=userId%>;
+                    alert(userId);
                     scrumUpdate("1", scrumId, userId, scrumName, email);
                 });
                 
@@ -261,22 +263,25 @@ Author     : steven.masters
 
                 $(".removeTeamMember").click(function (e) {
                     var row = $(this).closest('td').parent()[0].sectionRowIndex + 1;
-                    var UserId = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(1)').html();
+                    var userId = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(1)').html();
                     var userName = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(2)').html();
                     var email = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(3)').html();
                      if (confirm("Are you sure you want remove this team member?!") === true) {
-                    updateUserAccess(UserId, userName, 0);
+                     var taskOpt = "delete";
+                    removeUserAccess(email,userId,userName,email,taskOpt);
                 }
                 });
 
                 $(".RequestToJoin").click(function (e) {
                     var row = $(this).closest('td').parent()[0].sectionRowIndex + 1;
-                    var UserId = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(1)').html();
+                    var userId = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(1)').html();
                     var userName = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(2)').html();
                     var email = $('#TeamMembers').find('tbody tr:nth-child(' + row + ') td:nth-child(3)').html();
-                    updateUserAccess(UserId, userName, 1);
+                    var access = "1";
+                   
+                    addUserAccess(userId, userName, access);
                 });
-
+                
             </script>         
     </body>
 </html>

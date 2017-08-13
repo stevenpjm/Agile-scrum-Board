@@ -255,7 +255,7 @@ Author     : steven.masters
                 }
                 sb.append("}]}';");
                 String getAllSprintStories = sb.toString();
-                getAllSprintStories = getAllSprintStories;
+                    getAllSprintStories = getAllSprintStories;
         %>
 
         <script>
@@ -304,13 +304,9 @@ Author     : steven.masters
                 document.getElementById('storyCardcontainer').value = lastStoryID;
                 createNewStoryCard(lastStoryID);
                 createNewStoryAjaxCall(scrumID, sprintID, userID);
-                
-                
-                
-        
-            location.href = location.pathname;
-            location.replace(location.pathname);
-            location.reload(true);
+                location.href = location.pathname;
+                location.replace(location.pathname);
+                location.reload(true);
             }
 
             // this removes the profile pic when double clicked
@@ -325,22 +321,27 @@ Author     : steven.masters
                     $(event.target).closest('IMG').remove();
                 }
             });
-
+            
+            //savButtonDiv
+            
+            $(".savButtonDiv").click(function () {
+                $(this).attr('disabled', 'disabled');
+                $(".revertButtonDiv").attr('disabled', 'disabled');
+            });
+            
             // This adds the pic to the profilePic Area
             var storyID = "";
             var storyName = "";
             var userID =<%=userID%>;
             function updateP1(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column) {
                 updateStoryCard(storyID, storyName, storyNote, user1Task, user2Task, user3Task, storyBug, swarm, column, sprintID, userID);
-            
             }
 
             //this delete the storycard
-            
             $(".deleteButton").click(function () {
                 var storyID = $(this).parent().parent().parent().parent().attr('id');
                 $(this).parent().parent().parent().parent().remove();
-                alert(storyID +">>"+sprintID);
+               
                 deleteStorycard(storyID, sprintID);
             });
 

@@ -71,7 +71,7 @@ div#Logo{
 }
 
 div#linksScrum {
-    position: fixed;
+    position:absolute;
     right: 10.1%;
     top: 45px;
 }

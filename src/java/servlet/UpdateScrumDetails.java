@@ -95,6 +95,8 @@ public class UpdateScrumDetails extends HttpServlet {
                 ts.setString(2, scrumName);
                 ts.executeUpdate();
                 ts.close();
+                scrumId_converted = DataAccess.getScrumIdOnly(userId_converted);
+                DataAccess.giveAdminAccess(userId_converted, scrumId_converted);
                 
          }else if("2".equals(newScrum)){
              // This updates the scrum board

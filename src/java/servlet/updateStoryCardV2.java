@@ -9,14 +9,10 @@ import dao.storyNoteUpdate;
 import db.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -72,9 +68,6 @@ public class updateStoryCardV2 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
-        Map<String, Object> map = new HashMap<String, Object>();
-        boolean isValid = false;
-
   
         String storyName_input = request.getParameter("storyName");
         String storyID_input = request.getParameter("storyID");
@@ -118,16 +111,5 @@ public class updateStoryCardV2 extends HttpServlet {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        updatedStatus = "updated";
-        map.put("isValid", isValid);
-        write(response, updatedStatus);
-
         }
-
-// returns the value back to the orginating
-    private void write(HttpServletResponse response, String updatedStatus) throws IOException {
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("Updated");
-    }
 }

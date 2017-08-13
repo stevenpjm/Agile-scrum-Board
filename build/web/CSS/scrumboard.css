@@ -138,16 +138,18 @@ div#teamNotesheader{
 }
 
 .teamnotesinput{
-   
-    min-width: 80%;
-    padding: 6px 10px;
+       min-width: 80%;
+    padding: 5px 10px;
     margin: 1px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-size: 18px;
 
 }
+
+
 
 div#teamNotes{
     min-height: 100px;
@@ -338,4 +340,15 @@ body{
     width: 100%;
     background-color: buttonshadow;
     margin-bottom: -10px;
+}
+
+.teamnotesinput:hover{
+        position: fixed;
+    /* min-width: 80%; */
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
 }
