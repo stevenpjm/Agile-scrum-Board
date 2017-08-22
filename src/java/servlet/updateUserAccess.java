@@ -1,9 +1,10 @@
- /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package servlet;
+
 import dao.DataAccess;
 import db.DBUtils;
 import java.io.IOException;
@@ -24,10 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "updateUserAccess", urlPatterns = {"/updateUserAccess"})
 public class updateUserAccess extends HttpServlet {
-    
-   
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,7 +56,6 @@ public class updateUserAccess extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     @Override
@@ -66,49 +63,37 @@ public class updateUserAccess extends HttpServlet {
         String userId = request.getParameter("userId");
         userId = userId.trim();
         int userId_converted = Integer.parseInt(userId);
-        
+
         String taskOpt = request.getParameter("taskOpt");
         String email = request.getParameter("email");
-   
-        if(!taskOpt.equals("1") && taskOpt.equals("delete")){
-            
+         // this block either removes the access or grants access to the user
+        if (!taskOpt.equals("1") && taskOpt.equals("delete")) {
+
             try {
                 PreparedStatement ps = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `teamaccess`= '0' , scrumid = '0' WHERE `userid`= ?;");
-                 ps.setInt(1, userId_converted);
-                
+                ps.setInt(1, userId_converted);
                 ps.execute();
-            
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(updateUserAccess.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(updateUserAccess.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } else {
-          
-            
-           
-            
+            // this block either removes the access or grants access to the user
             String access_input = request.getParameter("access");
-            access_input=access_input.trim();
+            access_input = access_input.trim();
             int access_converted = Integer.parseInt(access_input);
-            
+
             PreparedStatement ps;
             try {
-                if(access_converted == 0){
-                    ps = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `teamaccess`= '0' , scrumid = '0' WHERE `userid`= ?;");
-                }else{
-                    ps = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `teamaccess`= '1' WHERE `userid`= ?;");
-                    
-                }
-                //ps.setInt(1, access_converted)
-                ps.setInt(1, userId_converted);
-                
-                ps.execute();
+                    ps = DBUtils.getPreparedStatment("UPDATE `scrumboards`.`users` SET `teamaccess`= '1' WHERE `userid`= ?;");      
+                    ps.setInt(1, userId_converted);
+                    ps.execute();
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-   
-     }
+
+    }
 }

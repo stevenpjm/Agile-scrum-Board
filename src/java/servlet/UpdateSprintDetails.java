@@ -106,7 +106,7 @@ public class UpdateSprintDetails extends HttpServlet {
         }
             
         } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, "Issue with mySQL update -UpdateSprintDetails -  Updating Details", ex);
         }
 
 

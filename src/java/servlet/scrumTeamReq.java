@@ -1,9 +1,7 @@
 package servlet;
 
 /*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
+* This block of code returns the scrum board names based on the users input
  */
 import dao.DataAccess;
 import db.DBUtils;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "scrumTeamReq", urlPatterns = {"/scrumTeamReq"})
-
+// returns the 
 /**
  *
  * @author steven.masters
@@ -43,7 +41,6 @@ public class scrumTeamReq extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
         }
     }
 
@@ -71,21 +68,16 @@ public class scrumTeamReq extends HttpServlet {
         String scrumOptionAll = null;
 
         try {
-
             ResultSet scrumDetails = DBUtils.getPreparedStatment("SELECT teamName FROM scrumboards.scrumboard WHERE teamName LIKE \"%" + userinput + "%\";").executeQuery();
-
-//String[] scrumTeamReturn = new String[5];
             int i = 1;
             while (scrumDetails.next()) {
                 scrumOptions = scrumDetails.getString("teamName");
-
                 if (scrumOptions != null && scrumOptions.trim().length() != 0 && scrumOptionAll != null) {
                     scrumOptionAll = scrumOptionAll + ", " + scrumOptions;
                 } else {
                     scrumOptionAll = scrumOptions;
                 }
             }
-
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,18 +85,15 @@ public class scrumTeamReq extends HttpServlet {
         if (scrumOptionAll != null && scrumOptionAll.trim().length() != 0) {
             isValid = true;
             map.put("scrumOptions", scrumOptionAll);
-
         }
         map.put("isValid", isValid);
         write(response, scrumOptionAll);
-
     }
-
 // returns the value back to the orginating
+
     private void write(HttpServletResponse response, String scrumOptionAll) throws IOException {
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(scrumOptionAll);
     }
-
 }
